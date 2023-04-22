@@ -1,6 +1,8 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include "Node.h"
+#include "LoadFiles.h"
+
 
 
 class LinkedList
@@ -18,7 +20,7 @@ public:
 
     Node* searchByName(std::string name);
 
-    void addStock(std::vector<std::vector<std::string>> stockList);
+    void addStockToList(std::vector<std::vector<std::string>> stockList);
 
     void printList();
 

@@ -1,8 +1,7 @@
 #include "Node.h"
 
 Node::Node(){
-    // Stock* data = nullptr;
-    // next = NULL;
+    
 };
 Node::~Node(){
     delete data;
@@ -43,4 +42,13 @@ Price::Price(){
 Price::Price(unsigned dollars, unsigned cents){
     this->dollars = dollars;
     this->cents = cents;
+};
+
+void Price::display(){
+    if (this->cents == 0) {
+        std::cout << this->dollars << ".00";
+    }
+    else {
+        std::cout << this->dollars << "." << this->cents;
+    }
 };

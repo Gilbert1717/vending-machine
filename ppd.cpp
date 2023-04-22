@@ -11,8 +11,10 @@ int main(int argc, char **argv)
 {
     /* validate command line arguments */
     // TODO
-    std::vector<std::vector<std::string>> stock;
-    stock = LoadFiles::readFile("stock.dat","|");
+    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
+    LinkedList stockList = LinkedList();
+    stockList.addStockToList(stock);
+    stockList.printList();
     
     return EXIT_SUCCESS;
 }

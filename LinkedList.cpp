@@ -46,6 +46,7 @@ void LinkedList::deleteNode(Node* node){
             this->head = this->head->next;
             delete node;
             node = nullptr;
+            count --;
         }
         else {
             Node* pre = NULL;
@@ -57,6 +58,7 @@ void LinkedList::deleteNode(Node* node){
                     pre->next = curr->next;
                     delete curr;
                     curr = nullptr;
+                    count --;
                 }
             }   
             // std::cout << "The item does not exist in the list." << std::endl;
@@ -82,8 +84,30 @@ Node* LinkedList::searchByID(std::string ID){
 }
 
 
-void LinkedList::addStock(std::vector<std::vector<std::string>> stockList){
-    
+void LinkedList::addStockToList(std::vector<std::vector<std::string>> stockVectorList){
+    for (std::vector<std::string> item : stockVectorList) { 
+        std::vector<std::string> itemPrice = LoadFiles::split(item.at(3),".");
+        unsigned long dollars = std::stoul (itemPrice.at(0),nullptr,0);
+        unsigned long cents = std::stoul (itemPrice.at(1),nullptr,0);
+        unsigned long on_hand = std::stoul (item.at(4),nullptr,0);
+        insertNode(new Stock(item.at(0),item.at(1),item.at(2),Price(dollars,cents),on_hand));
+    }
+}
+
+void LinkedList::printList(){
+    Node* curr = head;
+    std::cout << "Item Menu" << std::endl;
+    std::cout << "------------------------" <<std::endl;
+    while (curr != nullptr) {
+        std::cout << curr->data->id << "|";
+        std::cout << curr->data->name << "|";
+        std::cout << curr->data->description << "|";
+        curr->data->price.display();
+        std::cout << "|";
+        std::cout << curr->data->on_hand << std::endl;
+        std::cout << "------------------------" <<std::endl;
+        curr = curr->next;
+    }
 }
 // Node* LinkedList::searchByName(std::string Name){
 //     if (count == 0) {

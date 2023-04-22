@@ -2,6 +2,7 @@
 #define NODE_H
 #include <string> 
 #include "Coin.h"
+#include <iostream>
 
 
 //The length of the id string not counting the nul terminator
@@ -35,6 +36,7 @@ public:
     unsigned dollars, cents;
     Price();
     Price(unsigned dollars, unsigned cents);
+    void display();
 };
 
 /**
