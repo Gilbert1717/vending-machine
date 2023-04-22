@@ -10,6 +10,17 @@ public:
     ~LinkedList();
 
     // more functions to be added perhaps...
+    void insertNode(Stock* stock);
+
+    void deleteNode(Node* node);
+
+    Node* searchByID(std::string ID);
+
+    Node* searchByName(std::string name);
+
+    void addStock(std::vector<std::vector<std::string>> stockList);
+
+    void printList();
 
 private:
     // the beginning of the list

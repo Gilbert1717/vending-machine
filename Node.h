@@ -33,6 +33,8 @@ class Price
 public:
     // The dollar value, and the cents value for some price
     unsigned dollars, cents;
+    Price();
+    Price(unsigned dollars, unsigned cents);
 };
 
 /**
@@ -55,6 +57,10 @@ public:
     
     // how many of this item do we have on hand? 
     unsigned on_hand;    
+    Stock();
+    Stock(std::string id, std::string name, std::string description, 
+        Price price, unsigned on_hand);
+    ~Stock();
 };
 
 /**
@@ -64,6 +70,7 @@ class Node
 {
 public:
     Node();
+    Node(Stock* stock);
     ~Node();
     // pointer to the data held for the node 
     Stock* data;

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
+#include "LoadFiles.h"
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -10,8 +11,8 @@ int main(int argc, char **argv)
 {
     /* validate command line arguments */
     // TODO
-
-    std::cout << "Just a test, nothing implemented yet!" << std::endl;
+    std::vector<std::vector<std::string>> stock;
+    stock = LoadFiles::readFile("stock.dat","|");
     
     return EXIT_SUCCESS;
 }
