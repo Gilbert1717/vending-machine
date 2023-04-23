@@ -23,15 +23,31 @@ void LinkedList::insertNode(Stock* stock){
 
     else {
         Node* curr = head;
-        while(curr->next != NULL) {
-            if(curr->next->data->name > newNode->data->name) {
-                newNode->next = curr->next;
-                curr->next = newNode;
+        if(curr->data->name.compare(newNode->data->name) > 0){
+            newNode->next = curr;
+            this->head = newNode;
+            count ++;
+        } 
+        else {
+            curr = head->next;
+            Node* prev = head;
+            while(curr != NULL) {
+                if(curr->data->name.compare(newNode->data->name) > 0) {
+                    newNode->next = curr;
+                    prev->next = newNode;
+                    count ++;
+                    return;
+                }
+                prev = curr;
+                curr = curr->next;
             }
-            curr = curr->next;
+        
+            if (curr == NULL) {
+                prev->next = newNode;
+            }
         }
-        curr->next = newNode;
-        count ++;
+        
+        
     }
 }
 
