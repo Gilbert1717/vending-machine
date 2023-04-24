@@ -6,6 +6,18 @@ using std::cout;
 using std::endl;
 using std::string;
 
+// Option defines
+#define DISPLAY_ITEMS_OPTION "1"
+#define PURCHASE_ITEMS_OPTION "2"
+#define SAVE_EXIT_OPTION "3"
+#define ADD_ITEM_OPTION "4"
+#define REMOVE_ITEM_OPTION "5"
+#define DISPLAY_COINS_OPTION "6"
+#define RESET_STOCK_OPTION "7"
+#define RESET_COINS_OPTION "8"
+#define ABORT_PROGRAM_OPTION "9"
+
+
 // Funcution declarations
 void printMenu();
 
@@ -30,31 +42,31 @@ int main(int argc, char **argv)
         if (std::cin.eof()) {
             running = false;
         }
-        else if (option == "1") {
+        else if (option == DISPLAY_ITEMS_OPTION) {
 
         }
-        else if (option == "2") {
+        else if (option == PURCHASE_ITEMS_OPTION) {
             
         }
-        else if (option == "3") {
+        else if (option == SAVE_EXIT_OPTION) {
 
         }
-        else if (option == "4") {
+        else if (option == ADD_ITEM_OPTION) {
 
         }
-        else if (option == "5") {
+        else if (option == REMOVE_ITEM_OPTION) {
 
         }
-        else if (option == "6") {
+        else if (option == DISPLAY_COINS_OPTION) {
 
         }
-        else if (option == "7") {
+        else if (option == RESET_STOCK_OPTION) {
 
         }
-        else if (option == "8") {
+        else if (option == RESET_COINS_OPTION) {
 
         }
-        else if (option == "9") {
+        else if (option == ABORT_PROGRAM_OPTION) {
 
         }
         else {
