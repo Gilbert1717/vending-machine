@@ -24,7 +24,7 @@ std::vector<std::vector<std::string>> LoadFiles::readFile(
 std::vector<std::string> LoadFiles::split(std::string str, std::string delimiter){
     std::vector<std::string> result;
     while(str.size()){
-        int index = str.find(delimiter);
+        unsigned index = str.find(delimiter);
         if(index!=std::string::npos){
             result.push_back(str.substr(0,index));
             str = str.substr(index+delimiter.size());
@@ -39,6 +39,6 @@ std::vector<std::string> LoadFiles::split(std::string str, std::string delimiter
 
 void LoadFiles::print(std::vector <std::string> const &a) {
    std::cout << "The vector elements are : ";
-   for(int i=0; i < a.size(); i++)
+   for(unsigned i=0; i < a.size(); i++)
    std::cout << a.at(i) << ' ' << std::endl;
 }
