@@ -1,6 +1,6 @@
 #ifndef COIN_H
 #define COIN_H
-
+#include <Node.h>
 // Coin.h defines the coin structure for managing currency in the system. 
 #define DELIM ","  // delimiter 
 
@@ -17,11 +17,16 @@ enum Denomination
 class Coin
 {
 public:
+    //Constructors
+    Coin();
+    ~Coin();
     // the denomination type
     enum Denomination denom;
     
     // the count of how many of these are in the cash register
     unsigned count;
+
+    void Coin::resetCount();
 };
 
 #endif // COIN_H
