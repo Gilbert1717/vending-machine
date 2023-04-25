@@ -47,48 +47,48 @@ int main(int argc, char **argv)
     while (running) {
         printMenu();
 
-        cout << "Select your option (1-9):";
+    //     cout << "Select your option (1-9):";
         
-        string option;
-        std::getline(std::cin, option);
+    //     string option;
+    //     std::getline(std::cin, option);
 
         if (std::cin.eof() || option == "10") {
             running = false;
         }
         else if (option == DISPLAY_ITEMS_OPTION) {
 
-        }
-        else if (option == PURCHASE_ITEMS_OPTION) {
+    //     }
+    //     else if (option == PURCHASE_ITEMS_OPTION) {
             
-        }
-        else if (option == SAVE_EXIT_OPTION) {
+    //     }
+    //     else if (option == SAVE_EXIT_OPTION) {
 
-        }
-        else if (option == ADD_ITEM_OPTION) {
+    //     }
+    //     else if (option == ADD_ITEM_OPTION) {
 
-        }
-        else if (option == REMOVE_ITEM_OPTION) {
+    //     }
+    //     else if (option == REMOVE_ITEM_OPTION) {
 
-        }
-        else if (option == DISPLAY_COINS_OPTION) {
+    //     }
+    //     else if (option == DISPLAY_COINS_OPTION) {
 
-        }
-        else if (option == RESET_STOCK_OPTION) {
+    //     }
+    //     else if (option == RESET_STOCK_OPTION) {
 
-        }
-        else if (option == RESET_COINS_OPTION) {
+    //     }
+    //     else if (option == RESET_COINS_OPTION) {
 
-        }
-        else if (option == ABORT_PROGRAM_OPTION) {
+    //     }
+    //     else if (option == ABORT_PROGRAM_OPTION) {
 
-        }
-        else {
-            cout << "Invalid" << endl;
-        }
+    //     }
+    //     else {
+    //         cout << "Invalid" << endl;
+    //     }
 
-        cout << endl;
+    //     cout << endl;
 
-    }
+    // }
     
     
     
