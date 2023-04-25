@@ -106,7 +106,8 @@ void LinkedList::addStockToList(std::vector<std::vector<std::string>> stockVecto
         unsigned long dollars = std::stoul (itemPrice.at(0),nullptr,0);
         unsigned long cents = std::stoul (itemPrice.at(1),nullptr,0);
         unsigned long on_hand = std::stoul (item.at(4),nullptr,0);
-        insertNode(new Stock(item.at(0),item.at(1),item.at(2),Price(dollars,cents),on_hand));
+        Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),Price(dollars,cents),on_hand);
+        insertNode(stock);
     }
 }
 
