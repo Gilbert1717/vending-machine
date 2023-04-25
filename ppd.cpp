@@ -40,9 +40,6 @@ int main(int argc, char **argv)
     currentRegister.display();
     /* validate command line arguments */
     // TODO
-    LinkedList stockList = LinkedList();
-    stockList.addStockToList("stock.dat");
-    stockList.printList();
     bool running = true;
     while (running) {
         printMenu();
@@ -94,12 +91,7 @@ int main(int argc, char **argv)
     std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
     LinkedList stockList = LinkedList();
     stockList.addStockToList(stock);
-<<<<<<< HEAD
-    stockList.printList();*/
-
-=======
     stockList.printList();
->>>>>>> 3119ff7 (Fixed LoadFiles error)
     
     return EXIT_SUCCESS;
 }
