@@ -1,7 +1,7 @@
 #ifndef COINREG_H
 #define COINREG_H
 #include "Coin.h"
-#define size 8
+#include <vector>
 
 // represents the register of coins 
 // will have exactly one of these in the cash register.
@@ -10,14 +10,15 @@ class CoinRegister
 public:
     //Constructors
     CoinRegister();
+    CoinRegister(std::vector<std::vector<std::string> > coinVectorList);
     ~CoinRegister();
     //MEthods
-    void CoinRegister::display();
-    void CoinRegister::change();
-    void CoinRegister::resetCount();
+    void display();
+    void change();
+    void resetCount();
 private:
     //Array of coins
-    Coin coins[size];
+    Coin coins[NUM_DENOMS];
 };
 
 
