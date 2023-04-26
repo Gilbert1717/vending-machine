@@ -1,5 +1,4 @@
 #include "Purchase.h"
-#include <iostream>
 
 using std::cout;
 using std::endl;
@@ -32,6 +31,10 @@ void Purchase::purchaseMenu() {
 
         } 
         
+    }
+    else {
+        cout << "invalid" << endl;
+
     }
     else {
         cout << "invalid" << endl;
@@ -80,6 +83,16 @@ void Purchase::startPurchase(string id) {
 
         
 
+        }
+        // Catch std::invalid_argument exception
+        catch (std::invalid_argument e) {
+            isValid = false;
+            
+        }
+
+    }
+
+    return isValid;
 }
 
 void Purchase::printInfo(string name, string desc, Price price) {
