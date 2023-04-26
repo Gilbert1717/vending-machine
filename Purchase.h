@@ -20,7 +20,8 @@ public:
     Purchase();
     ~Purchase();
 
-    Purchase(LinkedList* stocklist); // Overloaded constructor
+    // Overloaded constructor
+    Purchase(LinkedList* stocklist);  
 
     // Shows the purchase menu and accepts user inputs
     void purchaseMenu();

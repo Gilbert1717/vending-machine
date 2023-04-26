@@ -30,10 +30,12 @@ void printMenu();
 int main(int argc, char **argv)
 {
     /* validate command line arguments */
-    // TODO
-    LinkedList stockList = LinkedList();
-    stockList.addStockToList("stock.dat");
-    stockList.printList();
+    LinkedList* stockList = new LinkedList();
+    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|"); // TODO use input arguments
+    stockList->addStockToList(stock);
+    
+    Purchase* purchase = new Purchase(stockList);
+    
     bool running = true;
     while (running) {
         printMenu();
@@ -50,7 +52,7 @@ int main(int argc, char **argv)
 
         }
         else if (option == PURCHASE_ITEMS_OPTION) {
-            //Purchase* purchase = new Purchase();
+            purchase->purchaseMenu();
         }
         else if (option == SAVE_EXIT_OPTION) {
 
@@ -81,10 +83,17 @@ int main(int argc, char **argv)
 
     }
     
+    //REMOVE LATER
+    /*
+    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
+    LinkedList stockList = LinkedList();
+    stockList.addStockToList(stock);
+    stockList.printList();
+    */
     
-    
- 
-    
+    delete purchase;
+    delete stockList;
+
     return EXIT_SUCCESS;
 }
 
