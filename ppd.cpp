@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LinkedList.h"
 #include "LoadFiles.h"
+#include "Purchase.h"
 
 using std::cout;
 using std::endl;
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
 
         }
         else if (option == PURCHASE_ITEMS_OPTION) {
-            
+            //Purchase* purchase = new Purchase();
         }
         else if (option == SAVE_EXIT_OPTION) {
 
