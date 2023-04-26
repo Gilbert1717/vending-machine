@@ -83,11 +83,13 @@ int main(int argc, char **argv)
 
     }
     
-    
+    //REMOVE LATER
+    /*
     std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
     LinkedList stockList = LinkedList();
     stockList.addStockToList(stock);
     stockList.printList();
+    */
     
     delete purchase;
     delete stockList;

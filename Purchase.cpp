@@ -60,32 +60,7 @@ bool Purchase::verifyID(string inputID) {
 
         }
         // Catch std::invalid_argument exception
-        catch (std::invalid_argument& e) {
-            isValid = false;
-            
-        }
-
-    }
-
-    return isValid;
-}
-
-void Purchase::startPurchase(string id) {
-    string name = this->stocklist->searchByID(id)->data->name;
-    string desc = this->stocklist->searchByID(id)->data->description;
-    Price price = this->stocklist->searchByID(id)->data->price;
-
-    printInfo(name, desc, price);
-
-    //while (price.dollars != 0 && price.cents != 0) {
-
-    //}
-
-        
-
-        }
-        // Catch std::invalid_argument exception
-        catch (std::invalid_argument e) {
+        catch (std::invalid_argument* e) {
             isValid = false;
             
         }
