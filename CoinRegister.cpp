@@ -23,15 +23,17 @@ void CoinRegister::display(){
         
     // }
     for(unsigned int i = 0; i < NUM_DENOMS; i++){
-        std::cout << "denom:" << (this->coins->denom);
-        std::cout << "|Count:"<<  (this->coins->count) << std::endl;
+        std::cout << "denom:" << (this->coins[i].denom);
+        std::cout << "|Count:"<<  (this->coins[i].count) << std::endl;
     }
 }
 void CoinRegister::change(){
 
 }
 void CoinRegister::resetCount(){
-
+    for(unsigned int i = 0; i < NUM_DENOMS; i++){
+        this->coins[i].resetCount();
+    }
 }
 CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList)
 {
