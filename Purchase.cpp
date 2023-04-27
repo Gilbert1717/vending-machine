@@ -60,7 +60,7 @@ bool Purchase::verifyID(string inputID) {
 
         }
         // Catch std::invalid_argument exception
-        catch (std::invalid_argument* e) {
+        catch (std::invalid_argument& e) {
             isValid = false;
             
         }
