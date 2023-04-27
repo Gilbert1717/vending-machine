@@ -49,7 +49,7 @@ int main(int argc, char **argv)
         string option;
         std::getline(std::cin, option);
 
-        if (std::cin.eof()) {
+        if (std::cin.eof() || option == "10") {
             running = false;
         }
         else if (option == DISPLAY_ITEMS_OPTION) {
@@ -87,10 +87,11 @@ int main(int argc, char **argv)
 
     }
     
-    /*
+    
     std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
     LinkedList stockList = LinkedList();
     stockList.addStockToList(stock);
+    stockList.printList();
     stockList.printList();*/
 
     
