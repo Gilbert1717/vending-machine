@@ -24,7 +24,7 @@ std::vector<std::vector<std::string>> LoadFiles::readFile(
 std::vector<std::string> LoadFiles::split(std::string str, std::string delimiter){
     std::vector<std::string> result;
     while(str.size()){
-        unsigned index = str.find(delimiter);
+        std::string::size_type index = str.find(delimiter);
         if(index!=std::string::npos){
             result.push_back(str.substr(0,index));
             str = str.substr(index+delimiter.size());
