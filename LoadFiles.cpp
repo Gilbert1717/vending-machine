@@ -41,8 +41,8 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
 std::vector<string> LoadFiles::split(string str, string delimiter){
     std::vector<string> result;
     while(str.size()){
-        string::size_type index = str.find(delimiter);
-        if(index!=string::npos){
+        std::string::size_type index = str.find(delimiter);
+        if(index!=std::string::npos){
             result.push_back(str.substr(0,index));
             str = str.substr(index+delimiter.size());
             if(str.size()==0)result.push_back(str);
