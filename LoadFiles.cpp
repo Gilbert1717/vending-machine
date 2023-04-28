@@ -11,9 +11,26 @@ std::vector<std::vector<std::string>> LoadFiles::readStockFile(
             /* read each line, split the attributes depending on the delimiter 
             and add them to the result*/
             while (getline(ReadFile, line)) {
-                std::vector<std::string> item;
-                std::cout << line << std::endl;
-                item = split(line, delimiter);
+                std::vector<string> item;
+                item = split(line, "|");
+                result.push_back(item);
+            }
+            ReadFile.close();
+            return result;
+        }
+
+std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
+        std::string path) {
+            string line = "";
+            string tmpString = "";
+            // read file to input file stream
+            std::ifstream ReadFile(path);
+            std::vector<std::vector<std::string>> result;
+            /* read each line, split the attributes depending on the delimiter 
+            and add them to the result*/
+            while (getline(ReadFile, line)) {
+                std::vector<string> item;
+                item = split(line, ".");
                 result.push_back(item);
             }
             ReadFile.close();
