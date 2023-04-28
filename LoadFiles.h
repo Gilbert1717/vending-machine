@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
+using std::string;
 
 class LoadFiles
 {
@@ -12,14 +12,15 @@ public:
      *  delimiter - The character that separates the attributes of each object 
      *  in the file.  
      **/
-    static std::vector<std::vector<std::string>> readFile(
-        std::string path, std::string delimiter);
-    // static void readFile(
-    //     std::string path, std::string delimiter);
+    static std::vector<std::vector<string>> readStockFile(
+        std::string path);
+    
+    static std::vector<std::vector<string>> readCoinFile(
+        std::string path);
 
-    static std::vector<std::string> split(std::string str, std::string delimiter);
+    static std::vector<string> split(string str, string delimiter);
 
-    static void print(std::vector <std::string> const &a);
+    static void print(std::vector <string> const &a);
 };
 
 

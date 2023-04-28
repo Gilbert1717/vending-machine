@@ -2,7 +2,7 @@
 #define LINKEDLIST_H
 #include "Node.h"
 #include "LoadFiles.h"
-
+using std::string;
 
 
 class LinkedList
@@ -11,16 +11,16 @@ public:
     LinkedList();
     ~LinkedList();
 
-    // more functions to be added perhaps...
+
     void insertNode(Stock* stock);
 
     void deleteNode(Node* node);
 
-    Node* searchByID(std::string ID);
+    Node* searchByID(string ID);
 
-    Node* searchByName(std::string name);
+    Node* searchByName(string name);
 
-    void addStockToList(std::vector<std::vector<std::string>> stockList);
+    void addStockToList(string path);
 
     void printList();
 

@@ -1,5 +1,6 @@
 #include "LinkedList.h"
 #include <iostream>
+using std::vector;
 
 LinkedList::LinkedList() {
    head = nullptr;
@@ -11,6 +12,7 @@ LinkedList::~LinkedList() {
     delete this->head;
     head = nullptr;
 }
+
 
 void LinkedList::insertNode(Stock* stock){
     Node* newNode = new Node(stock);
@@ -100,8 +102,9 @@ Node* LinkedList::searchByID(std::string ID){
 }
 
 
-void LinkedList::addStockToList(std::vector<std::vector<std::string>> stockVectorList){
-    for (std::vector<std::string> item : stockVectorList) { 
+void LinkedList::addStockToList(string path){
+    vector<vector<string>> stockList = LoadFiles::readStockFile(path);
+    for (std::vector<std::string> item : stockList) { 
         std::vector<std::string> itemPrice = LoadFiles::split(item.at(3),".");
         unsigned long dollars = std::stoul (itemPrice.at(0),nullptr,0);
         unsigned long cents = std::stoul (itemPrice.at(1),nullptr,0);
