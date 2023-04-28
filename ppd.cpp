@@ -30,6 +30,9 @@ int main(int argc, char **argv)
 {
     /* validate command line arguments */
     // TODO
+    LinkedList stockList = LinkedList();
+    stockList.addStockToList("stock.dat");
+    stockList.printList();
     bool running = true;
     while (running) {
         printMenu();
@@ -78,10 +81,8 @@ int main(int argc, char **argv)
     }
     
     
-    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
-    LinkedList stockList = LinkedList();
-    stockList.addStockToList(stock);
-    stockList.printList();
+    
+ 
     
     return EXIT_SUCCESS;
 }
