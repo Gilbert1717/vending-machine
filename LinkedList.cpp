@@ -18,7 +18,6 @@ void LinkedList::insertNode(Stock* stock){
     if (head == NULL){
         head = newNode;
         count ++;
-        return;
     }
 
     else {
@@ -31,23 +30,24 @@ void LinkedList::insertNode(Stock* stock){
         else {
             curr = head->next;
             Node* prev = head;
-            while(curr != NULL) {
+            bool whileLoopContinue = true;
+            while(curr != NULL && whileLoopContinue) {
                 if(curr->data->name.compare(newNode->data->name) > 0) {
                     newNode->next = curr;
                     prev->next = newNode;
                     count ++;
-                    return;
+                    whileLoopContinue = false;
                 }
-                prev = curr;
-                curr = curr->next;
+                else {
+                    prev = curr;
+                    curr = curr->next;
+                }
             }
         
-            if (curr == NULL) {
+            if (curr == NULL && whileLoopContinue == false) {
                 prev->next = newNode;
             }
         }
-        
-        
     }
 }
 
@@ -106,7 +106,8 @@ void LinkedList::addStockToList(std::vector<std::vector<std::string>> stockVecto
         unsigned long dollars = std::stoul (itemPrice.at(0),nullptr,0);
         unsigned long cents = std::stoul (itemPrice.at(1),nullptr,0);
         unsigned long on_hand = std::stoul (item.at(4),nullptr,0);
-        insertNode(new Stock(item.at(0),item.at(1),item.at(2),Price(dollars,cents),on_hand));
+        Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),Price(dollars,cents),on_hand);
+        insertNode(stock);
     }
 }
 
