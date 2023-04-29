@@ -13,6 +13,10 @@ std::vector<std::vector<std::string>> LoadFiles::readStockFile(
             while (getline(ReadFile, line)) {
                 std::vector<string> item;
                 item = split(line, "|");
+                if (item.size() != 5) {
+                    ReadFile.close();
+                    throw std::invalid_argument( "invalid stock file" );
+                }
                 result.push_back(item);
             }
             ReadFile.close();
@@ -30,9 +34,11 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
             and add them to the result*/
             while (getline(ReadFile, line)) {
                 std::vector<string> item;
-
-                item = split(line, ",");
-
+                item = split(line, ".");
+                if (item.size() != 2) {
+                    ReadFile.close();
+                    throw std::invalid_argument( "invalid coin file" );
+                }
                 result.push_back(item);
             }
             ReadFile.close();
@@ -42,6 +48,7 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
 
 std::vector<string> LoadFiles::split(string str, string delimiter){
     std::vector<string> result;
+    // Keep substract string base on the delimiter when input string is not empty.
     while(str.size()){
         string::size_type index = str.find(delimiter);
         if(index!=string::npos){
@@ -56,6 +63,7 @@ std::vector<string> LoadFiles::split(string str, string delimiter){
     return result;
 }
 
+// method for testing purpose, can be removed later.
 void LoadFiles::print(std::vector <string> const &a) {
    std::cout << "The vector elements are : ";
    for(unsigned i=0; i < a.size(); i++)
