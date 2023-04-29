@@ -5,9 +5,11 @@ std::vector<std::vector<std::string>> LoadFiles::readStockFile(
         std::string path) {
             string line = "";
             string tmpString = "";
+
             // read file to input file stream
             std::ifstream ReadFile(path);
             std::vector<std::vector<std::string>> result;
+
             /* read each line, split the attributes depending on the delimiter 
             and add them to the result*/
             while (getline(ReadFile, line)) {
@@ -17,7 +19,7 @@ std::vector<std::vector<std::string>> LoadFiles::readStockFile(
                     ReadFile.close();
                     throw std::invalid_argument( "invalid stock file" );
                 }
-                result.push_back(item);
+                result.push_back(std::move(item));
             }
             ReadFile.close();
             return result;
@@ -27,19 +29,21 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
         std::string path) {
             string line = "";
             string tmpString = "";
+
             // read file to input file stream
             std::ifstream ReadFile(path);
             std::vector<std::vector<std::string>> result;
+            
             /* read each line, split the attributes depending on the delimiter 
             and add them to the result*/
             while (getline(ReadFile, line)) {
-                std::vector<string> item;
-                item = split(line, ".");
-                if (item.size() != 2) {
+                std::vector<string> coin;
+                coin = split(line, ".");
+                if (coin.size() != 2) {
                     ReadFile.close();
                     throw std::invalid_argument( "invalid coin file" );
                 }
-                result.push_back(item);
+                result.push_back(std::move(coin));
             }
             ReadFile.close();
             return result;

@@ -24,6 +24,7 @@ Stock::Stock(
         Price price,
         unsigned on_hand
 ){
+    // attributes validation
     if (id.length() > IDLEN) {
         throw std::invalid_argument( "Stock ID is too long" );
     }
@@ -66,12 +67,12 @@ Price::Price(unsigned dollars, unsigned cents){
     this->cents = cents;
 };
 
+
 void Price::display(){
-    
     if (this->cents == 0) {
-        std::cout << this->dollars << ".00";
+        std::cout << "$" << this->dollars << ".00" << std::endl;
     }
     else {
-        std::cout << this->dollars << "." << this->cents;
+        std::cout << "$" << this->dollars << "." << this->cents << std::endl;
     }
 };
