@@ -29,13 +29,8 @@ void printMenu();
  **/
 int main(int argc, char **argv)
 {
-    //Testing Stuff
-    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
-    LinkedList stockList = LinkedList();
-    stockList.addStockToList(stock);
-    stockList.printList();
     //Testing
-    std::vector<std::vector<std::string> > coins = LoadFiles::readFile("stock.dat",",");
+    std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
     CoinRegister currentRegister(coins);
     currentRegister.display();
     /* validate command line arguments */
