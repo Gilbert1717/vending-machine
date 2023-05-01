@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LinkedList.h"
 #include "LoadFiles.h"
+#include "CoinRegister.h"
 
 using std::cout;
 using std::endl;
@@ -28,6 +29,10 @@ void printMenu();
  **/
 int main(int argc, char **argv)
 {
+    //Testing
+    std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
+    CoinRegister currentRegister(coins);
+    currentRegister.display();
     /* validate command line arguments */
     // TODO
     LinkedList stockList = LinkedList();
