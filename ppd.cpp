@@ -1,6 +1,7 @@
 #include <iostream>
 #include "LinkedList.h"
 #include "LoadFiles.h"
+#include "Purchase.h"
 #include "CoinRegister.h"
 
 using std::cout;
@@ -29,15 +30,20 @@ void printMenu();
  **/
 int main(int argc, char **argv)
 {
+    LinkedList* stockList = new LinkedList();
+    //std::vector<std::vector<std::string>> stock = LoadFiles::readStockFile("stock.dat"); // TODO use input arguments
+    stockList->addStockToList("stock.dat");
+    
+    Purchase* purchase = new Purchase(stockList);
+    
+    
     //Testing
     std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
     CoinRegister currentRegister(coins);
     currentRegister.display();
     /* validate command line arguments */
     // TODO
-    LinkedList stockList = LinkedList();
-    stockList.addStockToList("stock.dat");
-    stockList.printList();
+    
     bool running = true;
     while (running) {
         printMenu();
@@ -54,7 +60,7 @@ int main(int argc, char **argv)
 
         }
         else if (option == PURCHASE_ITEMS_OPTION) {
-            
+            purchase->purchaseMenu();
         }
         else if (option == SAVE_EXIT_OPTION) {
 
@@ -85,10 +91,17 @@ int main(int argc, char **argv)
 
     }
     
+    //REMOVE LATER
+    /*
+    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
+    LinkedList stockList = LinkedList();
+    stockList.addStockToList(stock);
+    stockList.printList();
+    */
     
-    
- 
-    
+    delete purchase;
+    delete stockList;
+
     return EXIT_SUCCESS;
 }
 
