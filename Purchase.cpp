@@ -6,10 +6,12 @@ using std::string;
 
 Purchase::Purchase() {
     this->stocklist = nullptr;
+    this->coinRegister = nullptr;
 }
 
-Purchase::Purchase(LinkedList* stocklist) {
+Purchase::Purchase(LinkedList* stocklist, CoinRegister* coinRegister) {
     this->stocklist = stocklist;
+    this->coinRegister = coinRegister;
 }
 
 Purchase::~Purchase() {

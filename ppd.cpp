@@ -33,14 +33,18 @@ int main(int argc, char **argv)
     LinkedList* stockList = new LinkedList();
     //std::vector<std::vector<std::string>> stock = LoadFiles::readStockFile("stock.dat"); // TODO use input arguments
     stockList->addStockToList("stock.dat");
-    
-    Purchase* purchase = new Purchase(stockList);
+
+
+    std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
+    CoinRegister* currentRegister = new CoinRegister(coins);
+    currentRegister->display();
+
+
+    Purchase* purchase = new Purchase(stockList, currentRegister);
     
     
     //Testing
-    std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
-    CoinRegister currentRegister(coins);
-    currentRegister.display();
+    
     /* validate command line arguments */
     // TODO
     
@@ -48,12 +52,12 @@ int main(int argc, char **argv)
     while (running) {
         printMenu();
 
-        cout << "Select your option (1-9):";
+        cout << "Select your option (1-9): ";
         
         string option;
         std::getline(std::cin, option);
 
-        if (std::cin.eof() || option == "10") {
+        if (std::cin.eof()) {
             running = false;
         }
         else if (option == DISPLAY_ITEMS_OPTION) {
@@ -63,7 +67,8 @@ int main(int argc, char **argv)
             purchase->purchaseMenu();
         }
         else if (option == SAVE_EXIT_OPTION) {
-
+            // TODO - Implement save
+            running = false;
         }
         else if (option == ADD_ITEM_OPTION) {
 
@@ -91,16 +96,9 @@ int main(int argc, char **argv)
 
     }
     
-    //REMOVE LATER
-    /*
-    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|");
-    LinkedList stockList = LinkedList();
-    stockList.addStockToList(stock);
-    stockList.printList();
-    */
-    
     delete purchase;
     delete stockList;
+    delete currentRegister;
 
     return EXIT_SUCCESS;
 }
