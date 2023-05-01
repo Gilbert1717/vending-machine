@@ -48,7 +48,7 @@ void CoinRegister::display(){
         std::cout << "|";
         std::cout.width(9);
         std::cout << std::right << count;
-        
+        std::cout << std::endl;
     }
 }
 void CoinRegister::change(){
