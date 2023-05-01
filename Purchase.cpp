@@ -26,8 +26,11 @@ void Purchase::purchaseMenu() {
     std::getline(std::cin, inputId);
 
     if (verifyID(inputId)) {
-        startPurchase(inputId);
+        if (this->stocklist->searchByID(inputId)->data->on_hand == 0) {
+            startPurchase(inputId);
 
+        } 
+        
     }
     else {
         cout << "invalid" << endl;
