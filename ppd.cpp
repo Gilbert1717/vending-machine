@@ -29,12 +29,12 @@ void printMenu();
  **/
 int main(int argc, char **argv)
 {
-    /* validate command line arguments */
     LinkedList* stockList = new LinkedList();
-    std::vector<std::vector<std::string>> stock = LoadFiles::readFile("stock.dat","|"); // TODO use input arguments
-    stockList->addStockToList(stock);
+    //std::vector<std::vector<std::string>> stock = LoadFiles::readStockFile("stock.dat"); // TODO use input arguments
+    stockList->addStockToList("stock.dat");
     
     Purchase* purchase = new Purchase(stockList);
+    
     
     bool running = true;
     while (running) {

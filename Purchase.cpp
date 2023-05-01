@@ -26,7 +26,7 @@ void Purchase::purchaseMenu() {
     std::getline(std::cin, inputId);
 
     if (verifyID(inputId)) {
-        if (this->stocklist->searchByID(inputId)->data->on_hand == 0) {
+        if (this->stocklist->searchByID(inputId)->data->on_hand != 0) {
             startPurchase(inputId);
 
         } 
@@ -37,12 +37,7 @@ void Purchase::purchaseMenu() {
 
         } 
         
-    }
-    else {
-        cout << "invalid" << endl;
-
-    }
-
+    
 }
 
 bool Purchase::verifyID(string inputID) {
@@ -70,6 +65,19 @@ bool Purchase::verifyID(string inputID) {
     }
 
     return isValid;
+}
+
+void Purchase::startPurchase(string id) {
+    string name = this->stocklist->searchByID(id)->data->name;
+    string desc = this->stocklist->searchByID(id)->data->description;
+    Price price = this->stocklist->searchByID(id)->data->price;
+
+    printInfo(name, desc, price);
+
+    //while (price.dollars != 0 && price.cents != 0) {
+
+    //
+    
 }
 
 void Purchase::printInfo(string name, string desc, Price price) {
