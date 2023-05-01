@@ -35,6 +35,8 @@ void Purchase::purchaseMenu() {
     else {
         cout << "invalid" << endl;
 
+        } 
+        
     }
     else {
         cout << "invalid" << endl;
