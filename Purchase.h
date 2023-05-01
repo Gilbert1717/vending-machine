@@ -33,7 +33,7 @@ private:
     void printInfo(std::string name, std::string desc, Price price);
 
     // Prints how much money the user still has to pay
-    void requestRemainingPrint(Price price);
+    void requestRemainingPrint(int dollars, int cents);
 
 
     //std::vector<Coin> createEmptyCoinList();

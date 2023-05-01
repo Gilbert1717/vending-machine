@@ -79,10 +79,13 @@ void Purchase::startPurchase(string id) {
     Price price = this->stocklist->searchByID(id)->data->price;
 
     printInfo(name, desc, price);
+    
+    // Sets number of decimal values in output to 2  
+    cout.precision(2);
 
     int dollars = price.dollars;
     int cents = price.cents;
-
+    
     string input;
     int inputAmount;
 
@@ -92,7 +95,8 @@ void Purchase::startPurchase(string id) {
     bool cancel = false;
     bool paying = true;
     while (paying) {
-        cout << "You still need to give us $" << dollars << "." << cents << ": ";
+
+        requestRemainingPrint(dollars, cents);
         std::getline(std::cin, input);
 
         // Checks if user cancels purcahse
@@ -118,8 +122,6 @@ void Purchase::startPurchase(string id) {
                 }
             }
             else {
-                // Sets number of decimal values in output to 2  
-                cout.precision(2);
                 cout << "Error: $" << std::fixed << (double)inputAmount / CENT_DOLLAR_CONVERSION;
                 cout << " is not a valid denomination of money. Please try again." << endl;
             }
@@ -163,7 +165,11 @@ void Purchase::startPurchase(string id) {
         }
 
     }
-    
+    else {
+        cout << "Purchase was canceled" << endl;
+
+    }
+
 }
 
 void Purchase::printInfo(string name, string desc, Price price) {
@@ -176,15 +182,16 @@ void Purchase::printInfo(string name, string desc, Price price) {
     
 }
 
-void Purchase::requestRemainingPrint(Price price) {
-    cout << "You still need to give us $";
-    price.display();
-    cout << ": ";
+void Purchase::requestRemainingPrint(int dollars, int cents) {
+    double printDollars = dollars + (double)cents / CENT_DOLLAR_CONVERSION;
+
+    cout << "You still need to give us $" << std::fixed << printDollars << ": ";
 
 }
 
 std::vector<int> Purchase::calculateChange(int change) {
     // TODO
+    return std::vector<int>();
 }
 
 /*std::vector<Coin> Purchase::createEmptyCoinList() {
