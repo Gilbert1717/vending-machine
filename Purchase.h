@@ -14,6 +14,12 @@ private:
     */
     bool verifyID(std:: string inputId);
 
+    
+    void startPurchase(std::string id);
+
+
+    void printInfo(std::string name, std::string desc, Price price);
+
     LinkedList* stocklist;
 
 public:

@@ -26,6 +26,7 @@ void Purchase::purchaseMenu() {
     std::getline(std::cin, inputId);
 
     if (verifyID(inputId)) {
+        startPurchase(inputId);
 
     }
     else {
@@ -60,4 +61,29 @@ bool Purchase::verifyID(string inputID) {
     }
 
     return isValid;
+}
+
+void Purchase::startPurchase(string id) {
+    string name = this->stocklist->searchByID(id)->data->name;
+    string desc = this->stocklist->searchByID(id)->data->description;
+    Price price = this->stocklist->searchByID(id)->data->price;
+
+    printInfo(name, desc, price);
+
+    //while (price.dollars != 0 && price.cents != 0) {
+
+    //}
+
+        
+
+}
+
+void Purchase::printInfo(string name, string desc, Price price) {
+    cout << "You have selected \"" << name << " - " << desc << "\". This will cost you $";
+    price.display();
+    cout << endl;
+
+    cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
+    cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
+    
 }
