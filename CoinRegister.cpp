@@ -66,8 +66,6 @@ CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList
     for(unsigned int i = 0; i < vectorSize; i++){
         std::string value = coinVectorList.at(i).at(0);
         unsigned int count = std::stoul (coinVectorList.at(i).at(1),nullptr,0);
-        std::cout << "denom:" << (value);
-        std::cout << "|Count:"<<  (count) << std::endl;
         if (value == "1000"){
             this->coins[i].denom = TEN_DOLLARS;
         }
