@@ -21,6 +21,15 @@ private:
 
     void printInfo(std::string name, std::string desc, Price price);
 
+
+    void requestRemainingPrint(Price price);
+
+
+    //std::vector<Coin> createEmptyCoinList();
+
+
+    std::vector<int> calculateChange(int change);
+
     LinkedList* stocklist;
     CoinRegister* coinRegister;
 
