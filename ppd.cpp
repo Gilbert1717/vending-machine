@@ -2,6 +2,7 @@
 #include "LinkedList.h"
 #include "LoadFiles.h"
 #include "Purchase.h"
+#include "CoinRegister.h"
 
 using std::cout;
 using std::endl;
@@ -35,6 +36,13 @@ int main(int argc, char **argv)
     
     Purchase* purchase = new Purchase(stockList);
     
+    
+    //Testing
+    std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
+    CoinRegister currentRegister(coins);
+    currentRegister.display();
+    /* validate command line arguments */
+    // TODO
     
     bool running = true;
     while (running) {
