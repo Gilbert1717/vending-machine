@@ -30,7 +30,9 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
             and add them to the result*/
             while (getline(ReadFile, line)) {
                 std::vector<string> item;
+
                 item = split(line, ",");
+
                 result.push_back(item);
             }
             ReadFile.close();
