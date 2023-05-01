@@ -73,6 +73,7 @@ bool Purchase::verifyID(string inputID) {
 }
 
 void Purchase::startPurchase(string id) {
+    // Gets data of item to be purchased
     string name = this->stocklist->searchByID(id)->data->name;
     string desc = this->stocklist->searchByID(id)->data->description;
     Price price = this->stocklist->searchByID(id)->data->price;
@@ -101,23 +102,25 @@ void Purchase::startPurchase(string id) {
             
         }
         else{
+            // TODO - check input is int or not
             inputAmount = std::stoi(input);
-            if (inputAmount == 1000 || inputAmount == 500 || inputAmount == 200
-            || inputAmount == 100 || inputAmount == 50 || inputAmount == 20
-            || inputAmount == 10 || inputAmount == 5) {
+            if (inputAmount == TEN_DOLLAR_VALUE || inputAmount == FIVE_DOLLAR_VALUE || inputAmount == TWO_DOLLAR_VALUE
+            || inputAmount == ONE_DOLLAR_VALUE || inputAmount == FIFTY_CENTS_VALUE || inputAmount == TWENTY_CENTS_VALUE
+            || inputAmount == TEN_CENTS_VALUE || inputAmount == FIVE_CENTS_VALUE) {
 
                 inputCoins.push_back(inputAmount);
 
-                if (inputAmount >= 100) {
-                    dollars -= inputAmount / 100;
+                if (inputAmount >= ONE_DOLLAR_VALUE) {
+                    dollars -= inputAmount / CENT_DOLLAR_CONVERSION;
                 }
                 else {
                     cents -= inputAmount;
                 }
             }
             else {
+                // Sets number of decimal values in output to 2  
                 cout.precision(2);
-                cout << "Error: $" << std::fixed << (double)inputAmount / 100;
+                cout << "Error: $" << std::fixed << (double)inputAmount / CENT_DOLLAR_CONVERSION;
                 cout << " is not a valid denomination of money. Please try again." << endl;
             }
         
@@ -131,17 +134,25 @@ void Purchase::startPurchase(string id) {
     }
 
     int sum = 0;
-    int comparePrice = price.dollars * 100 + price.cents;
+    int comparePrice = price.dollars * CENT_DOLLAR_CONVERSION + price.cents;
     int difference;
+
+    // Checks if purchase was canceled
     if (!cancel) {
         // TODO - add values to coinRegister
         
+        // Gets sum of all inputed coins
         for (int i: inputCoins) {
             sum += i;
         }
 
+        // Gets difference of item price from inputed amount
         difference = sum - comparePrice;
 
+        /**
+         * If difference > 0, then we need to pay change to the user
+         * If difference <= 0, then no need to pay any change
+         */
         if (difference > 0) {
             std::vector<int> changeCoins = calculateChange(difference);
 
