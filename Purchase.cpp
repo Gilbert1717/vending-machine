@@ -78,13 +78,13 @@ void Purchase::startPurchase(string id) {
     string desc = this->stocklist->searchByID(id)->data->description;
     Price price = this->stocklist->searchByID(id)->data->price;
 
-    printInfo(name, desc, price);
+    PurchaseHelp::printInfo(name, desc, price);
     
     // Sets number of decimal values in output to 2  
     cout.precision(2);
 
-    int dollars = price.dollars;
-    int cents = price.cents;
+    int remaining = price.dollars * CENT_DOLLAR_CONVERSION + price.cents;
+    
     
     string input;
     int inputAmount;
@@ -96,7 +96,7 @@ void Purchase::startPurchase(string id) {
     bool paying = true;
     while (paying) {
 
-        requestRemainingPrint(dollars, cents);
+        PurchaseHelp::requestRemainingPrint(remaining);
         std::getline(std::cin, input);
 
         // Checks if user cancels purcahse
@@ -107,27 +107,18 @@ void Purchase::startPurchase(string id) {
         }
         else{
             // TODO - check input is int or not
-            inputAmount = std::stoi(input);
-            if (inputAmount == TEN_DOLLAR_VALUE || inputAmount == FIVE_DOLLAR_VALUE || inputAmount == TWO_DOLLAR_VALUE
-            || inputAmount == ONE_DOLLAR_VALUE || inputAmount == FIFTY_CENTS_VALUE || inputAmount == TWENTY_CENTS_VALUE
-            || inputAmount == TEN_CENTS_VALUE || inputAmount == FIVE_CENTS_VALUE) {
+            
+            if (PurchaseHelp::validateInputMoney(input)) {
+                inputAmount = std::stoi(input);
 
                 inputCoins.push_back(inputAmount);
 
-                if (inputAmount >= ONE_DOLLAR_VALUE) {
-                    dollars -= inputAmount / CENT_DOLLAR_CONVERSION;
-                }
-                else {
-                    cents -= inputAmount;
-                }
+                remaining -= inputAmount;
             }
-            else {
-                cout << "Error: $" << std::fixed << (double)inputAmount / CENT_DOLLAR_CONVERSION;
-                cout << " is not a valid denomination of money. Please try again." << endl;
-            }
+            
         
             // Checks if enough money was paid
-            if (dollars <= 0 && cents <= 0) {
+            if (remaining <= 0) {
                 paying = false;
             }
 
@@ -180,7 +171,7 @@ void Purchase::startPurchase(string id) {
 
 }
 
-void Purchase::printInfo(string name, string desc, Price price) {
+/*void Purchase::printInfo(string name, string desc, Price price) {
     cout << "You have selected \"" << name << " - " << desc << "\". This will cost you $";
     price.display();
     cout << endl;
@@ -195,7 +186,7 @@ void Purchase::requestRemainingPrint(int dollars, int cents) {
 
     cout << "You still need to give us $" << std::fixed << printDollars << ": ";
 
-}
+}*/
 
 std::vector<int> Purchase::calculateChange(int change) {
     // TODO
