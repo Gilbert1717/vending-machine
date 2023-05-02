@@ -61,26 +61,34 @@ int main(int argc, char **argv)
             running = false;
         }
         else if (option == DISPLAY_ITEMS_OPTION) {
-
+            stockList->printList();
         }
         else if (option == PURCHASE_ITEMS_OPTION) {
             purchase->purchaseMenu();
         }
         else if (option == SAVE_EXIT_OPTION) {
             // TODO - Implement save
+            stockList->outputStockFile("stock1.dat");
             running = false;
         }
         else if (option == ADD_ITEM_OPTION) {
 
         }
         else if (option == REMOVE_ITEM_OPTION) {
+            cout << "Enter the item id of the item to remove from the menu:";
+            string item_ID;
+            std::getline(std::cin, item_ID);
 
+            Node* item = stockList->searchByID(item_ID);
+            if (item != NULL) {
+                stockList->deleteNode(item);
+            }
         }
         else if (option == DISPLAY_COINS_OPTION) {
 
         }
         else if (option == RESET_STOCK_OPTION) {
-
+            stockList->resetStock();
         }
         else if (option == RESET_COINS_OPTION) {
 
