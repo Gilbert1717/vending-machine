@@ -57,7 +57,7 @@ int main(int argc, char **argv)
         string option;
         std::getline(std::cin, option);
 
-        if (std::cin.eof()) {
+        if (std::cin.eof() || option == ABORT_PROGRAM_OPTION) {
             running = false;
         }
         else if (option == DISPLAY_ITEMS_OPTION) {
@@ -83,9 +83,6 @@ int main(int argc, char **argv)
 
         }
         else if (option == RESET_COINS_OPTION) {
-
-        }
-        else if (option == ABORT_PROGRAM_OPTION) {
 
         }
         else {

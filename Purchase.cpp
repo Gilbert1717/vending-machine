@@ -53,23 +53,16 @@ bool Purchase::verifyID(string inputID) {
     }
     // Checks if an item with inputId exists in stocklist
     else {
-        /** 
-        * Searches stocklist for an item with inputId
-        * If no item exists with this ID, then the method throws a std::invalid_argument exception
-        */ 
-        try {
-            this->stocklist->searchByID(inputID);
-
-        }
-        // Catch std::invalid_argument exception
-        catch (std::invalid_argument& e) {
+        
+        if (this->stocklist->searchByID(inputID) == nullptr) {
             isValid = false;
-            
+
         }
 
     }
 
     return isValid;
+
 }
 
 void Purchase::startPurchase(string id) {

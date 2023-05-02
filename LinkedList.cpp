@@ -117,7 +117,7 @@ Node* LinkedList::searchByID(std::string ID){
             }
             curr = curr->next;
         }
-        std::cout << "The item does not exist in the list.";   
+        // std::cout << "The item does not exist in the list.";   
     }  
     return result;
 }

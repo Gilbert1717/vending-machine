@@ -6,7 +6,7 @@ using std::string;
 
 
 void PurchaseHelp::printInfo(string name, string desc, Price price) {
-    cout << "You have selected \"" << name << " - " << desc << "\". This will cost you $";
+    cout << "You have selected \"" << name << " - " << desc << "\". This will cost you ";
     price.display();
     cout << endl;
 
