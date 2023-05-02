@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+
 using std::string;
 
 class LoadFiles
@@ -18,9 +19,14 @@ public:
     static std::vector<std::vector<string>> readCoinFile(
         std::string path);
 
+    // split a string into a vector of strings base on input delimiter
     static std::vector<string> split(string str, string delimiter);
 
     static void print(std::vector <string> const &a);
+
+    // static void LoadFiles::writeStockFile(LinkedList* stockList);
+
+    // static void LoadFiles::writecoinFile();
 };
 
 

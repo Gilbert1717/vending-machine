@@ -23,6 +23,8 @@
 //The number of denominations of currency available in the system 
 #define NUM_DENOMS 8
 
+#define STOCK_DELIMITER "|"
+
 /**
  * a structure to represent a price. One of the problems with the floating
  * point formats in C++ like float and double is that they have minor issues
@@ -62,6 +64,7 @@ public:
     Stock();
     Stock(std::string id, std::string name, std::string description, 
         Price price, unsigned on_hand);
+    std::string convertStockToString();
     ~Stock();
 };
 

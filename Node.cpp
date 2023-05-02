@@ -24,6 +24,7 @@ Stock::Stock(
         Price price,
         unsigned on_hand
 ){
+    // attributes validation
     if (id.length() > IDLEN) {
         throw std::invalid_argument( "Stock ID is too long" );
     }
@@ -47,6 +48,22 @@ Stock::Stock(
     this->on_hand = on_hand;
 };
 
+// convert all the stock attributes into one string to write them into output file.
+std::string Stock::convertStockToString(){
+    std::string result = this->id + STOCK_DELIMITER + this->name + 
+        STOCK_DELIMITER + this->description;
+
+    // handle the case when cents is 0
+    std::string cents = "00";
+    if (this->price.cents != 0) cents = std::to_string(this->price.cents);
+    
+    result = result + STOCK_DELIMITER + std::to_string(this->price.dollars) + '.' + cents;
+    
+    result = result + STOCK_DELIMITER + std::to_string(this->on_hand);
+
+    return result;
+}
+
 Stock::~Stock(){
     
 };
@@ -66,12 +83,13 @@ Price::Price(unsigned dollars, unsigned cents){
     this->cents = cents;
 };
 
+// display price
 void Price::display(){
-    
+    // if the cents is 0, this method will print double 0 for the cents.
     if (this->cents == 0) {
-        std::cout << this->dollars << ".00";
+        std::cout << "$" << this->dollars << ".00" << std::endl;
     }
     else {
-        std::cout << this->dollars << "." << this->cents;
+        std::cout << "$" << this->dollars << "." << this->cents << std::endl;
     }
 };

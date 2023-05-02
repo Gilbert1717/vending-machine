@@ -11,7 +11,7 @@ public:
     LinkedList();
     ~LinkedList();
 
-
+    // insert stock to the linkedlist following alphabetic order
     void insertNode(Stock* stock);
 
     void deleteNode(Node* node);
@@ -23,6 +23,14 @@ public:
     void addStockToList(string path);
 
     void printList();
+
+    string padding(string s, int length, char filler);
+
+    void resetStock();
+
+    std::vector<string> exportStockList();
+
+    void outputStockFile(string path);
 
 private:
     // the beginning of the list
