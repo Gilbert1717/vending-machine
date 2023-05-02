@@ -158,10 +158,18 @@ void Purchase::startPurchase(string id) {
         if (difference > 0) {
             std::vector<int> changeCoins = calculateChange(difference);
 
-            cout << "Here is your " << name << " and your change of $ " << endl;
+            if (changeCoins.size() != 0) {
+                cout << "Here is your " << name << " and your change of $ " << endl;
+
+                // Subtract stock count by 1
+                this->stocklist->searchByID(id)->data->on_hand--;
+            }
         }
         else {
             cout << "Here is your " << name << endl;
+            
+            // Subtract stock count by 1
+            this->stocklist->searchByID(id)->data->on_hand--;
         }
 
     }
