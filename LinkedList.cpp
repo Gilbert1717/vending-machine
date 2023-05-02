@@ -38,6 +38,9 @@ void LinkedList::insertNode(Stock* stock){
             curr = head->next;
             Node* prev = head;
             bool whileLoopContinue = true;
+
+            /* When curr node name is larger than the new node,
+            insert the new node before curr node*/
             while(curr != NULL && whileLoopContinue) {
                 if(curr->data->name.compare(newNode->data->name) > 0) {
                     newNode->next = curr;
@@ -51,7 +54,7 @@ void LinkedList::insertNode(Stock* stock){
                 }
             }
 
-            /*insert to the tail of the linked list if the name of the stock is 
+            /*insert to the tail of the linked list if the name of the new node is 
             larger than all nodes in the linked list
             */
             if (curr == NULL && whileLoopContinue == false) {
@@ -99,9 +102,13 @@ void LinkedList::deleteNode(Node* node){
 //Search node base on item ID and return the pointer of this node 
 Node* LinkedList::searchByID(std::string ID){
     Node* result = nullptr;
+
+    // When list is empty
     if (count == 0) {
         std::cout << "Stock List is empty." << std::endl;
     }
+
+    // Loop through the whole list
     else {
         Node* curr = head;
         while(curr != NULL){
@@ -115,7 +122,7 @@ Node* LinkedList::searchByID(std::string ID){
     return result;
 }
 
-
+// Load the file from the path and add all items into stock list
 void LinkedList::addStockToList(string path){
     vector<vector<string>> stockList = LoadFiles::readStockFile(path); 
     
@@ -124,6 +131,12 @@ void LinkedList::addStockToList(string path){
 
         // covert the attributes to the desired variable type
         std::vector<std::string> itemPrice = LoadFiles::split(item.at(3),".");
+
+        // price validation
+        if (itemPrice.size() != 2) {
+            throw std::invalid_argument( "Invalid price." );
+        }
+
         unsigned long dollars = std::stoul (itemPrice.at(0),nullptr,0);
         unsigned long cents = std::stoul (itemPrice.at(1),nullptr,0);
         unsigned long on_hand = std::stoul (item.at(4),nullptr,0);
@@ -134,6 +147,7 @@ void LinkedList::addStockToList(string path){
     }
 }
 
+// reset stock list to the default stock level
 void LinkedList::resetStock(){
     Node* curr = head;
     while(curr != NULL){
@@ -142,6 +156,7 @@ void LinkedList::resetStock(){
     }
 }
 
+// Formating the stock table and print the stock out
 void LinkedList::printList(){
     Node* curr = head;
     string header = padding("", 70 ,'-');
@@ -164,6 +179,33 @@ void LinkedList::printList(){
     }
     std::cout << header <<std::endl;
 }
+
+// return vector of item string
+vector<string> LinkedList::exportStockList(){
+    vector<string> result;
+
+    // Loop through linkedlist
+    Node* curr = this->head;
+    while (curr != NULL) {
+        string item = curr->data->convertStockToString();
+        result.push_back(item);
+        curr = curr->next;
+    }
+    return result;
+}
+
+
+// Write stock list into file and store in the target path
+void LinkedList::outputStockFile(string path){
+    std::ofstream stock;
+    stock.open (path);
+    std::vector<std::string> stockOutput = exportStockList();
+    for (unsigned i = 0; i<stockOutput.size(); i++){
+        stock << stockOutput.at(i) <<std::endl;   
+    }
+    stock.close();
+}
+
 
 string LinkedList::padding(string s, int length, char filler){
     string result = s.append(length - s.length(), filler);

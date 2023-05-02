@@ -28,6 +28,10 @@ public:
 
     void resetStock();
 
+    std::vector<string> exportStockList();
+
+    void outputStockFile(string path);
+
 private:
     // the beginning of the list
     Node* head;

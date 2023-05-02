@@ -1,4 +1,5 @@
 #include "LoadFiles.h"
+#include "Node.h"
 
 
 std::vector<std::vector<std::string>> LoadFiles::readStockFile(
@@ -14,7 +15,7 @@ std::vector<std::vector<std::string>> LoadFiles::readStockFile(
             and add them to the result*/
             while (getline(ReadFile, line)) {
                 std::vector<string> item;
-                item = split(line, "|");
+                item = split(line, STOCK_DELIMITER);
                 if (item.size() != 5) {
                     ReadFile.close();
                     throw std::invalid_argument( "invalid stock file" );
@@ -38,7 +39,7 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
             and add them to the result*/
             while (getline(ReadFile, line)) {
                 std::vector<string> coin;
-                coin = split(line, ".");
+                coin = split(line, ",");
                 if (coin.size() != 2) {
                     ReadFile.close();
                     throw std::invalid_argument( "invalid coin file" );
@@ -73,3 +74,9 @@ void LoadFiles::print(std::vector <string> const &a) {
    for(unsigned i=0; i < a.size(); i++)
    std::cout << a.at(i) << ' ' << std::endl;
 }
+
+
+
+// void LoadFiles::writecoinFile(){
+
+// }
