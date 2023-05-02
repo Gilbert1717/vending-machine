@@ -158,7 +158,8 @@ void LinkedList::addStockToList(string path){
         unsigned long on_hand = std::stoul (item.at(4),nullptr,0);
 
         // Create stock and store them into linked list
-        Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),Price(dollars,cents),on_hand);
+        Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),
+                    Price(dollars,cents),on_hand);
         insertNode(stock);
     }
 }

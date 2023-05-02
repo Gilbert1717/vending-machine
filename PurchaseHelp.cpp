@@ -10,8 +10,8 @@ void PurchaseHelp::printInfo(string name, string desc, Price price) {
     price.display();
     cout << endl;
 
-    cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
-    cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
+    cout << "Please hand over the money - type in the value of each note/coin in cents.\n" ;
+    cout << "Press enter or ctrl-d on a new line to cancel this purchase:\n";
     
 }
 
@@ -34,12 +34,15 @@ bool PurchaseHelp::validateInputMoney(std::string input) {
 
         if (numProcessed == input.length()) {
         
-            if (inputAmount != TEN_DOLLAR_VALUE && inputAmount != FIVE_DOLLAR_VALUE && inputAmount != TWO_DOLLAR_VALUE
-            && inputAmount != ONE_DOLLAR_VALUE && inputAmount != FIFTY_CENTS_VALUE && inputAmount != TWENTY_CENTS_VALUE
+            if (inputAmount != TEN_DOLLAR_VALUE && inputAmount != FIVE_DOLLAR_VALUE 
+            && inputAmount != TWO_DOLLAR_VALUE && inputAmount != ONE_DOLLAR_VALUE 
+            && inputAmount != FIFTY_CENTS_VALUE && inputAmount != TWENTY_CENTS_VALUE
             && inputAmount != TEN_CENTS_VALUE && inputAmount != FIVE_CENTS_VALUE) {
                 
-                cout << "Error: $" << std::fixed << (double)inputAmount / CENT_DOLLAR_CONVERSION;
-                cout << " is not a valid denomination of money. Please try again." << endl;
+                cout << "Error: $" << std::fixed << 
+                    (double)inputAmount / CENT_DOLLAR_CONVERSION;
+                cout << 
+                    " is not a valid denomination of money. Please try again." << endl;
                 isValid = false;
 
             }

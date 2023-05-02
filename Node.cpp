@@ -57,7 +57,8 @@ std::string Stock::convertStockToString(){
     std::string cents = "00";
     if (this->price.cents != 0) cents = std::to_string(this->price.cents);
     
-    result = result + STOCK_DELIMITER + std::to_string(this->price.dollars) + '.' + cents;
+    result = result + STOCK_DELIMITER + 
+        std::to_string(this->price.dollars) + '.' + cents;
     
     result = result + STOCK_DELIMITER + std::to_string(this->on_hand);
 
