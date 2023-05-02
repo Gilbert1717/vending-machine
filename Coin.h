@@ -20,6 +20,8 @@ public:
     //Constructors
     Coin();
     ~Coin();
+
+    Coin(Denomination denom, unsigned count);
     // the denomination type
     enum Denomination denom;
     
