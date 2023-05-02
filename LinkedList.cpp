@@ -83,6 +83,9 @@ void LinkedList::deleteNode(Node* node){
         // If the input node is the head of the linked list
         if (this->head == node) {
             this->head = this->head->next;
+            std::cout << "\"" << node->data->id << " - " << 
+                    node->data->name << " - " << node->data->description << 
+                    "\"" << " has been removed from the system.\n";
             delete node;
             node = nullptr;
             count --;
@@ -97,6 +100,9 @@ void LinkedList::deleteNode(Node* node){
                 curr = curr->next;
                 if (curr == node) {
                     pre->next = curr->next;
+                    std::cout << "\"" << curr->data->id << " - " << 
+                    curr->data->name << " - " << curr->data->description << 
+                    "\"" << "has been removed from the system\n";
                     delete curr;
                     curr = nullptr;
                     count --;
@@ -125,7 +131,9 @@ Node* LinkedList::searchByID(std::string ID){
             }
             curr = curr->next;
         }
-        // std::cout << "The item does not exist in the list.";   
+        if (result == nullptr) {
+            std::cout << "The item does not exist in the list.";  
+        }
     }  
     return result;
 }
@@ -162,11 +170,14 @@ void LinkedList::resetStock(){
         curr->data->on_hand = DEFAULT_STOCK_LEVEL;
         curr = curr->next;
     }
+    std::cout << "Stock has been reset to the default level" << std::endl;
 }
 
 // Formating the stock table and print the stock out
 void LinkedList::printList(){
     Node* curr = head;
+
+    // print header of the table
     string header = padding("", 70 ,'-');
     std::cout << "Item Menu" << std::endl;
     std::cout << padding("", 10 ,'-') << std::endl;
@@ -176,6 +187,7 @@ void LinkedList::printList(){
     std::cout << "Price" << std::endl;
     std::cout << header <<std::endl;
 
+    // Iterate linkedlist to print each item
     while (curr != nullptr) {
         string nameRow = padding(curr->data->name, NAMELEN, ' ');
         string on_handRow = padding(std::to_string(curr->data->on_hand),10,' ');
@@ -189,7 +201,7 @@ void LinkedList::printList(){
 }
 
 // return vector of item string
-vector<string> LinkedList::exportStockList(){
+vector<string> LinkedList::exportStockListString(){
     vector<string> result;
 
     // Loop through linkedlist
@@ -207,7 +219,7 @@ vector<string> LinkedList::exportStockList(){
 void LinkedList::outputStockFile(string path){
     std::ofstream stock;
     stock.open (path);
-    std::vector<std::string> stockOutput = exportStockList();
+    std::vector<std::string> stockOutput = exportStockListString();
     for (unsigned i = 0; i<stockOutput.size(); i++){
         stock << stockOutput.at(i) <<std::endl;   
     }
@@ -219,19 +231,3 @@ string LinkedList::padding(string s, int length, char filler){
     string result = s.append(length - s.length(), filler);
     return result;
 }
-// Node* LinkedList::searchByName(std::string Name){
-//     if (count == 0) {
-//         std::cout << "Stock List is empty." << std::endl;
-//         return;
-//     }
-//     else {
-//         Node* curr = head;
-//         while(curr != NULL){
-//             if (curr->data->id == Name) {
-//                 return curr;
-//             }
-//             curr = curr->next;
-//         }
-//         std::cout << "The item does not exist in the list." << std::endl;     
-//     }  
-// }

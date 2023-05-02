@@ -18,8 +18,6 @@ public:
 
     Node* searchByID(string ID);
 
-    Node* searchByName(string name);
-
     void addStockToList(string path);
 
     void printList();
@@ -28,7 +26,7 @@ public:
 
     void resetStock();
 
-    std::vector<string> exportStockList();
+    std::vector<string> exportStockListString();
 
     void outputStockFile(string path);
 
