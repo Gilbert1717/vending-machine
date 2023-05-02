@@ -8,8 +8,16 @@ LinkedList::LinkedList() {
 }
 
 LinkedList::~LinkedList() {
-    delete this->head;
-    head = nullptr;
+    Node* curr = this->head;
+    Node* tmp;
+    while (curr != NULL) {
+        tmp = curr;
+        curr = curr->next;
+        delete tmp;
+    }
+    delete curr;
+    //delete this->head;
+    //head = nullptr;
 }
 
 
