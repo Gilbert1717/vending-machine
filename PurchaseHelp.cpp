@@ -57,7 +57,11 @@ bool PurchaseHelp::validateInputMoney(std::string input) {
         cout << "Invalid" << endl;
 
     }
-    
+    catch (std::out_of_range& e) {
+        isValid = false;
+        cout << "Invalid" << endl;
+        
+    }
     
     return isValid;
 

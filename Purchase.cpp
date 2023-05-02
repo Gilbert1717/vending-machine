@@ -106,8 +106,6 @@ void Purchase::startPurchase(string id) {
             
         }
         else{
-            // TODO - check input is int or not
-            
             if (PurchaseHelp::validateInputMoney(input)) {
                 inputAmount = std::stoi(input);
 
@@ -155,6 +153,9 @@ void Purchase::startPurchase(string id) {
                 // Subtract stock count by 1
                 this->stocklist->searchByID(id)->data->on_hand--;
             }
+            else {
+                cout << "Purchase canceled because not enough coins for change." << endl;
+            }
         }
         else {
             cout << "Here is your " << name << endl;
@@ -171,39 +172,7 @@ void Purchase::startPurchase(string id) {
 
 }
 
-/*void Purchase::printInfo(string name, string desc, Price price) {
-    cout << "You have selected \"" << name << " - " << desc << "\". This will cost you $";
-    price.display();
-    cout << endl;
-
-    cout << "Please hand over the money - type in the value of each note/coin in cents." << endl;
-    cout << "Press enter or ctrl-d on a new line to cancel this purchase:" << endl;
-    
-}
-
-void Purchase::requestRemainingPrint(int dollars, int cents) {
-    double printDollars = dollars + (double)cents / CENT_DOLLAR_CONVERSION;
-
-    cout << "You still need to give us $" << std::fixed << printDollars << ": ";
-
-}*/
-
 std::vector<int> Purchase::calculateChange(int change) {
     // TODO
     return std::vector<int>();
 }
-
-/*std::vector<Coin> Purchase::createEmptyCoinList() {
-    std::vector<Coin> coins = std::vector<Coin>();
-
-    coins.push_back(Coin(TEN_DOLLARS, 0));
-    coins.push_back(Coin(FIVE_DOLLARS, 0));
-    coins.push_back(Coin(TWO_DOLLARS, 0));
-    coins.push_back(Coin(ONE_DOLLAR, 0));
-    coins.push_back(Coin(FIFTY_CENTS, 0));
-    coins.push_back(Coin(TWENTY_CENTS, 0));
-    coins.push_back(Coin(TEN_CENTS, 0));
-    coins.push_back(Coin(FIVE_CENTS, 0));
-
-    return coins;
-}*/
