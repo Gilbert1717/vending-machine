@@ -14,6 +14,8 @@ public:
     // insert stock to the linkedlist following alphabetic order
     void insertNode(Stock* stock);
 
+    bool compareName(string currName, string insertName);
+
     void deleteNode(Node* node);
 
     Node* searchByID(string ID);

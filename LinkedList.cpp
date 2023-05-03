@@ -49,13 +49,17 @@ void LinkedList::insertNode(Stock* stock){
 
             /* When curr node name is larger than the new node,
             insert the new node before curr node*/
-            while(curr != NULL && whileLoopContinue) {
-                if(curr->data->name.compare(newNode->data->name) > 0) {
+            while(curr != NULL && whileLoopContinue) {  
+                /*compare two strings and decide if the node need to be inserted
+                into curr node*/ 
+                if(compareName(curr->data->name,newNode->data->name)) {
                     newNode->next = curr;
                     prev->next = newNode;
                     count ++;
                     whileLoopContinue = false;
                 }
+
+                //else move to the next node
                 else {
                     prev = curr;
                     curr = curr->next;
@@ -70,6 +74,23 @@ void LinkedList::insertNode(Stock* stock){
             }
         }
     }
+}
+
+
+bool LinkedList::compareName(string currName, string insertName){
+    /*initialise string and convert them to lowercase, so that compare
+    them will be case-insensitive*/ 
+    bool result = false;
+    std::transform(currName.begin(), currName.end(), 
+        currName.begin(), ::tolower);
+    std::transform(insertName.begin(), insertName.end(), 
+        insertName.begin(), ::tolower);
+
+    if(currName.compare(insertName) > 0) {
+        result = true;
+    }
+    
+    return result;
 }
 
 void LinkedList::deleteNode(Node* node){
