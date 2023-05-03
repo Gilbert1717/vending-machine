@@ -95,7 +95,8 @@ void LinkedList::deleteNode(Node* node){
         else {
             Node* pre = NULL;
             Node* curr = head;
-            while (curr->next != NULL){
+            bool notFound = true;
+            while (notFound && curr->next != NULL){
                 pre = curr;
                 curr = curr->next;
                 if (curr == node) {
@@ -106,9 +107,12 @@ void LinkedList::deleteNode(Node* node){
                     delete curr;
                     curr = nullptr;
                     count --;
+                    notFound = false;
                 }
-            } 
-            std::cout << "Node does not exist in stock list\n";
+            }
+            if (notFound) { 
+                std::cout << "Node does not exist in stock list\n";
+            }
         } 
     }
 }

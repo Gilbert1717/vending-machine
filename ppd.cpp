@@ -22,6 +22,7 @@ using std::string;
 
 // Funcution declarations
 void printMenu();
+void removeItem(LinkedList* stockList);
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -67,7 +68,6 @@ int main(int argc, char **argv)
             purchase->purchaseMenu();
         }
         else if (option == SAVE_EXIT_OPTION) {
-            // TODO - Implement save
             stockList->outputStockFile("stock1.dat");
             running = false;
         }
@@ -75,14 +75,7 @@ int main(int argc, char **argv)
 
         }
         else if (option == REMOVE_ITEM_OPTION) {
-            cout << "Enter the item id of the item to remove from the menu:";
-            string item_ID;
-            std::getline(std::cin, item_ID);
-
-            Node* item = stockList->searchByID(item_ID);
-            if (item != NULL) {
-                stockList->deleteNode(item);
-            }
+            removeItem(stockList);
         }
         else if (option == DISPLAY_COINS_OPTION) {
 
@@ -121,4 +114,16 @@ void printMenu() {
     cout << "    8.Reset Coins" << endl;
     cout << "    9.Abort Program" << endl;
     
+}
+
+void removeItem(LinkedList* stockList) {
+    cout << "Enter the item id of the item to remove from the menu: ";
+    string item_ID;
+    std::getline(std::cin, item_ID);
+
+    Node* item = stockList->searchByID(item_ID);
+    if (item != NULL) {
+        stockList->deleteNode(item);
+    }
+
 }
