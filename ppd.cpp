@@ -3,6 +3,7 @@
 #include "LoadFiles.h"
 #include "Purchase.h"
 #include "CoinRegister.h"
+#include "AddItem.h"
 
 using std::cout;
 using std::endl;
@@ -76,7 +77,7 @@ int main(int argc, char **argv)
             running = false;
         }
         else if (option == ADD_ITEM_OPTION) {
-            addItem(stockList);
+            AddItem::addItem(stockList);
         }
         else if (option == REMOVE_ITEM_OPTION) {
             removeItem(stockList);
@@ -129,94 +130,5 @@ void removeItem(LinkedList* stockList) {
     if (item != NULL) {
         stockList->deleteNode(item);
     }
-
-}
-
-void addItem(LinkedList* stockList) {
-    string nextId = getNextId(stockList);
-    string input;
-
-    Stock* stock = new Stock();
-
-    cout << "Enter the item name: ";
-    std::getline(std::cin, input);
-    stock->name = input;
-
-    cout << "Enter the item description: ";
-    std::getline(std::cin, input);
-    stock->description = input;
-
-    bool valid = false;
-    while (!valid) {
-        cout << "Enter the price for the item: ";
-        std::getline(std::cin, input);
-        try {
-            std::vector<int> price = convertPrice(input);
-
-            stock->price.dollars = price[0];
-            stock->price.cents = price[1];
-
-            valid = true;
-            
-        }
-        catch (std::invalid_argument& e) {
-            cout << "Invalid" << endl;
-        }
-
-    }
-
-    cout << "This item \"" << stock->name << " - " << stock->description << "\" has now been added to the menu." << endl;
-
-    stockList->insertNode(stock);
-
-}
-
-std::string getNextId(LinkedList* stockList) {
-    int testIdNum = 1;
-    string testId;
-    
-    bool valid = false;
-    while (!valid) {
-        testId = intToIdString(testIdNum);
-
-        if (stockList->searchByID(testId) == NULL) {
-            valid = true;
-            
-        }
-        else {
-            testIdNum++;
-            
-        }
-
-    }
-
-    return testId;
-
-
-}
-
-std::string intToIdString(int num) {
-    string id = "I";
-
-    string snum = std::to_string(num);
-    while (snum.length() < 5) {
-        snum = string("0").append(snum);
-    }
-
-    id = id.append(snum);
-
-    return id;
-    
-}
-
-std::vector<int> convertPrice(string p) {
-    std::vector<int> price = std::vector<int>();
-
-    int index = p.find_first_of('.');
-
-    price.push_back(std::stoi(p.substr(0, index)));
-    price.push_back(std::stoi(p.substr(index + 1)));
-
-    return price;
 
 }
