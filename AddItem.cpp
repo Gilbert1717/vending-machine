@@ -21,37 +21,50 @@ void AddItem::addItem(LinkedList* stockList) {
     std::getline(std::cin, input);
     stock->name = input;
     
-    // Gets description of new item
-    cout << "Enter the item description: ";
-    std::getline(std::cin, input);
-    stock->description = input;
-
-    // Gets price of new item
-    bool valid = false;
-    while (!valid) {
-        cout << "Enter the price for the item: ";
+    if (input != "") {
+        // Gets description of new item
+        cout << "Enter the item description: ";
         std::getline(std::cin, input);
-        // Checks if enterd value is valid and adds to stock
-        try {
-            std::vector<int> price = convertPrice(input);
+        stock->description = input;
 
-            stock->price.dollars = price[0];
-            stock->price.cents = price[1];
+        if (input != "") {
+            // Gets price of new item
+            bool valid = false;
+            bool cancel = false;
+            while (!cancel && !valid) {
+                cout << "Enter the price for the item: ";
+                std::getline(std::cin, input);
 
-            valid = true;
+                if (input != "") {
+                    // Checks if enterd value is valid and adds to stock
+                    try {
+                        std::vector<int> price = convertPrice(input);
+
+                        stock->price.dollars = price[0];
+                        stock->price.cents = price[1];
+
+                        valid = true;
+                        
+                    }
+                    // Catches if covertPrice() throws an invalid_argument exception
+                    catch (std::invalid_argument& e) {
+                        cout << "Invalid" << endl;
+                    }
+                }
+                else {
+                    cancel = true;
+                }
+            }
+
+        
+        if (!cancel) {
+            cout << "This item \"" << stock->name << " - " << stock->description << "\" has now been added to the menu." << endl;
+
+            stockList->insertNode(stock);
             
+            }
         }
-        // Catches if covertPrice() throws an invalid_argument exception
-        catch (std::invalid_argument& e) {
-            cout << "Invalid" << endl;
-        }
-
     }
-
-    cout << "This item \"" << stock->name << " - " << stock->description << "\" has now been added to the menu." << endl;
-
-    stockList->insertNode(stock);
-
 }
 
 std::string AddItem::getNextId(LinkedList* stockList) {

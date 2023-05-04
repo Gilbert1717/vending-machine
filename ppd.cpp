@@ -129,9 +129,11 @@ void removeItem(LinkedList* stockList) {
     string item_ID;
     std::getline(std::cin, item_ID);
 
-    Node* item = stockList->searchByID(item_ID);
-    if (item != NULL) {
-        stockList->deleteNode(item);
+    if (!std::cin.eof() || item_ID != "") {
+        Node* item = stockList->searchByID(item_ID);
+        if (item != NULL) {
+            stockList->deleteNode(item);
+        }
     }
 
 }
