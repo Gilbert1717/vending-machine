@@ -12,6 +12,7 @@ void AddItem::addItem(LinkedList* stockList) {
     Stock* stock = new Stock();
     stock->id = nextId;
     stock->on_hand = DEFAULT_STOCK_LEVEL;
+    cout << "The id of the new stock will be: " << stock->id << endl;
 
     cout << "Enter the item name: ";
     std::getline(std::cin, input);
@@ -87,10 +88,20 @@ std::string AddItem::intToIdString(int num) {
 std::vector<int> AddItem::convertPrice(string p) {
     std::vector<int> price = std::vector<int>();
 
-    int index = p.find_first_of('.');
+    std::size_t index = p.find_first_of('.');
+    
+    if (index == string::npos) {
+        throw std::invalid_argument("Not a float");
 
+    }
+    
     price.push_back(std::stoi(p.substr(0, index)));
     price.push_back(std::stoi(p.substr(index + 1)));
+
+    // Checks if cent values can be bought using allowed coins
+    if (price[1] % 5 != 0) {
+        throw std::invalid_argument("Not a multiple of 5");
+    }
 
     return price;
 
