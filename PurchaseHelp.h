@@ -4,19 +4,6 @@
 #include "CoinRegister.h"
 #include <iostream>
 
-//defines
-#define FIVE_CENTS_VALUE 5
-#define TEN_CENTS_VALUE 10
-#define TWENTY_CENTS_VALUE 20
-#define FIFTY_CENTS_VALUE 50
-#define ONE_DOLLAR_VALUE 100
-#define TWO_DOLLAR_VALUE 200
-#define FIVE_DOLLAR_VALUE 500
-#define TEN_DOLLAR_VALUE 1000
-
-#define CENT_DOLLAR_CONVERSION 100
-
-
 class PurchaseHelp
 {
 private:
