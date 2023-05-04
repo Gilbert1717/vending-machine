@@ -25,9 +25,12 @@ public:
     CoinRegister();
     CoinRegister(std::vector<std::vector<std::string> > coinVectorList);
     ~CoinRegister();
-    //MEthods
+    //Methods
+    //Prints out the coins in the register
     void display();
+    //Returns Change hopefully
     void change();
+    //Resets the count of coins
     void resetCount();
 private:
     //Array of coins

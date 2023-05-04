@@ -58,6 +58,7 @@ void CoinRegister::change(){
 
 }
 void CoinRegister::resetCount(){
+    //For each coin in register call the reset count method for each
    for(unsigned int i = 0; i < NUM_DENOMS; i++){
         this->coins[i].resetCount();
     }
