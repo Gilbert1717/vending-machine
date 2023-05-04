@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
     std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
     CoinRegister* currentRegister = new CoinRegister(coins);
-    currentRegister->display();
+    
 
 
     Purchase* purchase = new Purchase(stockList, currentRegister);
@@ -83,7 +83,7 @@ int main(int argc, char **argv)
             removeItem(stockList);
         }
         else if (option == DISPLAY_COINS_OPTION) {
-
+            currentRegister->display();
         }
         else if (option == RESET_STOCK_OPTION) {
             stockList->resetStock();
