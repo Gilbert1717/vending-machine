@@ -34,7 +34,8 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
             // read file to input file stream
             std::ifstream ReadFile(path);
             std::vector<std::vector<std::string>> result;
-            
+            //Set for the values of coins
+            std::set<std::string> values;
             /* read each line, split the attributes depending on the delimiter 
             and add them to the result*/
             while (getline(ReadFile, line)) {
@@ -44,10 +45,11 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
                     ReadFile.close();
                     throw std::invalid_argument( "invalid coin file" );
                 }
+                values.insert(coin.at(0));
                 result.push_back(std::move(coin));
             }
             ReadFile.close();
-            if (result.size() != NUM_DENOMS){
+            if (result.size() != NUM_DENOMS || values.size() != NUM_DENOMS){
                 throw std::invalid_argument( "invalid coin file" );
             }
             return result;
