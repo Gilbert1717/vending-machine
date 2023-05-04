@@ -6,10 +6,13 @@ CoinRegister::~CoinRegister(){
     //Destructor
 }
 void CoinRegister::display(){
+    //Prints Header
     std::cout << "Coins Summary" << std::endl;
     std::cout << "-------------" << std::endl;
     std::cout << "Denomination    |    Count" << std::endl;
     std::cout << "---------------------------" << std::endl;
+    //For each entry in coin list prints out coin
+    //Since list is sorted coins need no special printing
     for (unsigned i = 0; i < NUM_DENOMS; i++){
         Denomination value = this->coins[i].denom;
         int count = this->coins[i].count;
@@ -61,39 +64,48 @@ void CoinRegister::resetCount(){
 }
 CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList)
 {
-
     unsigned int vectorSize = coinVectorList.size();
+    //Creates a temp vector full of integers
+    std::vector<std::vector<int> > tempIntVector(vectorSize , std::vector<int> (2, 0));
+    for(unsigned int j = 0; j < vectorSize; j++){
+        tempIntVector.at(j).at(0) = std::stoul (coinVectorList.at(j).at(0),nullptr,0);
+        tempIntVector.at(j).at(1) = std::stoul (coinVectorList.at(j).at(1),nullptr,0);
+    }
+    //Sorts Int Vector
+    std::sort(tempIntVector.begin(), tempIntVector.end());
+    //Fills up CoinList with given values
     for(unsigned int i = 0; i < vectorSize; i++){
-        std::string value = coinVectorList.at(i).at(0);
-        unsigned int count = std::stoul (coinVectorList.at(i).at(1),nullptr,0);
-        if (value == "1000"){
+        unsigned int  value = tempIntVector.at(i).at(0);
+        unsigned int count = tempIntVector.at(i).at(1);
+        //Manually Checks Values
+        if (value == TEN_DOLLAR_VALUE){
             this->coins[i].denom = TEN_DOLLARS;
         }
-        else if (value == "500")
+        else if (value ==FIVE_DOLLAR_VALUE)
         {
             this->coins[i].denom = FIVE_DOLLARS;
         }
-        else if (value == "200")
+        else if (value == TWO_DOLLAR_VALUE)
         {
             this->coins[i].denom = TWO_DOLLARS;
         }
-        else if (value == "100")
+        else if (value == ONE_DOLLAR_VALUE)
         {
             this->coins[i].denom = ONE_DOLLAR;
         }
-        else if (value == "50")
+        else if (value == FIFTY_CENTS_VALUE)
         {
             this->coins[i].denom = FIFTY_CENTS;
         }
-        else if (value == "20")
+        else if (value == TWENTY_CENTS_VALUE)
         {
             this->coins[i].denom = TWENTY_CENTS;
         }
-        else if (value == "10")
+        else if (value == TEN_CENTS_VALUE)
         {
             this->coins[i].denom = TEN_CENTS;
         }
-        else if (value == "5")
+        else if (value == FIVE_CENTS_VALUE)
         {
             this->coins[i].denom = FIVE_CENTS;
         }
