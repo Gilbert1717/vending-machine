@@ -1,6 +1,6 @@
 # Assignment-2-APT
 
-## Notes:
+## Issues:
 
 - ~~LinkedList sorting not case independent right now~~   
 - ~~More add items validation~~
