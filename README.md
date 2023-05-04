@@ -1,10 +1,24 @@
 # Assignment-2-APT
-Hi
-Hello
-AAAAAAAAA
 
-Notes:
+## Notes:
 
 - ~~LinkedList sorting not case independent right now~~   
-- ~~More add validation?~~
-- Price cant take values less than 10 cents
+- ~~More add items validation~~
+- Price can't take values less than 10 cents
+
+## Progress:
+
+- REQ1: Command-line arguments - TODO
+- REQ2: Load Data - TODO Validation?
+- ~~REQ3: Display Main Menu~~
+- ~~REQ4: Display Items~~
+- REQ5: Purchase Item - TODO Get Change
+- REQ6: Save and Exit - TODO Save coins, change stock output file
+- ~~REQ7: Add Item~~
+- ~~REQ8: Remove Item~~
+- ~~REQ9: Reset Stock Count~~
+- REQ10: Reset Coin Count - TODO
+- ~~REQ11: Display Coins~~
+- ~~REQ12: “Abort”~~
+- ~~REQ13: Return to Menu Functionality~~
+- REQ14: Memory Leaks and Abuses
