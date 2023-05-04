@@ -47,6 +47,9 @@ std::vector<std::vector<std::string>> LoadFiles::readCoinFile(
                 result.push_back(std::move(coin));
             }
             ReadFile.close();
+            if (result.size() != NUM_DENOMS){
+                throw std::invalid_argument( "invalid coin file" );
+            }
             return result;
         }
 
