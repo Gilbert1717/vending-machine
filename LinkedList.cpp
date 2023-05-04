@@ -69,7 +69,7 @@ void LinkedList::insertNode(Stock* stock){
             /*insert to the tail of the linked list if the name of the new node is 
             larger than all nodes in the linked list
             */
-            if (curr == NULL && whileLoopContinue == false) {
+            if (curr == NULL && whileLoopContinue) {
                 prev->next = newNode;
             }
         }
@@ -157,7 +157,7 @@ Node* LinkedList::searchByID(std::string ID){
             curr = curr->next;
         }
         if (result == nullptr) {
-            std::cout << "The item does not exist in the list.";  
+            //std::cout << "The item does not exist in the list.";  
         }
     }  
     return result;

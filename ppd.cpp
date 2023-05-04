@@ -3,6 +3,7 @@
 #include "LoadFiles.h"
 #include "Purchase.h"
 #include "CoinRegister.h"
+#include "AddItem.h"
 
 using std::cout;
 using std::endl;
@@ -23,6 +24,10 @@ using std::string;
 // Funcution declarations
 void printMenu();
 void removeItem(LinkedList* stockList);
+void addItem(LinkedList* stockList);
+std::string getNextId(LinkedList* stockList);
+std::string intToIdString(int num);
+std::vector<int> convertPrice(string p);
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -72,7 +77,7 @@ int main(int argc, char **argv)
             running = false;
         }
         else if (option == ADD_ITEM_OPTION) {
-
+            AddItem::addItem(stockList);
         }
         else if (option == REMOVE_ITEM_OPTION) {
             removeItem(stockList);
