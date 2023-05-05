@@ -20,10 +20,14 @@ private:
     void startPurchase(std::string id);
 
     // Calculate which coins and how many of each need to be returned as change
-    std::vector<int> calculateChange(int change);
+    std::vector<int> calculateChange(int change, std::vector<int> inputCoins, CoinRegister copyCoins);
 
     // Adds input coins to coin register
-    void addCoinsToRegister(std::vector<int> inputCoins);
+    void modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* cr, bool subtractMode = false);
+
+    bool checkIfPossible(int num, int change, CoinRegister copyCoins);
+
+    int nextChange(int change, CoinRegister copyCoins, int prevNum = -1);
 
     LinkedList* stocklist;
     CoinRegister* coinRegister;
