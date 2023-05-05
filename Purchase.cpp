@@ -124,6 +124,7 @@ void Purchase::startPurchase(string id) {
     // Checks if purchase was canceled
     if (!cancel) {
         // TODO - add values to coinRegister
+        addCoinsToRegister(inputCoins);
         
         // Gets sum of all inputed coins
         for (int i: inputCoins) {
@@ -168,4 +169,35 @@ void Purchase::startPurchase(string id) {
 std::vector<int> Purchase::calculateChange(int change) {
     // TODO
     return std::vector<int>();
+}
+
+void Purchase::addCoinsToRegister(std::vector<int> inputCoins) {
+    for (int i: inputCoins) {
+        if (i == FIVE_CENTS_VALUE) {
+            this->coinRegister->coins[0].count++;
+        }
+        else if (i == TEN_CENTS_VALUE) {
+            this->coinRegister->coins[1].count++;
+        }
+        else if (i == TWENTY_CENTS_VALUE) {
+            this->coinRegister->coins[2].count++;
+        }
+        else if (i == FIFTY_CENTS_VALUE) {
+            this->coinRegister->coins[3].count++;
+        }
+        else if (i == ONE_DOLLAR_VALUE) {
+            this->coinRegister->coins[4].count++;
+        }
+        else if (i == TWO_DOLLAR_VALUE) {
+            this->coinRegister->coins[5].count++;
+        }
+        else if (i == FIVE_DOLLAR_VALUE) {
+            this->coinRegister->coins[6].count++;
+        }
+        else if (i == TEN_DOLLAR_VALUE) {
+            this->coinRegister->coins[7].count++;
+        }
+
+    }
+
 }
