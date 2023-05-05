@@ -38,8 +38,13 @@ int main(int argc, char **argv) {
     getline(ReadFile,r);
 
     cout << r<< endl;*/
-    vector<int> i = vector<int>();
-    test(true,i);
+    //vector<int> i = vector<int>();
+    //test(true,i);
+
+    vector<int> i = vector<int>({4});
+
+    cout << i[0] << endl;
+
 }
 
 ;

@@ -187,7 +187,7 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
     std::vector<int> changeCoins = std::vector<int>();
     bool isPossible = true;
     int nextVal;
-    int prevNum = -1;
+    int prevNum = TEN_DOLLAR_VALUE + 1;
     
     
     bool running = true;
@@ -200,7 +200,8 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
             if (isPossible) {
                 changeCoins.push_back(nextVal);
                 change -= nextVal;
-                prevNum = -1;
+                prevNum = TEN_DOLLAR_VALUE + 1;
+                modifyCoinsToRegister(std::vector<int>({nextVal}), &copyCoins, true);
 
                 if (change == 0) {
                     running = false;
@@ -299,7 +300,8 @@ void Purchase::modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* 
 bool Purchase::checkIfPossible(int num, int change, CoinRegister copyCoins) {
     bool retVal;
     int nextCoin;
-    int prevNum = -1;
+    CoinRegister tmpCopyCoins;
+    int prevNum = TEN_DOLLAR_VALUE + 1;
     if (change == 0) {
         retVal = true;
     }
@@ -313,7 +315,9 @@ bool Purchase::checkIfPossible(int num, int change, CoinRegister copyCoins) {
                 running = false;
             }
             else{
-                retVal = checkIfPossible(nextCoin, change - nextCoin, copyCoins);
+                tmpCopyCoins = copyCoins;
+                modifyCoinsToRegister(std::vector<int>({nextCoin}), &tmpCopyCoins, true);
+                retVal = checkIfPossible(nextCoin, change - nextCoin, tmpCopyCoins);
 
                 if (retVal) {
                     running = false;
@@ -330,7 +334,7 @@ bool Purchase::checkIfPossible(int num, int change, CoinRegister copyCoins) {
 
 int Purchase::nextChange(int change, CoinRegister copyCoins, int prevNum) {
     int nextCoin = 0;
-    if (TEN_DOLLAR_VALUE <= change && copyCoins.coins[7].count >= 1 && prevNum == -1) {
+    if (TEN_DOLLAR_VALUE <= change && copyCoins.coins[7].count >= 1 && prevNum > TEN_DOLLAR_VALUE) {
         nextCoin = TEN_DOLLAR_VALUE;
     }
     else if (FIVE_DOLLAR_VALUE <= change && copyCoins.coins[6].count >= 1 && prevNum > FIVE_DOLLAR_VALUE) {

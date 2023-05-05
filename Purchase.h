@@ -27,7 +27,7 @@ private:
 
     bool checkIfPossible(int num, int change, CoinRegister copyCoins);
 
-    int nextChange(int change, CoinRegister copyCoins, int prevNum = -1);
+    int nextChange(int change, CoinRegister copyCoins, int prevNum);
 
     LinkedList* stocklist;
     CoinRegister* coinRegister;
