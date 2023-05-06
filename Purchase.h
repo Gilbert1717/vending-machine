@@ -22,11 +22,19 @@ private:
     // Calculate which coins and how many of each need to be returned as change
     std::vector<int> calculateChange(int change, std::vector<int> inputCoins, CoinRegister copyCoins);
 
-    // Adds input coins to coin register
+    /**
+     * Adds/Subtracts coins to register
+     * 
+     * @param inputCoins List of coins to add/subract
+     * @param cr Pointer to coin register to modify
+     * @param subtractMode chooses if we add or subract coins. Defult value is false    *
+     */
     void modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* cr, bool subtractMode = false);
 
+    // Recursive function to check if it is possible to get change for current required change amount
     bool checkIfPossible(int change, CoinRegister copyCoins);
 
+    // Gets next possible value to try for change
     int nextChange(int change, CoinRegister copyCoins, int prevNum);
 
     LinkedList* stocklist;

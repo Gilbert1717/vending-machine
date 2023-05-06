@@ -139,22 +139,33 @@ void Purchase::startPurchase(string id) {
          * If difference <= 0, then no need to pay any change
          */
         if (difference > 0) {
+            // Creating a copy of coin register to use while calculating change
             CoinRegister copyCoins = *(this->coinRegister);
             CoinRegister* copyCoinsPointer = &copyCoins;
+            // Add the inputed coins into the copy coin register
             modifyCoinsToRegister(inputCoins, copyCoinsPointer);
 
             std::vector<int> changeCoins = calculateChange(difference, inputCoins, copyCoins);
-
+            
+            // Checks if change is possible
             if (changeCoins.size() != 0) {
+                // Adding input coins to coin register
                 modifyCoinsToRegister(inputCoins, this->coinRegister);
+                // Removing change from coin register
                 modifyCoinsToRegister(changeCoins, this->coinRegister, true);
 
+                // Printing the change and coins given
+                cout << "Here is your " << name << " and your change of $" << (double)difference / CENT_DOLLAR_CONVERSION << ":";
                 for (int i: changeCoins) {
-                    cout << i << endl;
-                    
+                    if (i >= ONE_DOLLAR_VALUE) {
+                        cout << " $" << i / CENT_DOLLAR_CONVERSION;
+                    }
+                    else {
+                        cout << " " << i << "c";
+                    }
+                                        
                 }
-
-                cout << "Here is your " << name << " and your change of $ " << endl;
+                cout << endl;
 
                 // Subtract stock count by 1
                 this->stocklist->searchByID(id)->data->on_hand--;
@@ -183,10 +194,12 @@ void Purchase::startPurchase(string id) {
 
 std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoins, CoinRegister copyCoins) {
     
-
+    // vector to store all the change coins
     std::vector<int> changeCoins = std::vector<int>();
+
     bool isPossible = true;
     int nextVal;
+    // prevNum gets a value greater than the highest coin denomination
     int prevNum = TEN_DOLLAR_VALUE + 1;
     
     
@@ -195,6 +208,7 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
         nextVal = nextChange(change, copyCoins, prevNum);
 
         if (nextVal != -1) {
+            // Checks if it is possible to get change starting with nextVal
             isPossible = checkIfPossible(change - nextVal, copyCoins);
 
             if (isPossible) {
@@ -202,65 +216,29 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
                 change -= nextVal;
                 prevNum = TEN_DOLLAR_VALUE + 1;
                 modifyCoinsToRegister(std::vector<int>({nextVal}), &copyCoins, true);
-
+                
+                // Checks if we gave enough change
                 if (change == 0) {
                     running = false;
 
                 }
             }
+            // If not possible, check the next possible value
             else {
-                if (nextVal != 0) {
-                    prevNum = nextVal;
-                }
-                else {
-                    running = false;
-                }
+                prevNum = nextVal;
+                
             }
 
         }
+        // There is not enough coins for change
         else {
             running = false;
             changeCoins = std::vector<int>();
 
         }
 
-        /*if (TEN_DOLLAR_VALUE <= change && copyCoinsPointer->coins[7].count >= 1) {
-            changeCoins.push_back(TEN_DOLLAR_VALUE);
-            change -= TEN_DOLLAR_VALUE;
-        }
-        else if (FIVE_DOLLAR_VALUE <= change && copyCoinsPointer->coins[6].count >= 1) {
-            changeCoins.push_back(FIVE_DOLLAR_VALUE);
-            change -= FIVE_DOLLAR_VALUE;
-        }
-        else if (TWO_DOLLAR_VALUE <= change && copyCoinsPointer->coins[5].count >= 1) {
-            changeCoins.push_back(TWO_DOLLAR_VALUE);
-            change -= TWO_DOLLAR_VALUE;
-        }
-        else if (ONE_DOLLAR_VALUE <= change && copyCoinsPointer->coins[4].count >= 1) {
-            changeCoins.push_back(ONE_DOLLAR_VALUE);
-            change -= ONE_DOLLAR_VALUE;
-        }
-        else if (FIFTY_CENTS_VALUE <= change && copyCoinsPointer->coins[3].count >= 1) {
-            changeCoins.push_back(FIFTY_CENTS_VALUE);
-            change -= FIFTY_CENTS_VALUE;
-        }
-        else if (TWENTY_CENTS_VALUE <= change && copyCoinsPointer->coins[2].count >= 1) {
-            changeCoins.push_back(TWENTY_CENTS_VALUE);
-            change -= TWENTY_CENTS_VALUE;
-        }
-        else if (TEN_CENTS_VALUE <= change && copyCoinsPointer->coins[1].count >= 1) {
-            changeCoins.push_back(TEN_CENTS_VALUE);
-            change -= TEN_CENTS_VALUE;
-        }
-        else if (FIVE_CENTS_VALUE <= change && copyCoinsPointer->coins[0].count >= 1) {
-            changeCoins.push_back(FIVE_CENTS_VALUE);
-            change -= FIVE_CENTS_VALUE;
-        }*/
-
-
+        
     }
-    
-
 
     return changeCoins;
 }
@@ -307,6 +285,7 @@ bool Purchase::checkIfPossible(int change, CoinRegister copyCoins) {
     int nextCoin;
     CoinRegister tmpCopyCoins;
     int prevNum = TEN_DOLLAR_VALUE + 1;
+    // Base case - if we have enough change
     if (change == 0) {
         retVal = true;
     }
@@ -315,25 +294,27 @@ bool Purchase::checkIfPossible(int change, CoinRegister copyCoins) {
         while (running) {
             nextCoin = nextChange(change, copyCoins, prevNum);
             
-            if (nextCoin == -1 || nextCoin == 0) {
+            // if no values are possible
+            if (nextCoin == -1) {
                 retVal = false;
                 running = false;
             }
             else{
+                // creates another copy coin register subtract nextCoin from it 
                 tmpCopyCoins = copyCoins;
                 modifyCoinsToRegister(std::vector<int>({nextCoin}), &tmpCopyCoins, true);
-                retVal = checkIfPossible(change - nextCoin, tmpCopyCoins);
 
+                // Recursive call with lower change
+                retVal = checkIfPossible(change - nextCoin, tmpCopyCoins);
+                
                 if (retVal) {
                     running = false;
+
                 }
+                // Check next possible value
                 else {
-                    //if () {
-                        prevNum = nextCoin;
-                    //}
-                    //else {
-                    //    running = false;
-                    //}
+                    prevNum = nextCoin;
+                    
                 }
             }
         }
