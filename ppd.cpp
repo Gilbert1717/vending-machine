@@ -4,6 +4,7 @@
 #include "Purchase.h"
 #include "CoinRegister.h"
 #include "AddItem.h"
+#include <sys/stat.h>
 
 using std::cout;
 using std::endl;
@@ -24,6 +25,7 @@ using std::string;
 // Funcution declarations
 void printMenu();
 void removeItem(LinkedList* stockList);
+bool pathValidation(int argc, char **argv);
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -32,9 +34,12 @@ void removeItem(LinkedList* stockList);
  **/
 int main(int argc, char **argv)
 {
-    if (argc == 3) {
+ 
+    // Structure which would store the metadata
+    bool validatePath = pathValidation(argc, argv);
+    if (argc == 3 && validatePath) {
         LinkedList* stockList = new LinkedList();
-        //std::vector<std::vector<std::string>> stock = LoadFiles::readStockFile("stock.dat"); // TODO use input arguments
+        // Add items from stock file to the linkedlist
         stockList->addStockToList(argv[1]);
 
 
@@ -45,11 +50,6 @@ int main(int argc, char **argv)
 
         Purchase* purchase = new Purchase(stockList, currentRegister);
     
-    
-        //Testing
-        
-        /* validate command line arguments */
-        // TODO
         
         bool running = true;
         while (running) {
@@ -138,3 +138,20 @@ void removeItem(LinkedList* stockList) {
     }
 
 }
+
+bool pathValidation(int argc, char **argv) {
+    struct stat sb;
+    bool valid_path = true;
+ 
+   
+    for (int i =0; i < argc; i++) {
+        const char* path = argv[i];
+        // Calls the function with path as argument
+        // If the file/directory exists at the path returns 0
+        if (stat(path, &sb) != 0 || (sb.st_mode & S_IFDIR)){
+            valid_path = false;
+        }
+    }
+    return valid_path;
+}
+
