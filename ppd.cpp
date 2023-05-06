@@ -150,12 +150,12 @@ void removeItem(LinkedList* stockList) {
 bool pathValidation(int argc, char **argv) {
     struct stat sb;
     bool valid_path = true;
- 
    
     for (int i =0; i < argc; i++) {
         const char* path = argv[i];
-        // Calls the function with path as argument
-        // If the file/directory exists at the path returns 0
+        // If the file/directory exists stat(path, &sb) returns 0
+        // first condition:the file/directory does not exists
+        // second condition:If the path is a directory
         if (stat(path, &sb) != 0 || (sb.st_mode & S_IFDIR)){
             valid_path = false;
         }

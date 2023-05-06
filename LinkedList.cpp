@@ -23,7 +23,6 @@ LinkedList::~LinkedList() {
 
 void LinkedList::insertNode(Stock* stock){
     Node* newNode = new Node(stock);
-
     // insert to head if the linked list is empty
     if (head == NULL){
         head = newNode;
@@ -31,6 +30,10 @@ void LinkedList::insertNode(Stock* stock){
     }
 
     else {
+        // ID validation (if the ID is existing in the list)
+        if (searchByID(stock->id) != NULL) {
+            throw std::invalid_argument("The ID of this stock is existing in the list");
+        }
         Node* curr = head;
         /* if the stock name is smaller than the head of the linked list, insert
         it to the head*/
@@ -144,7 +147,7 @@ Node* LinkedList::searchByID(std::string ID){
 
     // When list is empty
     if (count == 0) {
-        std::cout << "Stock List is empty." << std::endl;
+        std::cout << "Stock List is empty searchByID." << std::endl;
     }
 
     // Loop through the whole list
@@ -181,7 +184,8 @@ void LinkedList::addStockToList(string path){
         unsigned long dollars;
         unsigned long cents;
         unsigned long on_hand;
-
+        // try to convert strings to numbers, if any of the value is invalid, throw
+        // an invalid_argument error
         try {
             dollars = std::stoul (itemPrice.at(0),nullptr,0);
             cents = std::stoul (itemPrice.at(1),nullptr,0);
@@ -190,6 +194,7 @@ void LinkedList::addStockToList(string path){
         catch (std::invalid_argument& e) {
             throw std::invalid_argument("Wrong attribute value");
         }
+
         // Create stock and store them into linked list
         Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),
                     Price(dollars,cents),on_hand);
