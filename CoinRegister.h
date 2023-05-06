@@ -2,6 +2,8 @@
 #define COINREG_H
 #include "Coin.h"
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include <algorithm> //Allows Sorting
 
 //defines
@@ -32,6 +34,8 @@ public:
     void change();
     //Resets the count of coins
     void resetCount();
+
+    void storeInFile(std::string path);
     
     //Array of coins
     Coin coins[NUM_DENOMS];

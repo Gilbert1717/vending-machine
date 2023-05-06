@@ -70,6 +70,7 @@ int main(int argc, char **argv)
         }
         else if (option == SAVE_EXIT_OPTION) {
             stockList->outputStockFile("stock1.dat");
+            currentRegister->storeInFile("coins1.dat");
             running = false;
         }
         else if (option == ADD_ITEM_OPTION) {

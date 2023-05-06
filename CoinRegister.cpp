@@ -113,3 +113,41 @@ CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList
         this->coins[i].count = count;
     }
 }
+
+void CoinRegister::storeInFile(std::string path) {
+    std::ofstream coins;
+    coins.open(path);
+    for (int i = 7; i >= 0; i--) {
+        if (this->coins[i].denom == TEN_DOLLARS) {
+            coins << TEN_DOLLAR_VALUE << ",";
+        }
+        else if (this->coins[i].denom == FIVE_DOLLARS) {
+            coins << FIVE_DOLLAR_VALUE << ",";
+        }
+        else if (this->coins[i].denom == TWO_DOLLARS) {
+            coins << TWO_DOLLAR_VALUE << ",";
+        }
+        else if (this->coins[i].denom == ONE_DOLLAR) {
+            coins << ONE_DOLLAR_VALUE << ",";
+        }
+        else if (this->coins[i].denom == FIFTY_CENTS) {
+            coins << FIFTY_CENTS_VALUE << ",";
+        }
+        else if (this->coins[i].denom == TWENTY_CENTS) {
+            coins << TWENTY_CENTS_VALUE << ",";
+        }
+        else if (this->coins[i].denom == TEN_CENTS) {
+            coins << TEN_CENTS_VALUE << ",";
+        }
+        else {
+            coins << FIVE_CENTS_VALUE << ",";
+        }
+
+        coins << this->coins[i].count << std::endl;
+
+
+    }
+
+    coins.close();
+
+}
