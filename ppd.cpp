@@ -85,7 +85,7 @@ int main(int argc, char **argv)
             stockList->resetStock();
         }
         else if (option == RESET_COINS_OPTION) {
-
+            currentRegister->resetCount();
         }
         else {
             cout << "Invalid" << endl;

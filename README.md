@@ -18,7 +18,7 @@
 - ~~REQ7: Add Item~~
 - ~~REQ8: Remove Item~~
 - ~~REQ9: Reset Stock Count~~
-- REQ10: Reset Coin Count - TODO
+- ~~REQ10: Reset Coin Count~~
 - ~~REQ11: Display Coins~~
 - ~~REQ12: “Abort”~~
 - ~~REQ13: Return to Menu Functionality~~
