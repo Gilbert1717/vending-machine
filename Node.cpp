@@ -87,10 +87,10 @@ Price::Price(unsigned dollars, unsigned cents){
 // display price
 void Price::display(){
     // if the cents is 0, this method will print double 0 for the cents.
-    if (this->cents == 0) {
-        std::cout << "$" << this->dollars << ".00" << std::endl;
+    string cents = std::to_string(this->cents);
+    if (this->cents < 10) {
+        cents = "0" + cents;
     }
-    else {
-        std::cout << "$" << this->dollars << "." << this->cents << std::endl;
-    }
+    std::cout << "$" << this->dollars << "." << cents << std::endl;
+    
 };
