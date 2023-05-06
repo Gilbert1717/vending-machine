@@ -32,9 +32,11 @@ public:
     void change();
     //Resets the count of coins
     void resetCount();
-private:
+    
     //Array of coins
     Coin coins[NUM_DENOMS];
+private:
+    
 };
 
 

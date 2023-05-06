@@ -24,10 +24,6 @@ using std::string;
 // Funcution declarations
 void printMenu();
 void removeItem(LinkedList* stockList);
-void addItem(LinkedList* stockList);
-std::string getNextId(LinkedList* stockList);
-std::string intToIdString(int num);
-std::vector<int> convertPrice(string p);
 
 /**
  * manages the running of the program, initialises data structures, loads

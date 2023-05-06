@@ -5,6 +5,7 @@
 - ~~LinkedList sorting not case independent right now~~   
 - ~~More add items validation~~
 - Price can't take values less than 10 cents
+- Change gives segmentation fault if change not possible
 
 ## Progress:
 
