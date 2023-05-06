@@ -34,10 +34,10 @@ int main(int argc, char **argv)
 {
     LinkedList* stockList = new LinkedList();
     //std::vector<std::vector<std::string>> stock = LoadFiles::readStockFile("stock.dat"); // TODO use input arguments
-    stockList->addStockToList("stock.dat");
+    stockList->addStockToList(argv[1]);
 
 
-    std::vector<std::vector<std::string> > coins = LoadFiles::readCoinFile("coins.dat");
+    std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
     CoinRegister* currentRegister = new CoinRegister(coins);
     
 
@@ -69,8 +69,8 @@ int main(int argc, char **argv)
             purchase->purchaseMenu();
         }
         else if (option == SAVE_EXIT_OPTION) {
-            stockList->outputStockFile("stock1.dat");
-            currentRegister->storeInFile("coins1.dat");
+            stockList->outputStockFile(argv[1]);
+            currentRegister->storeInFile(argv[2]);
             running = false;
         }
         else if (option == ADD_ITEM_OPTION) {
