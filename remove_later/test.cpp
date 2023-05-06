@@ -41,9 +41,21 @@ int main(int argc, char **argv) {
     //vector<int> i = vector<int>();
     //test(true,i);
 
-    vector<int> i = vector<int>({4});
+    //vector<int> i = vector<int>({4});
 
-    cout << i[0] << endl;
+    //cout << i[0] << endl;
+
+    int n;
+    cin >> n;
+
+    try {
+        if (n == 1) {
+            throw invalid_argument("error");
+        } 
+    }
+    catch (invalid_argument& e) {
+        cerr << e.what() << endl;
+    }
 
 }
 

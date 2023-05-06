@@ -38,75 +38,83 @@ int main(int argc, char **argv)
     // Structure which would store the metadata
     bool validatePath = pathValidation(argc, argv);
     if (argc == 3 && validatePath) {
-        LinkedList* stockList = new LinkedList();
-        // Add items from stock file to the linkedlist
-        stockList->addStockToList(argv[1]);
-
-
-        std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
-        CoinRegister* currentRegister = new CoinRegister(coins);
         
+        try {
+            LinkedList* stockList = new LinkedList();
+            // Add items from stock file to the linkedlist
+            stockList->addStockToList(argv[1]);
 
 
-        Purchase* purchase = new Purchase(stockList, currentRegister);
-    
-        
-        bool running = true;
-        while (running) {
-            printMenu();
-
-            cout << "Select your option (1-9): ";
+            std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
+            CoinRegister* currentRegister = new CoinRegister(coins);
             
-            string option;
-            std::getline(std::cin, option);
 
-            if (std::cin.eof() || option == ABORT_PROGRAM_OPTION) {
-                running = false;
-            }
-            else if (option == DISPLAY_ITEMS_OPTION) {
-                stockList->printList();
-            }
-            else if (option == PURCHASE_ITEMS_OPTION) {
-                purchase->purchaseMenu();
-            }
-            else if (option == SAVE_EXIT_OPTION) {
-                stockList->outputStockFile(argv[1]);
-                currentRegister->storeInFile(argv[2]);
-                running = false;
-            }
-            else if (option == ADD_ITEM_OPTION) {
-                AddItem::addItem(stockList);
-            }
-            else if (option == REMOVE_ITEM_OPTION) {
-                removeItem(stockList);
-            }
-            else if (option == DISPLAY_COINS_OPTION) {
-                currentRegister->display();
-            }
-            else if (option == RESET_STOCK_OPTION) {
-                stockList->resetStock();
-            }
-            else if (option == RESET_COINS_OPTION) {
-                currentRegister->resetCount();
-            }
-            else {
-                cout << "Invalid" << endl;
-            }
 
-            cout << endl;
+            Purchase* purchase = new Purchase(stockList, currentRegister);
+        
+            
+            bool running = true;
+            while (running) {
+                printMenu();
 
-    }
-    
-        delete purchase;
-        purchase = nullptr;
-        delete stockList;
-        stockList = nullptr;
-        delete currentRegister;
-        currentRegister = nullptr;
+                cout << "Select your option (1-9): ";
+                
+                string option;
+                std::getline(std::cin, option);
+
+                if (std::cin.eof() || option == ABORT_PROGRAM_OPTION) {
+                    running = false;
+                }
+                else if (option == DISPLAY_ITEMS_OPTION) {
+                    stockList->printList();
+                }
+                else if (option == PURCHASE_ITEMS_OPTION) {
+                    purchase->purchaseMenu();
+                }
+                else if (option == SAVE_EXIT_OPTION) {
+                    stockList->outputStockFile(argv[1]);
+                    currentRegister->storeInFile(argv[2]);
+                    running = false;
+                }
+                else if (option == ADD_ITEM_OPTION) {
+                    AddItem::addItem(stockList);
+                }
+                else if (option == REMOVE_ITEM_OPTION) {
+                    removeItem(stockList);
+                }
+                else if (option == DISPLAY_COINS_OPTION) {
+                    currentRegister->display();
+                }
+                else if (option == RESET_STOCK_OPTION) {
+                    stockList->resetStock();
+                }
+                else if (option == RESET_COINS_OPTION) {
+                    currentRegister->resetCount();
+                }
+                else {
+                    cout << "Invalid" << endl;
+                }
+
+                cout << endl;
+
+            }
+        
+            delete purchase;
+            purchase = nullptr;
+            delete stockList;
+            stockList = nullptr;
+            delete currentRegister;
+            currentRegister = nullptr;
+        }
+        catch (std::invalid_argument& e) {
+            std::cerr << e.what() << endl;
+        }
     }
     else {
         std::cout << "invalid excuting command" << std::endl;
+        
     }
+    
     return EXIT_SUCCESS;
 }
 

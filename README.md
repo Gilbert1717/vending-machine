@@ -6,6 +6,7 @@
 - ~~More add items validation~~
 - ~~Price can't take values less than 10 cents~~
 - ~~Change gives segmentation fault if change not possible~~
+- Load repeat ID validation 
 
 ## Progress:
 

@@ -178,10 +178,18 @@ void LinkedList::addStockToList(string path){
             throw std::invalid_argument( "Invalid price." );
         }
 
-        unsigned long dollars = std::stoul (itemPrice.at(0),nullptr,0);
-        unsigned long cents = std::stoul (itemPrice.at(1),nullptr,0);
-        unsigned long on_hand = std::stoul (item.at(4),nullptr,0);
+        unsigned long dollars;
+        unsigned long cents;
+        unsigned long on_hand;
 
+        try {
+            dollars = std::stoul (itemPrice.at(0),nullptr,0);
+            cents = std::stoul (itemPrice.at(1),nullptr,0);
+            on_hand = std::stoul (item.at(4),nullptr,0);
+        }
+        catch (std::invalid_argument& e) {
+            throw std::invalid_argument("Wrong attribute value");
+        }
         // Create stock and store them into linked list
         Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),
                     Price(dollars,cents),on_hand);
