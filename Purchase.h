@@ -25,7 +25,7 @@ private:
     // Adds input coins to coin register
     void modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* cr, bool subtractMode = false);
 
-    bool checkIfPossible(int num, int change, CoinRegister copyCoins);
+    bool checkIfPossible(int change, CoinRegister copyCoins);
 
     int nextChange(int change, CoinRegister copyCoins, int prevNum);
 

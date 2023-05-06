@@ -195,7 +195,7 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
         nextVal = nextChange(change, copyCoins, prevNum);
 
         if (nextVal != -1) {
-            isPossible = checkIfPossible(nextVal, change, copyCoins);
+            isPossible = checkIfPossible(change - nextVal, copyCoins);
 
             if (isPossible) {
                 changeCoins.push_back(nextVal);
@@ -209,7 +209,12 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
                 }
             }
             else {
-                prevNum = nextVal;
+                if (nextVal != 0) {
+                    prevNum = nextVal;
+                }
+                else {
+                    running = false;
+                }
             }
 
         }
@@ -297,7 +302,7 @@ void Purchase::modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* 
 
 }
 
-bool Purchase::checkIfPossible(int num, int change, CoinRegister copyCoins) {
+bool Purchase::checkIfPossible(int change, CoinRegister copyCoins) {
     bool retVal;
     int nextCoin;
     CoinRegister tmpCopyCoins;
@@ -310,20 +315,25 @@ bool Purchase::checkIfPossible(int num, int change, CoinRegister copyCoins) {
         while (running) {
             nextCoin = nextChange(change, copyCoins, prevNum);
             
-            if (nextCoin == -1) {
+            if (nextCoin == -1 || nextCoin == 0) {
                 retVal = false;
                 running = false;
             }
             else{
                 tmpCopyCoins = copyCoins;
                 modifyCoinsToRegister(std::vector<int>({nextCoin}), &tmpCopyCoins, true);
-                retVal = checkIfPossible(nextCoin, change - nextCoin, tmpCopyCoins);
+                retVal = checkIfPossible(change - nextCoin, tmpCopyCoins);
 
                 if (retVal) {
                     running = false;
                 }
                 else {
-                    prevNum = nextCoin;
+                    //if () {
+                        prevNum = nextCoin;
+                    //}
+                    //else {
+                    //    running = false;
+                    //}
                 }
             }
         }
@@ -358,7 +368,7 @@ int Purchase::nextChange(int change, CoinRegister copyCoins, int prevNum) {
     else if (FIVE_CENTS_VALUE <= change && copyCoins.coins[0].count >= 1 && prevNum > FIVE_CENTS_VALUE) {
         nextCoin = FIVE_CENTS_VALUE;
     }
-    else if (prevNum == FIVE_CENTS_VALUE) {
+    else {
         nextCoin = -1;
     }
 
