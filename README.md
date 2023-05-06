@@ -14,7 +14,7 @@
 - ~~REQ3: Display Main Menu~~
 - ~~REQ4: Display Items~~
 - ~~REQ5: Purchase Item~~
-- REQ6: Save and Exit - TODO Save coins, change stock output file
+- REQ6: Save and Exit - TODO change stock output file
 - ~~REQ7: Add Item~~
 - ~~REQ8: Remove Item~~
 - ~~REQ9: Reset Stock Count~~
