@@ -5,7 +5,7 @@
 - ~~LinkedList sorting not case independent right now~~   
 - ~~More add items validation~~
 - Price can't take values less than 10 cents
-- Change gives segmentation fault if change not possible
+- ~~Change gives segmentation fault if change not possible~~
 
 ## Progress:
 
@@ -13,7 +13,7 @@
 - REQ2: Load Data - TODO Validation?
 - ~~REQ3: Display Main Menu~~
 - ~~REQ4: Display Items~~
-- REQ5: Purchase Item - TODO Get Change
+- ~~REQ5: Purchase Item~~
 - REQ6: Save and Exit - TODO Save coins, change stock output file
 - ~~REQ7: Add Item~~
 - ~~REQ8: Remove Item~~
