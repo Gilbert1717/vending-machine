@@ -50,12 +50,6 @@ int main(int argc, char **argv)
             std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
             CoinRegister* currentRegister = new CoinRegister(coins);
 
-            for (Coin i: currentRegister->coins) {
-                cout << i.denom;
-            }
-            
-
-
             Purchase* purchase = new Purchase(stockList, currentRegister);
         
             
@@ -146,11 +140,14 @@ void removeItem(LinkedList* stockList) {
     std::getline(std::cin, item_ID);
     StripString::stripString(&item_ID);
 
-    if (!std::cin.eof() || item_ID != "") {
+    if (!std::cin.eof() && item_ID != "") {
         Node* item = stockList->searchByID(item_ID);
         if (item != NULL) {
             stockList->deleteNode(item);
         }
+    }
+    else {
+        cout << "Operation cancelled" << endl;
     }
 
 }

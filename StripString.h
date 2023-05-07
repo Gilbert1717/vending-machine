@@ -5,7 +5,7 @@
 #include <string>
 
 
-// Split string function I(Vidyut) made for assignment 1(in the helper class)
+// Modified version of split string function I(Vidyut) made for assignment 1(in the helper class)
 class StripString
 {
 private:

@@ -6,6 +6,8 @@
 #include <iostream>
 #include <vector>
 
+// Length of an ID excluding the 'I"
+#define ID_NUMBER_LENGTH 4
 
 
 class AddItem

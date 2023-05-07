@@ -28,7 +28,7 @@ void Purchase::purchaseMenu() {
     std::getline(std::cin, inputId);
     StripString::stripString(&inputId);
 
-    if (!std::cin.eof()) {
+    if (!std::cin.eof() && inputId != "") {
         if (verifyID(inputId)) {
             if (this->stocklist->searchByID(inputId)->data->on_hand != 0) {
                 startPurchase(inputId);
@@ -39,11 +39,16 @@ void Purchase::purchaseMenu() {
             }
         }
         else {
-            cout << "invalid" << endl;
+            cout << "Invalid ID" << endl;
 
         } 
         
     }
+    else {
+        cout << "Purchase was cancelled" << endl;
+
+    }
+
 }
 
 bool Purchase::verifyID(string inputID) {
@@ -125,9 +130,6 @@ void Purchase::startPurchase(string id) {
 
     // Checks if purchase was canceled
     if (!cancel) {
-        // TODO - add values to coinRegister
-        
-        
         // Gets sum of all inputed coins
         for (int i: inputCoins) {
             sum += i;

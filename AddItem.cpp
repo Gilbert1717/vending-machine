@@ -21,6 +21,8 @@ void AddItem::addItem(LinkedList* stockList) {
     std::getline(std::cin, input);
     StripString::stripString(&input);
     stock->name = input;
+
+    bool isCancelled = false;
     
     if (input != "") {
         // Gets description of new item
@@ -51,7 +53,7 @@ void AddItem::addItem(LinkedList* stockList) {
                     }
                     // Catches if covertPrice() throws an invalid_argument exception
                     catch (std::invalid_argument& e) {
-                        cout << "Invalid" << endl;
+                        std::cerr << e.what() << endl;
                     }
                 }
                 else {
@@ -60,14 +62,33 @@ void AddItem::addItem(LinkedList* stockList) {
             }
 
         
-        if (!cancel) {
-            cout << "This item \"" << stock->name << " - " << stock->description << "\" has now been added to the menu." << endl;
+            if (!cancel) {
+                cout << "This item \"" << stock->name << " - " << stock->description << "\" has now been added to the menu." << endl;
 
-            stockList->insertNode(stock);
+                stockList->insertNode(stock);
             
             }
+            else {
+                isCancelled = true;
+                
+            }
+
+        }
+        else {
+            isCancelled = true;
+
         }
     }
+    else {
+        isCancelled = true;
+
+    }
+
+    if (isCancelled) {
+        cout << "Operation cancelled" << endl;
+
+    }
+    
 }
 
 std::string AddItem::getNextId(LinkedList* stockList) {
@@ -102,7 +123,7 @@ std::string AddItem::intToIdString(int num) {
     string snum = std::to_string(num);
 
     // Adds correct number of 0 before the num
-    while (snum.length() < 4) {
+    while (snum.length() < ID_NUMBER_LENGTH) {
         snum = string("0").append(snum);
     }
 
@@ -119,7 +140,7 @@ std::vector<int> AddItem::convertPrice(string p) {
     
     // Checks if input has a decimal point
     if (index == string::npos) {
-        throw std::invalid_argument("Not a float");
+        throw std::invalid_argument("Invalid, please enter price in dollars and cents seperated by '.'");
 
     }
     
@@ -132,7 +153,7 @@ std::vector<int> AddItem::convertPrice(string p) {
 
     // Checks if cent values can be bought using allowed coins
     if (price[1] % 5 != 0) {
-        throw std::invalid_argument("Not a multiple of 5");
+        throw std::invalid_argument("Invalid, cent value should be a multiple of 5 (eg. 2.25, 2.30)");
     }
 
     return price;

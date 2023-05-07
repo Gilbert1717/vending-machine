@@ -50,7 +50,7 @@ bool PurchaseHelp::validateInputMoney(std::string input) {
         }
         else {
             isValid = false;
-            cout << "Invalid" << endl;
+            cout << "Invalid, please enter price in cents ($1 = 100c)." << endl;
 
         }
 
@@ -62,7 +62,7 @@ bool PurchaseHelp::validateInputMoney(std::string input) {
     }
     catch (std::out_of_range& e) {
         isValid = false;
-        cout << "Invalid" << endl;
+        cout << "Invalid, entered amount too long." << endl;
         
     }
     
