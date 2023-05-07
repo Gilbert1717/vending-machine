@@ -157,7 +157,6 @@ std::vector<int> AddItem::convertPrice(string p) {
     // If cent string has more than 2 characters(eg. 253), then we only take the first two values(253 becomes 25)
     else if (centStr.length() > 2) {
         centStr = centStr.substr(0, 2);
-        cout << centStr;
     }
     int cents = std::stoi(centStr);
     
