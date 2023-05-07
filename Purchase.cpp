@@ -254,28 +254,28 @@ void Purchase::modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* 
 
     for (int i: inputCoins) {
         if (i == FIVE_CENTS_VALUE) {
-            cr->coins[0].count += incrementVal;
+            cr->coins[FIVE_CENTS].count += incrementVal;
         }
         else if (i == TEN_CENTS_VALUE) {
-            cr->coins[1].count += incrementVal;
+            cr->coins[TEN_CENTS].count += incrementVal;
         }
         else if (i == TWENTY_CENTS_VALUE) {
-            cr->coins[2].count += incrementVal;
+            cr->coins[TWENTY_CENTS].count += incrementVal;
         }
         else if (i == FIFTY_CENTS_VALUE) {
-            cr->coins[3].count += incrementVal;
+            cr->coins[FIFTY_CENTS].count += incrementVal;
         }
         else if (i == ONE_DOLLAR_VALUE) {
-            cr->coins[4].count += incrementVal;
+            cr->coins[ONE_DOLLAR].count += incrementVal;
         }
         else if (i == TWO_DOLLAR_VALUE) {
-            cr->coins[5].count += incrementVal;
+            cr->coins[TWO_DOLLARS].count += incrementVal;
         }
         else if (i == FIVE_DOLLAR_VALUE) {
-            cr->coins[6].count += incrementVal;
+            cr->coins[FIVE_DOLLARS].count += incrementVal;
         }
         else if (i == TEN_DOLLAR_VALUE) {
-            cr->coins[7].count += incrementVal;
+            cr->coins[TEN_DOLLARS].count += incrementVal;
         }
 
     }
@@ -326,29 +326,29 @@ bool Purchase::checkIfPossible(int change, CoinRegister copyCoins) {
 }
 
 int Purchase::nextChange(int change, CoinRegister copyCoins, int prevNum) {
-    int nextCoin = 0;
-    if (TEN_DOLLAR_VALUE <= change && copyCoins.coins[7].count >= 1 && prevNum > TEN_DOLLAR_VALUE) {
+    int nextCoin;
+    if (TEN_DOLLAR_VALUE <= change && copyCoins.coins[TEN_DOLLARS].count >= 1 && prevNum > TEN_DOLLAR_VALUE) {
         nextCoin = TEN_DOLLAR_VALUE;
     }
-    else if (FIVE_DOLLAR_VALUE <= change && copyCoins.coins[6].count >= 1 && prevNum > FIVE_DOLLAR_VALUE) {
+    else if (FIVE_DOLLAR_VALUE <= change && copyCoins.coins[FIVE_DOLLARS].count >= 1 && prevNum > FIVE_DOLLAR_VALUE) {
         nextCoin = FIVE_DOLLAR_VALUE;
     }
-    else if (TWO_DOLLAR_VALUE <= change && copyCoins.coins[5].count >= 1 && prevNum > TWO_DOLLAR_VALUE) {
+    else if (TWO_DOLLAR_VALUE <= change && copyCoins.coins[TWO_DOLLARS].count >= 1 && prevNum > TWO_DOLLAR_VALUE) {
         nextCoin = TWO_DOLLAR_VALUE;
     }
-    else if (ONE_DOLLAR_VALUE <= change && copyCoins.coins[4].count >= 1 && prevNum > ONE_DOLLAR_VALUE) {
+    else if (ONE_DOLLAR_VALUE <= change && copyCoins.coins[ONE_DOLLAR].count >= 1 && prevNum > ONE_DOLLAR_VALUE) {
         nextCoin = ONE_DOLLAR_VALUE;
     }
-    else if (FIFTY_CENTS_VALUE <= change && copyCoins.coins[3].count >= 1 && prevNum > FIFTY_CENTS_VALUE) {
+    else if (FIFTY_CENTS_VALUE <= change && copyCoins.coins[FIFTY_CENTS].count >= 1 && prevNum > FIFTY_CENTS_VALUE) {
         nextCoin = FIFTY_CENTS_VALUE;
     }
-    else if (TWENTY_CENTS_VALUE <= change && copyCoins.coins[2].count >= 1 && prevNum > TWENTY_CENTS_VALUE) {
+    else if (TWENTY_CENTS_VALUE <= change && copyCoins.coins[TWENTY_CENTS].count >= 1 && prevNum > TWENTY_CENTS_VALUE) {
         nextCoin = TWENTY_CENTS_VALUE;
     }
-    else if (TEN_CENTS_VALUE <= change && copyCoins.coins[1].count >= 1 && prevNum > TEN_CENTS_VALUE) {
+    else if (TEN_CENTS_VALUE <= change && copyCoins.coins[TEN_CENTS].count >= 1 && prevNum > TEN_CENTS_VALUE) {
         nextCoin = TEN_CENTS_VALUE;
     }
-    else if (FIVE_CENTS_VALUE <= change && copyCoins.coins[0].count >= 1 && prevNum > FIVE_CENTS_VALUE) {
+    else if (FIVE_CENTS_VALUE <= change && copyCoins.coins[FIVE_CENTS].count >= 1 && prevNum > FIVE_CENTS_VALUE) {
         nextCoin = FIVE_CENTS_VALUE;
     }
     else {

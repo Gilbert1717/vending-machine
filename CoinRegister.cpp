@@ -117,7 +117,7 @@ CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList
 void CoinRegister::storeInFile(std::string path) {
     std::ofstream coins;
     coins.open(path);
-    for (int i = 7; i >= 0; i--) {
+    for (int i = TEN_DOLLARS; i >= FIVE_CENTS; i--) {
         if (this->coins[i].denom == TEN_DOLLARS) {
             coins << TEN_DOLLAR_VALUE << ",";
         }
