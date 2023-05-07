@@ -150,9 +150,11 @@ std::vector<int> AddItem::convertPrice(string p) {
      */
     int dollars = std::stoi(p.substr(0, index));
     string centStr = p.substr(index + 1);
+    // If cent string is a single character(eg. 7), then we append '0' to it(7 becomes 70)
     if (centStr.length() < 2) {
         centStr = centStr.append("0");
     }
+    // If cent string has more than 2 characters(eg. 253), then we only take the first two values(253 becomes 25)
     else if (centStr.length() > 2) {
         centStr = centStr.substr(0, 2);
         cout << centStr;
