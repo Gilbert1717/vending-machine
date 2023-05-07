@@ -2,6 +2,7 @@
 #define ADD_ITEM_H
 
 #include "LinkedList.h"
+#include "StripString.h"
 #include <iostream>
 #include <vector>
 

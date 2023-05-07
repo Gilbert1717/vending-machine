@@ -26,6 +26,7 @@ void Purchase::purchaseMenu() {
     cout << "Please enter the id of the item you wish to purchase: ";
     string inputId;
     std::getline(std::cin, inputId);
+    StripString::stripString(&inputId);
 
     if (!std::cin.eof()) {
         if (verifyID(inputId)) {
@@ -91,6 +92,7 @@ void Purchase::startPurchase(string id) {
 
         PurchaseHelp::requestRemainingPrint(remaining);
         std::getline(std::cin, input);
+        StripString::stripString(&input);
 
         // Checks if user cancels purcahse
         if (std::cin.eof() || input == "") {

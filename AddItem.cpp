@@ -19,12 +19,14 @@ void AddItem::addItem(LinkedList* stockList) {
     // Gets name of new item
     cout << "Enter the item name: ";
     std::getline(std::cin, input);
+    StripString::stripString(&input);
     stock->name = input;
     
     if (input != "") {
         // Gets description of new item
         cout << "Enter the item description: ";
         std::getline(std::cin, input);
+        StripString::stripString(&input);
         stock->description = input;
 
         if (input != "") {
@@ -34,6 +36,7 @@ void AddItem::addItem(LinkedList* stockList) {
             while (!cancel && !valid) {
                 cout << "Enter the price for the item: ";
                 std::getline(std::cin, input);
+                StripString::stripString(&input);
 
                 if (input != "") {
                     // Checks if enterd value is valid and adds to stock

@@ -2,6 +2,7 @@
 #define PURCHASE_HELP_H
 
 #include "CoinRegister.h"
+#include "StripString.h"
 #include <iostream>
 
 class PurchaseHelp

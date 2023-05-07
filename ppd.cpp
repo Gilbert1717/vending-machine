@@ -5,6 +5,8 @@
 #include "CoinRegister.h"
 #include "AddItem.h"
 #include <sys/stat.h>
+// Strip string code borrowed from Vidyut's assignment 1 code
+#include "StripString.h"
 
 using std::cout;
 using std::endl;
@@ -47,6 +49,10 @@ int main(int argc, char **argv)
 
             std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
             CoinRegister* currentRegister = new CoinRegister(coins);
+
+            for (Coin i: currentRegister->coins) {
+                cout << i.denom;
+            }
             
 
 
@@ -61,6 +67,7 @@ int main(int argc, char **argv)
                 
                 string option;
                 std::getline(std::cin, option);
+                StripString::stripString(&option);
 
                 if (std::cin.eof() || option == ABORT_PROGRAM_OPTION) {
                     running = false;
@@ -137,6 +144,7 @@ void removeItem(LinkedList* stockList) {
     cout << "Enter the item id of the item to remove from the menu: ";
     string item_ID;
     std::getline(std::cin, item_ID);
+    StripString::stripString(&item_ID);
 
     if (!std::cin.eof() || item_ID != "") {
         Node* item = stockList->searchByID(item_ID);
