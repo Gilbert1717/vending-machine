@@ -88,7 +88,7 @@ void AddItem::addItem(LinkedList* stockList) {
         cout << "Operation cancelled" << endl;
 
     }
-    
+
 }
 
 std::string AddItem::getNextId(LinkedList* stockList) {
@@ -148,8 +148,19 @@ std::vector<int> AddItem::convertPrice(string p) {
      * Adds dollars and cents to a vector
      * Throws exception if not a number
      */
-    price.push_back(std::stoi(p.substr(0, index)));
-    price.push_back(std::stoi(p.substr(index + 1)));
+    int dollars = std::stoi(p.substr(0, index));
+    string centStr = p.substr(index + 1);
+    if (centStr.length() < 2) {
+        centStr = centStr.append("0");
+    }
+    else if (centStr.length() > 2) {
+        centStr = centStr.substr(0, 2);
+        cout << centStr;
+    }
+    int cents = std::stoi(centStr);
+    
+    price.push_back(dollars);
+    price.push_back(cents);
 
     // Checks if cent values can be bought using allowed coins
     if (price[1] % 5 != 0) {
