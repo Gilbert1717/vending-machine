@@ -209,7 +209,8 @@ void LinkedList::resetStock(){
         curr->data->on_hand = DEFAULT_STOCK_LEVEL;
         curr = curr->next;
     }
-    std::cout << "Stock has been reset to the default level" << std::endl;
+    std::cout << "Stock has been reset to the default level of " 
+        << DEFAULT_STOCK_LEVEL << std::endl;
 }
 
 // Formating the stock table and print the stock out

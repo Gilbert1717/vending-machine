@@ -62,6 +62,8 @@ void CoinRegister::resetCount(){
    for(unsigned int i = 0; i < NUM_DENOMS; i++){
         this->coins[i].resetCount();
     }
+    std::cout << "Coins have been reset to the default level of "
+        << DEFAULT_COIN_COUNT << std::endl;
 }
 CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList)
 {
