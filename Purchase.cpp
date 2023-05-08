@@ -149,7 +149,8 @@ void Purchase::startPurchase(string id) {
             // Add the inputed coins into the copy coin register
             modifyCoinsToRegister(inputCoins, copyCoinsPointer);
 
-            std::vector<int> changeCoins = calculateChange(difference, inputCoins, copyCoins);
+            std::vector<int> changeCoins = 
+                calculateChange(difference, inputCoins, copyCoins);
             
             // Checks if change is possible
             if (changeCoins.size() != 0) {
@@ -159,7 +160,10 @@ void Purchase::startPurchase(string id) {
                 modifyCoinsToRegister(changeCoins, this->coinRegister, true);
 
                 // Printing the change and coins given
-                cout << "Here is your " << name << " and your change of $" << (double)difference / CENT_DOLLAR_CONVERSION << ":";
+                cout << "Here is your " << name 
+                    << " and your change of $" 
+                    << (double)difference / CENT_DOLLAR_CONVERSION << ":";
+                    
                 for (int i: changeCoins) {
                     if (i >= ONE_DOLLAR_VALUE) {
                         cout << " $" << i / CENT_DOLLAR_CONVERSION;
@@ -175,7 +179,8 @@ void Purchase::startPurchase(string id) {
                 this->stocklist->searchByID(id)->data->on_hand--;
             }
             else {
-                cout << "Purchase canceled because not enough coins for change." << endl;
+                cout << "Purchase canceled because not enough coins for change"
+                    << endl;
             }
         }
         else {
@@ -196,7 +201,9 @@ void Purchase::startPurchase(string id) {
 
 }
 
-std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoins, CoinRegister copyCoins) {
+std::vector<int> Purchase::calculateChange(int change, 
+                                           std::vector<int> inputCoins,
+                                           CoinRegister copyCoins) {
     
     // vector to store all the change coins
     std::vector<int> changeCoins = std::vector<int>();
@@ -219,7 +226,8 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
                 changeCoins.push_back(nextVal);
                 change -= nextVal;
                 prevNum = TEN_DOLLAR_VALUE + 1;
-                modifyCoinsToRegister(std::vector<int>({nextVal}), &copyCoins, true);
+                modifyCoinsToRegister(std::vector<int>({nextVal}),
+                                      &copyCoins, true);
                 
                 // Checks if we gave enough change
                 if (change == 0) {
@@ -247,7 +255,9 @@ std::vector<int> Purchase::calculateChange(int change, std::vector<int> inputCoi
     return changeCoins;
 }
 
-void Purchase::modifyCoinsToRegister(std::vector<int> inputCoins, CoinRegister* cr, bool subtractMode) {
+void Purchase::modifyCoinsToRegister(std::vector<int> inputCoins,
+                                     CoinRegister* cr,
+                                     bool subtractMode) {
     int incrementVal = 1;
     if (subtractMode) {
         incrementVal = -1;
@@ -306,7 +316,8 @@ bool Purchase::checkIfPossible(int change, CoinRegister copyCoins) {
             else{
                 // creates another copy coin register subtract nextCoin from it 
                 tmpCopyCoins = copyCoins;
-                modifyCoinsToRegister(std::vector<int>({nextCoin}), &tmpCopyCoins, true);
+                modifyCoinsToRegister(std::vector<int>({nextCoin}),
+                                      &tmpCopyCoins, true);
 
                 // Recursive call with lower change
                 retVal = checkIfPossible(change - nextCoin, tmpCopyCoins);
@@ -329,28 +340,51 @@ bool Purchase::checkIfPossible(int change, CoinRegister copyCoins) {
 
 int Purchase::nextChange(int change, CoinRegister copyCoins, int prevNum) {
     int nextCoin;
-    if (TEN_DOLLAR_VALUE <= change && copyCoins.coins[TEN_DOLLARS].count >= 1 && prevNum > TEN_DOLLAR_VALUE) {
+    if (TEN_DOLLAR_VALUE <= change && 
+        copyCoins.coins[TEN_DOLLARS].count >= 1 && 
+        prevNum > TEN_DOLLAR_VALUE) {
+
         nextCoin = TEN_DOLLAR_VALUE;
     }
-    else if (FIVE_DOLLAR_VALUE <= change && copyCoins.coins[FIVE_DOLLARS].count >= 1 && prevNum > FIVE_DOLLAR_VALUE) {
+    else if (FIVE_DOLLAR_VALUE <= change && 
+             copyCoins.coins[FIVE_DOLLARS].count >= 1 && 
+             prevNum > FIVE_DOLLAR_VALUE) {
+
         nextCoin = FIVE_DOLLAR_VALUE;
     }
-    else if (TWO_DOLLAR_VALUE <= change && copyCoins.coins[TWO_DOLLARS].count >= 1 && prevNum > TWO_DOLLAR_VALUE) {
+    else if (TWO_DOLLAR_VALUE <= change && 
+             copyCoins.coins[TWO_DOLLARS].count >= 1 && 
+             prevNum > TWO_DOLLAR_VALUE) {
+
         nextCoin = TWO_DOLLAR_VALUE;
     }
-    else if (ONE_DOLLAR_VALUE <= change && copyCoins.coins[ONE_DOLLAR].count >= 1 && prevNum > ONE_DOLLAR_VALUE) {
+    else if (ONE_DOLLAR_VALUE <= change && 
+             copyCoins.coins[ONE_DOLLAR].count >= 1 && 
+             prevNum > ONE_DOLLAR_VALUE) {
+
         nextCoin = ONE_DOLLAR_VALUE;
     }
-    else if (FIFTY_CENTS_VALUE <= change && copyCoins.coins[FIFTY_CENTS].count >= 1 && prevNum > FIFTY_CENTS_VALUE) {
+    else if (FIFTY_CENTS_VALUE <= change && 
+             copyCoins.coins[FIFTY_CENTS].count >= 1 && 
+             prevNum > FIFTY_CENTS_VALUE) {
+
         nextCoin = FIFTY_CENTS_VALUE;
     }
-    else if (TWENTY_CENTS_VALUE <= change && copyCoins.coins[TWENTY_CENTS].count >= 1 && prevNum > TWENTY_CENTS_VALUE) {
+    else if (TWENTY_CENTS_VALUE <= change && 
+             copyCoins.coins[TWENTY_CENTS].count >= 1 && 
+             prevNum > TWENTY_CENTS_VALUE) {
         nextCoin = TWENTY_CENTS_VALUE;
     }
-    else if (TEN_CENTS_VALUE <= change && copyCoins.coins[TEN_CENTS].count >= 1 && prevNum > TEN_CENTS_VALUE) {
+    else if (TEN_CENTS_VALUE <= change && 
+             copyCoins.coins[TEN_CENTS].count >= 1 && 
+             prevNum > TEN_CENTS_VALUE) {
+
         nextCoin = TEN_CENTS_VALUE;
     }
-    else if (FIVE_CENTS_VALUE <= change && copyCoins.coins[FIVE_CENTS].count >= 1 && prevNum > FIVE_CENTS_VALUE) {
+    else if (FIVE_CENTS_VALUE <= change && 
+             copyCoins.coins[FIVE_CENTS].count >= 1 && 
+             prevNum > FIVE_CENTS_VALUE) {
+                
         nextCoin = FIVE_CENTS_VALUE;
     }
     else {

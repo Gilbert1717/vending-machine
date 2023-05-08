@@ -1,4 +1,8 @@
 #include "CoinRegister.h"
+
+using std::string;
+
+
 CoinRegister::CoinRegister(){
     //Constructor
 }
@@ -65,14 +69,18 @@ void CoinRegister::resetCount(){
     std::cout << "Coins have been reset to the default level of "
         << DEFAULT_COIN_COUNT << std::endl;
 }
-CoinRegister::CoinRegister(std::vector<std::vector<std::string> > coinVectorList)
+CoinRegister::CoinRegister(std::vector<std::vector<string> > coinVectorList)
 {
     unsigned int vectorSize = coinVectorList.size();
     //Creates a temp vector full of integers
-    std::vector<std::vector<int> > tempIntVector(vectorSize , std::vector<int> (2, 0));
+    std::vector<std::vector<int> > tempIntVector
+        (vectorSize , std::vector<int> (2, 0));
+
     for(unsigned int j = 0; j < vectorSize; j++){
-        tempIntVector.at(j).at(0) = std::stoul (coinVectorList.at(j).at(0),nullptr,0);
-        tempIntVector.at(j).at(1) = std::stoul (coinVectorList.at(j).at(1),nullptr,0);
+        tempIntVector.at(j).at(0) = std::stoul 
+            (coinVectorList.at(j).at(0),nullptr,0);
+        tempIntVector.at(j).at(1) = std::stoul 
+            (coinVectorList.at(j).at(1),nullptr,0);
     }
     //Sorts Int Vector
     std::sort(tempIntVector.begin(), tempIntVector.end());

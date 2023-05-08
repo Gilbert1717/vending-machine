@@ -6,11 +6,13 @@ using std::string;
 
 
 void PurchaseHelp::printInfo(string name, string desc, Price price) {
-    cout << "You have selected \"" << name << " - " << desc << "\". This will cost you ";
+    cout << "You have selected \"" << name << " - " << desc 
+        << "\". This will cost you ";
     price.display();
     cout << endl;
 
-    cout << "Please hand over the money - type in the value of each note/coin in cents.\n" ;
+    cout << "Please hand over the money - ";
+    cout << "type in the value of each note/coin in cents.\n";
     cout << "Press enter or ctrl-d on a new line to cancel this purchase:\n";
     
 }
@@ -19,7 +21,8 @@ void PurchaseHelp::printInfo(string name, string desc, Price price) {
 void PurchaseHelp::requestRemainingPrint(int remaining) {
     double printDollars = (double)remaining / CENT_DOLLAR_CONVERSION;
 
-    cout << "You still need to give us $" << std::fixed << printDollars << ": ";
+    cout << "You still need to give us $" << std::fixed
+        << printDollars << ": ";
 
 }
 
@@ -42,7 +45,8 @@ bool PurchaseHelp::validateInputMoney(std::string input) {
                 cout << "Error: $" << std::fixed << 
                     (double)inputAmount / CENT_DOLLAR_CONVERSION;
                 cout << 
-                    " is not a valid denomination of money. Please try again." << endl;
+                    " is not a valid denomination of money. Please try again."
+                        << endl;
                 isValid = false;
 
             }
@@ -50,7 +54,8 @@ bool PurchaseHelp::validateInputMoney(std::string input) {
         }
         else {
             isValid = false;
-            cout << "Invalid, please enter price in cents ($1 = 100c)." << endl;
+            cout << "Invalid, please enter price in cents ($1 = 100c)."
+                << endl;
 
         }
 

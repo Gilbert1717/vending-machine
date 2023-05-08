@@ -63,7 +63,9 @@ void AddItem::addItem(LinkedList* stockList) {
 
         
             if (!cancel) {
-                cout << "This item \"" << stock->name << " - " << stock->description << "\" has now been added to the menu." << endl;
+                cout << "This item \"" << stock->name << " - " << 
+                    stock->description << "\" has now been added to the menu."
+                     << endl;
 
                 stockList->insertNode(stock);
             
