@@ -53,7 +53,17 @@ void AddItem::addItem(LinkedList* stockList) {
                     }
                     // Catches if covertPrice() throws an invalid_argument exception
                     catch (std::invalid_argument& e) {
-                        std::cerr << e.what() << endl;
+                        // Checks if std::invalid_argument exception was thrown by std::stoi function
+                        if ((string)e.what() == "stoi") {
+                            std::cerr << "Invalid" << endl;
+                        }
+                        else {
+                            std::cerr << e.what() << endl;
+                        }
+                    }
+                    catch (std::out_of_range& e) {
+                        std::cerr << "Invalid, entered amount too long." 
+                            << endl;
                     }
                 }
                 else {
@@ -148,22 +158,33 @@ std::vector<int> AddItem::convertPrice(string p) {
     
     /**
      * Adds dollars and cents to a vector
-     * Throws exception if not a number
+     * Throws exception if invalid
      */
-    int dollars = std::stoi(p.substr(0, index));
+    std::size_t dollarCheck;
+    string dollarStr = p.substr(0, index);
+    int dollars = std::stoi(dollarStr, &dollarCheck);
     string centStr = p.substr(index + 1);
     // If cent string is a single character(eg. 7), then we append '0' to it(7 becomes 70)
     if (centStr.length() < 2) {
         centStr = centStr.append("0");
     }
-    // If cent string has more than 2 characters(eg. 253), then we only take the first two values(253 becomes 25)
+    // If cent string has more than 2 characters, then we throw an exception for invalid price
     else if (centStr.length() > 2) {
-        centStr = centStr.substr(0, 2);
+        throw std::invalid_argument("Invalid, cent value must be max 2 digits");
     }
-    int cents = std::stoi(centStr);
-    
+    std::size_t centCheck;
+    int cents = std::stoi(centStr, &centCheck);
+    // Checks if dollars and cents input don't have invalid charcters
+    if (dollarCheck != dollarStr.length() || centCheck != centStr.length()) {
+        throw std::invalid_argument("Invalid");
+    }
     price.push_back(dollars);
     price.push_back(cents);
+
+    // Checks if dollars or cents are negative
+    if (price[0] < 0 || price[1] < 0) {
+        throw std::invalid_argument("Invalid, price must not have negative values");
+    }
 
     // Checks if cent values can be bought using allowed coins
     if (price[1] % 5 != 0) {
