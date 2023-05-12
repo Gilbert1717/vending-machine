@@ -46,8 +46,10 @@ int main(int argc, char **argv)
             // Add items from stock file to the linkedlist
             stockList->addStockToList(argv[1]);
 
-
+            // Load coins from coins file
             std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
+
+            // Stores coins in an array of coins
             CoinRegister* currentRegister = new CoinRegister(coins);
 
             Purchase* purchase = new Purchase(stockList, currentRegister);

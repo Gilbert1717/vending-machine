@@ -73,6 +73,7 @@ Price::Price(){
 
 };
 
+// Price constructor
 Price::Price(unsigned dollars, unsigned cents){
     if ((cents < 0) || (cents > 99)) {
         throw std::invalid_argument("cents cannot be larger than 99 or negative");

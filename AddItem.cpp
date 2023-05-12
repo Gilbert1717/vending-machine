@@ -26,7 +26,6 @@ void AddItem::addItem(LinkedList* stockList) {
     }
     else {
         cout << "Operation cancelled" << endl;
-
     }
  
 }
