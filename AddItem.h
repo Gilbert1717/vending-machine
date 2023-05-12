@@ -22,6 +22,25 @@ private:
     // Converts a price string to a vector with dollars and cents
     static std::vector<int> convertPrice(string p);
 
+    /**
+     * Validates and stores input name
+     * Returns false in cancelled
+    */ 
+    static bool inputName(Stock* stock);
+
+    /**
+     * Validates and stores input description
+     * Returns false if cancelled
+    */
+    static bool inputDesc(Stock* stock);
+
+    /**
+     * Validates and stores input price
+     * Returns true if cancelled
+    */
+    static bool inputPrice(Stock* stock);
+
+
 public:
     // Adds a new item to the stock
     static void addItem(LinkedList* stockList);

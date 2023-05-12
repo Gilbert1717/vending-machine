@@ -15,92 +15,20 @@ void AddItem::addItem(LinkedList* stockList) {
     stock->id = nextId;
     stock->on_hand = DEFAULT_STOCK_LEVEL;
     cout << "The id of the new stock will be: " << stock->id << endl;
-    
-    // Gets name of new item
-    cout << "Enter the item name: ";
-    std::getline(std::cin, input);
-    StripString::stripString(&input);
-    stock->name = input;
 
-    bool isCancelled = false;
-    
-    if (input != "") {
-        // Gets description of new item
-        cout << "Enter the item description: ";
-        std::getline(std::cin, input);
-        StripString::stripString(&input);
-        stock->description = input;
 
-        if (input != "") {
-            // Gets price of new item
-            bool valid = false;
-            bool cancel = false;
-            while (!cancel && !valid) {
-                cout << "Enter the price for the item: ";
-                std::getline(std::cin, input);
-                StripString::stripString(&input);
-
-                if (input != "") {
-                    // Checks if enterd value is valid and adds to stock
-                    try {
-                        std::vector<int> price = convertPrice(input);
-
-                        stock->price.dollars = price[0];
-                        stock->price.cents = price[1];
-
-                        valid = true;
-                        
-                    }
-                    // Catches if covertPrice() throws an invalid_argument exception
-                    catch (std::invalid_argument& e) {
-                        // Checks if std::invalid_argument exception was thrown by std::stoi function
-                        if ((string)e.what() == "stoi") {
-                            std::cerr << "Invalid" << endl;
-                        }
-                        else {
-                            std::cerr << e.what() << endl;
-                        }
-                    }
-                    catch (std::out_of_range& e) {
-                        std::cerr << "Invalid, entered amount too long." 
-                            << endl;
-                    }
-                }
-                else {
-                    cancel = true;
-                }
-            }
-
+    if (inputName(stock) && inputDesc(stock) && !inputPrice(stock)) {
+        cout << "This item \"" << stock->name << " - " << 
+            stock->description << "\" has now been added to the menu."
+            << endl;
         
-            if (!cancel) {
-                cout << "This item \"" << stock->name << " - " << 
-                    stock->description << "\" has now been added to the menu."
-                     << endl;
-
-                stockList->insertNode(stock);
-            
-            }
-            else {
-                isCancelled = true;
-                
-            }
-
-        }
-        else {
-            isCancelled = true;
-
-        }
+        stockList->insertNode(stock);
     }
     else {
-        isCancelled = true;
-
-    }
-
-    if (isCancelled) {
         cout << "Operation cancelled" << endl;
 
     }
-
+ 
 }
 
 std::string AddItem::getNextId(LinkedList* stockList) {
@@ -193,4 +121,88 @@ std::vector<int> AddItem::convertPrice(string p) {
 
     return price;
 
+}
+
+bool AddItem::inputName(Stock* stock) {
+    // Gets name of new item
+    bool notCancel = true;
+    string input;
+    cout << "Enter the item name: ";
+    std::getline(std::cin, input);
+    StripString::stripString(&input);
+    if (!std::cin.eof() && input != "")
+        stock->name = input;
+    else {
+        notCancel = false;
+    }
+
+    return notCancel;
+
+
+}
+
+bool AddItem::inputDesc(Stock* stock) {
+    bool notCancel = true;
+    string input;
+    cout << "Enter the item description: ";
+    std::getline(std::cin, input);
+    StripString::stripString(&input);
+    if (!std::cin.eof() && input != "")
+        stock->description = input;
+    else {
+        notCancel = false;
+    }
+
+    return notCancel;
+}
+
+bool AddItem::inputPrice(Stock* stock) {
+    string input;
+    bool valid = false;
+    bool cancel = false;
+    while (!cancel && !valid) {
+        cout << "Enter the price for the item: ";
+        std::getline(std::cin, input);
+        StripString::stripString(&input);
+
+        if (!std::cin.eof() && input != "") {
+            // Checks if enterd value is valid and adds to stock
+            try {
+                std::vector<int> price = convertPrice(input);
+
+                stock->price.dollars = price[0];
+                stock->price.cents = price[1];
+
+                valid = true;
+                
+            }
+            // Catches if covertPrice() throws an invalid_argument exception
+            catch (std::invalid_argument& e) {
+                // Checks if std::invalid_argument exception was thrown by std::stoi function
+                if ((string)e.what() == "stoi") {
+                    std::cerr << "Invalid" << endl;
+                }
+                else {
+                    std::cerr << e.what() << endl;
+                }
+            }
+            catch (std::out_of_range& e) {
+                std::cerr << "Invalid, entered amount too long." 
+                    << endl;
+            }
+        }
+        else {
+            cancel = true;
+        }
+    }
+
+    return cancel;
+
+
+    /*if (!cancel) {
+        cout << "This item \"" << stock->name << " - " << 
+            stock->description << "\" has now been added to the menu."
+                << endl;
+   
+    }*/
 }
