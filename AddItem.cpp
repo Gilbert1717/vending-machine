@@ -98,7 +98,6 @@ void AddItem::addItem(LinkedList* stockList) {
 
     if (isCancelled) {
         cout << "Operation cancelled" << endl;
-
     }
 
 }

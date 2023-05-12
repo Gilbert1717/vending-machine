@@ -20,7 +20,7 @@ LinkedList::~LinkedList() {
     //head = nullptr;
 }
 
-
+// inserting stock function
 void LinkedList::insertNode(Stock* stock){
     Node* newNode = new Node(stock);
     // insert to head if the linked list is empty
@@ -80,6 +80,7 @@ void LinkedList::insertNode(Stock* stock){
 }
 
 
+// compare two strings, return true if the first string is larger than the second
 bool LinkedList::compareName(string currName, string insertName){
     /*initialise string and convert them to lowercase, so that compare
     them will be case-insensitive*/ 
@@ -96,6 +97,7 @@ bool LinkedList::compareName(string currName, string insertName){
     return result;
 }
 
+// delete stock function
 void LinkedList::deleteNode(Node* node){
     // Print error message if the linked list is empty
     if (this->head == NULL) {
@@ -123,6 +125,7 @@ void LinkedList::deleteNode(Node* node){
             while (notFound && curr->next != NULL){
                 pre = curr;
                 curr = curr->next;
+                // delete node
                 if (curr == node) {
                     pre->next = curr->next;
                     std::cout << "\"" << curr->data->id << " - " << 
@@ -266,7 +269,7 @@ void LinkedList::outputStockFile(string path){
     stock.close();
 }
 
-
+// Function that add paddings to a string
 string LinkedList::padding(string s, int length, char filler){
     string result = s.append(length - s.length(), filler);
     return result;
