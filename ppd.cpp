@@ -12,7 +12,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-// Option defines
+// Option definitions to avoid magic numbers
 #define DISPLAY_ITEMS_OPTION "1"
 #define PURCHASE_ITEMS_OPTION "2"
 #define SAVE_EXIT_OPTION "3"
@@ -119,6 +119,7 @@ int main(int argc, char **argv)
     return EXIT_SUCCESS;
 }
 
+// Prints the user menu
 void printMenu() {
     cout << "Main Menu:" << endl;
     cout << "    1.Display Items" << endl;
@@ -134,12 +135,14 @@ void printMenu() {
     
 }
 
+// Removes an item from the given stocklist
 void removeItem(LinkedList* stockList) {
     cout << "Enter the item id of the item to remove from the menu: ";
     string item_ID;
     std::getline(std::cin, item_ID);
     StripString::stripString(&item_ID);
 
+    // Checking if user cancels the operation or not
     if (!std::cin.eof() && item_ID != "") {
         Node* item = stockList->searchByID(item_ID);
         if (item != NULL) {
@@ -152,6 +155,7 @@ void removeItem(LinkedList* stockList) {
 
 }
 
+// Checking if the path exists
 bool pathValidation(int argc, char **argv) {
     struct stat sb;
     bool valid_path = true;

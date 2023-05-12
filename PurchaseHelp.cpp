@@ -6,6 +6,7 @@ using std::string;
 
 
 void PurchaseHelp::printInfo(string name, string desc, Price price) {
+    // Prints information about the selected item
     cout << "You have selected \"" << name << " - " << desc 
         << "\". This will cost you ";
     price.display();
@@ -19,6 +20,7 @@ void PurchaseHelp::printInfo(string name, string desc, Price price) {
 
 
 void PurchaseHelp::requestRemainingPrint(int remaining) {
+    // Prints how much money the user still has to pay
     double printDollars = (double)remaining / CENT_DOLLAR_CONVERSION;
 
     cout << "You still need to give us $" << std::fixed
@@ -28,6 +30,7 @@ void PurchaseHelp::requestRemainingPrint(int remaining) {
 
 
 bool PurchaseHelp::validateInputMoney(std::string input) {
+    // Checks if money input is valid
     bool isValid = true;
 
     int inputAmount;
