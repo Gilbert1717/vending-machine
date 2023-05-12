@@ -30,8 +30,6 @@ public:
     //Methods
     //Prints out the coins in the register
     void display();
-    //Returns Change hopefully
-    void change();
     //Resets the count of coins
     void resetCount();
 
