@@ -79,8 +79,8 @@ std::vector<int> AddItem::convertPrice(string p) {
     
     // Checks if input has a decimal point
     if (index == string::npos) {
-        throw std::invalid_argument("Invalid, please enter price in dollars and cents seperated by '.'");
-
+        throw std::invalid_argument
+            ("Invalid, please enter price in dollars and cents seperated by '.'");
     }
     
     /**
@@ -110,12 +110,14 @@ std::vector<int> AddItem::convertPrice(string p) {
 
     // Checks if dollars or cents are negative
     if (price[0] < 0 || price[1] < 0) {
-        throw std::invalid_argument("Invalid, price must not have negative values");
+        throw std::invalid_argument
+            ("Invalid, price must not have negative values");
     }
 
     // Checks if cent values can be bought using allowed coins
     if (price[1] % 5 != 0) {
-        throw std::invalid_argument("Invalid, cent value should be a multiple of 5 (eg. 2.25, 2.30)");
+        throw std::invalid_argument
+            ("Invalid, cent value should be a multiple of 5 (eg. 2.25, 2.30)");
     }
 
     return price;

@@ -85,6 +85,4 @@ void LoadFiles::print(std::vector <string> const &a) {
 
 
 
-// void LoadFiles::writecoinFile(){
 
-// }

@@ -32,7 +32,8 @@ void LinkedList::insertNode(Stock* stock){
     else {
         // ID validation (if the ID is existing in the list)
         if (searchByID(stock->id) != NULL) {
-            throw std::invalid_argument("The ID of this stock is existing in the list");
+            throw std::invalid_argument
+                ("The ID of this stock is existing in the list");
         }
         Node* curr = head;
         /* if the stock name is smaller than the head of the linked list, insert

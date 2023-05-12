@@ -11,6 +11,7 @@
 using std::cout;
 using std::endl;
 using std::string;
+using std::vector;
 
 // Option definitions to avoid magic numbers
 #define DISPLAY_ITEMS_OPTION "1"
@@ -47,7 +48,7 @@ int main(int argc, char **argv)
             stockList->addStockToList(argv[1]);
 
             // Load coins from coins file
-            std::vector<std::vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
+            vector<vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
 
             // Stores coins in an array of coins
             CoinRegister* currentRegister = new CoinRegister(coins);
