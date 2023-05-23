@@ -14,10 +14,10 @@ LinkedList::~LinkedList() {
         tmp = curr;
         curr = curr->next;
         delete tmp;
+        tmp = nullptr;
     }
     delete curr;
-    //delete this->head;
-    //head = nullptr;
+    curr = nullptr;
 }
 
 // inserting stock function
@@ -260,9 +260,9 @@ vector<string> LinkedList::exportStockListString(){
 
 
 // Write stock list into file and store in the target path
-void LinkedList::outputStockFile(string path){
+void LinkedList::outputStockFile(){
     std::ofstream stock;
-    stock.open (path);
+    stock.open (this->path);
     std::vector<std::string> stockOutput = exportStockListString();
     for (unsigned i = 0; i<stockOutput.size(); i++){
         stock << stockOutput.at(i) <<std::endl;   

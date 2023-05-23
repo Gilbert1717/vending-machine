@@ -1,6 +1,5 @@
 #include "CoinRegister.h"
 
-using std::string;
 
 
 CoinRegister::CoinRegister(){
@@ -67,8 +66,9 @@ void CoinRegister::resetCount(){
     std::cout << "Coins have been reset to the default level of "
         << DEFAULT_COIN_COUNT << std::endl;
 }
-CoinRegister::CoinRegister(std::vector<std::vector<string> > coinVectorList)
+CoinRegister::CoinRegister(vector<vector<string> > coinVectorList, string path)
 {
+    this->path = path;
     unsigned int vectorSize = coinVectorList.size();
     //Creates a temp vector full of integers
     std::vector<std::vector<int> > tempIntVector
@@ -122,9 +122,9 @@ CoinRegister::CoinRegister(std::vector<std::vector<string> > coinVectorList)
     }
 }
 
-void CoinRegister::storeInFile(std::string path) {
+void CoinRegister::storeInFile() {
     std::ofstream coins;
-    coins.open(path);
+    coins.open(this->path);
     for (int i = TEN_DOLLARS; i >= FIVE_CENTS; i--) {
         if (this->coins[i].denom == TEN_DOLLARS) {
             coins << TEN_DOLLAR_VALUE << ",";

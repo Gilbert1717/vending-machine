@@ -23,12 +23,14 @@ using std::vector;
 #define RESET_STOCK_OPTION "7"
 #define RESET_COINS_OPTION "8"
 #define ABORT_PROGRAM_OPTION "9"
+#define ENHANCEFLAG "-e"
 
 
 // Funcution declarations
 void printMenu();
 void removeItem(LinkedList* stockList);
-bool pathValidation(int argc, char **argv);
+bool pathValidation(int argc, const char* argv1, const char* argv2);
+void executingMenu(Purchase* purchase, bool enhance);
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -36,88 +38,52 @@ bool pathValidation(int argc, char **argv);
  * Make sure free memory and close all files before exiting the program.
  **/
 int main(int argc, char **argv)
-{
- 
+{   
+    bool enhance = false;
     // Structure which would store the metadata
-    bool validatePath = pathValidation(argc, argv);
-    if (argc == 3 && validatePath) {
-        
-        try {
-            LinkedList* stockList = new LinkedList();
-            // Add items from stock file to the linkedlist
-            stockList->addStockToList(argv[1]);
-
+    LinkedList* stockList = new LinkedList();
+    // Add items from stock file to the linkedlist
+    Purchase* purchase = new Purchase();
+    if (argc == 4) {
+        if (strcmp(argv[1], ENHANCEFLAG) == 0 && 
+            pathValidation(argc, argv[2], argv[3])) {
+            stockList->addStockToList(argv[2]);
+            stockList->path = argv[2];
             // Load coins from coins file
+            vector<vector<string> > coins = LoadFiles::readCoinFile(argv[3]);
+            CoinRegister* currentRegister = new CoinRegister(coins,argv[3]);
+            purchase->stocklist = stockList;
+            purchase->coinRegister = currentRegister;
+            enhance = true;
+        }
+        else {
+            std::cerr << "invalid excuting command" << endl;
+        }
+    }
+    
+    if (argc == 3) {
+        if (pathValidation(argc, argv[1], argv[2])) {
+            stockList->addStockToList(argv[1]);
+            // Load coins from coins file
+            stockList->path = argv[1];
             vector<vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
-
-            // Stores coins in an array of coins
-            CoinRegister* currentRegister = new CoinRegister(coins);
-
-            Purchase* purchase = new Purchase(stockList, currentRegister);
-        
-            
-            bool running = true;
-            while (running) {
-                printMenu();
-
-                cout << "Select your option (1-9): ";
-                
-                string option;
-                std::getline(std::cin, option);
-                StripString::stripString(&option);
-
-                if (std::cin.eof() || option == ABORT_PROGRAM_OPTION) {
-                    running = false;
-                }
-                else if (option == DISPLAY_ITEMS_OPTION) {
-                    stockList->printList();
-                }
-                else if (option == PURCHASE_ITEMS_OPTION) {
-                    purchase->purchaseMenu();
-                }
-                else if (option == SAVE_EXIT_OPTION) {
-                    stockList->outputStockFile(argv[1]);
-                    currentRegister->storeInFile(argv[2]);
-                    running = false;
-                }
-                else if (option == ADD_ITEM_OPTION) {
-                    AddItem::addItem(stockList);
-                }
-                else if (option == REMOVE_ITEM_OPTION) {
-                    removeItem(stockList);
-                }
-                else if (option == DISPLAY_COINS_OPTION) {
-                    currentRegister->display();
-                }
-                else if (option == RESET_STOCK_OPTION) {
-                    stockList->resetStock();
-                }
-                else if (option == RESET_COINS_OPTION) {
-                    currentRegister->resetCount();
-                }
-                else {
-                    cout << "Invalid" << endl;
-                }
-
-                cout << endl;
-
-            }
-        
-            delete purchase;
-            purchase = nullptr;
-            delete stockList;
-            stockList = nullptr;
-            delete currentRegister;
-            currentRegister = nullptr;
+            CoinRegister* currentRegister = new CoinRegister(coins,argv[2]);
+            purchase->stocklist = stockList;
+            purchase->coinRegister = currentRegister;
         }
-        catch (std::invalid_argument& e) {
-            std::cerr << e.what() << endl;
+        else {
+            std::cerr << "invalid excuting command" << endl;
         }
     }
-    else {
-        std::cout << "invalid excuting command" << std::endl;
-        
+
+    
+    try {
+        executingMenu(purchase, enhance);
+        }
+    catch (std::invalid_argument& e) {
+        std::cerr << e.what() << endl;
     }
+    
     
     return EXIT_SUCCESS;
 }
@@ -159,19 +125,67 @@ void removeItem(LinkedList* stockList) {
 }
 
 // Checking if the path exists
-bool pathValidation(int argc, char **argv) {
+bool pathValidation(int argc, const char* argv1, const char* argv2) {
     struct stat sb;
     bool valid_path = true;
-   
-    for (int i =0; i < argc; i++) {
-        const char* path = argv[i];
-        // If the file/directory exists stat(path, &sb) returns 0
-        // first condition:the file/directory does not exists
-        // second condition:If the path is a directory
-        if (stat(path, &sb) != 0 || (sb.st_mode & S_IFDIR)){
-            valid_path = false;
-        }
+    // If the file/directory exists stat(path, &sb) returns 0
+    // first condition:the file/directory does not exists
+    // second condition:If the path is a directory
+    if (stat(argv1, &sb) != 0 || (sb.st_mode & S_IFDIR) ||
+        stat(argv2, &sb) != 0 || (sb.st_mode & S_IFDIR)){
+        valid_path = false;
     }
     return valid_path;
 }
 
+
+void executingMenu(Purchase* purchase, bool enhance) {
+    // Stores coins in an array of coins
+    
+
+    bool running = true;
+    while (running) {
+        printMenu();
+        cout << "Select your option (1-9): ";
+        string option;
+        std::getline(std::cin, option);
+        StripString::stripString(&option);
+
+        if (std::cin.eof() || option == ABORT_PROGRAM_OPTION) {
+            running = false;
+        }
+        else if (option == DISPLAY_ITEMS_OPTION) {
+            purchase->stocklist->printList();
+        }
+        else if (option == PURCHASE_ITEMS_OPTION) {
+            purchase->purchaseMenu(enhance);
+        }
+        else if (option == SAVE_EXIT_OPTION) {
+            purchase->stocklist->outputStockFile();
+            purchase->coinRegister->storeInFile();
+            running = false;
+        }
+        else if (option == ADD_ITEM_OPTION) {
+            AddItem::addItem(purchase->stocklist);
+        }
+        else if (option == REMOVE_ITEM_OPTION) {
+            removeItem(purchase->stocklist);
+        }
+        else if (option == DISPLAY_COINS_OPTION) {
+            purchase->coinRegister->display();
+        }
+        else if (option == RESET_STOCK_OPTION) {
+            purchase->stocklist->resetStock();
+        }
+        else if (option == RESET_COINS_OPTION) {
+            purchase->coinRegister->resetCount();
+        }
+        else {
+            cout << "Invalid" << endl;
+        }
+
+        cout << endl;
+    }
+    delete purchase;
+    purchase = nullptr;
+}

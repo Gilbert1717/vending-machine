@@ -15,10 +15,13 @@ Purchase::Purchase(LinkedList* stocklist, CoinRegister* coinRegister) {
 }
 
 Purchase::~Purchase() {
-    //delete stocklist;
+    delete this->stocklist;
+    this->stocklist = nullptr;
+    delete this->coinRegister;
+    this->coinRegister = nullptr;
 }
 
-void Purchase::purchaseMenu() {
+void Purchase::purchaseMenu(bool enhance) {
     cout << "Purchase Item" << endl;
     cout << "-------------" << endl;
 
@@ -31,7 +34,7 @@ void Purchase::purchaseMenu() {
     if (!std::cin.eof() && inputId != "") {
         if (verifyID(inputId)) {
             if (this->stocklist->searchByID(inputId)->data->on_hand != 0) {
-                startPurchase(inputId);
+                startPurchase(inputId, enhance);
 
             } 
             else {
@@ -71,7 +74,7 @@ bool Purchase::verifyID(string inputID) {
 
 }
 
-void Purchase::startPurchase(string id) {
+void Purchase::startPurchase(string id, bool enhance) {
     // Gets data of item to be purchased
     string name = this->stocklist->searchByID(id)->data->name;
     string desc = this->stocklist->searchByID(id)->data->description;
@@ -95,7 +98,7 @@ void Purchase::startPurchase(string id) {
     bool paying = true;
     while (paying) {
 
-        PurchaseHelp::requestRemainingPrint(remaining);
+        PurchaseHelp::requestRemainingPrint(remaining, enhance);
         std::getline(std::cin, input);
         StripString::stripString(&input);
 

@@ -17,7 +17,7 @@ private:
     bool verifyID(std:: string inputId);
 
     // Promts user to pay for their item and updates system accordingly
-    void startPurchase(std::string id);
+    void startPurchase(std::string id, bool enhance);
 
     // Calculate which coins and how many of each need to be returned as change
     std::vector<int> calculateChange(int change,
@@ -41,8 +41,7 @@ private:
     // Gets next possible value to try for change
     int nextChange(int change, CoinRegister copyCoins, int prevNum);
 
-    LinkedList* stocklist;
-    CoinRegister* coinRegister;
+   
 
 public:
     Purchase();
@@ -52,7 +51,9 @@ public:
     Purchase(LinkedList* stocklist, CoinRegister* coinRegister);  
 
     // Shows the purchase menu and accepts user inputs
-    void purchaseMenu();
+    void purchaseMenu(bool enhance);
+    LinkedList* stocklist;
+    CoinRegister* coinRegister;
 
 };
 

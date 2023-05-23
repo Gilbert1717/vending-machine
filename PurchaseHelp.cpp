@@ -1,5 +1,6 @@
 #include "PurchaseHelp.h"
 
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -19,12 +20,19 @@ void PurchaseHelp::printInfo(string name, string desc, Price price) {
 }
 
 
-void PurchaseHelp::requestRemainingPrint(int remaining) {
+void PurchaseHelp::requestRemainingPrint(int remaining, bool enhance) {
     // Prints how much money the user still has to pay
     double printDollars = (double)remaining / CENT_DOLLAR_CONVERSION;
-
-    cout << "You still need to give us $" << std::fixed
+    if (enhance == true) {
+        cout << "You still need to give us $" << ESC << TXT_COLOUR
+        << std::fixed << printDollars << RESET << ": ";
+        
+    }
+    else {
+        cout << "You still need to give us $" << std::fixed
         << printDollars << ": ";
+    }
+   
 
 }
 
