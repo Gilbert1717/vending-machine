@@ -6,6 +6,7 @@ using std::vector;
 CategoryLL::CategoryLL(){
     this->head = nullptr;
     this->tail = nullptr;
+    this->count = 0;
 }
 
 CategoryLL::~CategoryLL(){
@@ -25,6 +26,7 @@ CategoryLL::CategoryLL(string path){
     this->head = nullptr;
     this->tail = nullptr;
     this->path = path;
+    this->count = 0;
 }
 
 CategoryNode* CategoryLL::searchByCat(string category){
@@ -32,12 +34,12 @@ CategoryNode* CategoryLL::searchByCat(string category){
 
     // Loop through the whole list
     if (this->head != NULL){
-        CategoryNode* curr = head;
-        while(curr != NULL){
-            if (curr->category == category) {
-                result = curr;
+        CategoryNode* curr = this->head;
+        for (unsigned i = 0; i < this->count; i++) {
+        if (curr->category == category) {
+            result = curr;
             }
-            curr = curr->next;
+        curr = curr->next;
         }
     }  
     return result;
@@ -63,6 +65,7 @@ bool CategoryLL::insertNode(CategoryNode* newNode){
             this->tail->next = newNode;
             this->tail = newNode;
         }
+        count ++;
     }
     return success;
 }

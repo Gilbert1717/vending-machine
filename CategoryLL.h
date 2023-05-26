@@ -37,6 +37,7 @@ public:
 private:
     CategoryNode* head;
     CategoryNode* tail;
+    unsigned count;
 };
 
 
