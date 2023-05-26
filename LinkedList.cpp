@@ -153,41 +153,6 @@ Node* LinkedList::searchByID(std::string ID){
     return result;
 }
 
-// Load the file from the path and add all items into stock list
-// void LinkedList::addStockToList(string path){
-//     vector<vector<string>> stockList = LoadFiles::readStockFile(path); 
-    
-//     // enhanced for loop to iterate all items in stock list
-//     for (std::vector<std::string> item : stockList) { 
-
-//         // covert the attributes to the desired variable type
-//         std::vector<std::string> itemPrice = LoadFiles::split(item.at(3),".");
-
-//         // price validation
-//         if (itemPrice.size() != 2) {
-//             throw std::invalid_argument( "Invalid price." );
-//         }
-
-//         unsigned long dollars;
-//         unsigned long cents;
-//         unsigned long on_hand;
-//         // try to convert strings to numbers, if any of the value is invalid, throw
-//         // an invalid_argument error
-//         try {
-//             dollars = std::stoul (itemPrice.at(0),nullptr,0);
-//             cents = std::stoul (itemPrice.at(1),nullptr,0);
-//             on_hand = std::stoul (item.at(4),nullptr,0);
-//         }
-//         catch (std::invalid_argument& e) {
-//             throw std::invalid_argument("Wrong attribute value");
-//         }
-
-//         // Create stock and store them into linked list
-//         Stock* stock = new Stock(item.at(0),item.at(1),item.at(2),
-//                     Price(dollars,cents),on_hand);
-//         insertNode(stock);
-//     }
-// }
 
 // reset stock list to the default stock level
 void LinkedList::resetStock(){

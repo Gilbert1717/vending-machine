@@ -10,7 +10,7 @@ CategoryLL::CategoryLL(){
 
 CategoryLL::~CategoryLL(){
     CategoryNode* curr = this->head;
-    CategoryNode* tmp;
+    CategoryNode* tmp = nullptr;
     while (curr != NULL) {
         tmp = curr;
         curr = curr->next;
@@ -28,7 +28,7 @@ CategoryLL::CategoryLL(string path){
 }
 
 CategoryNode* CategoryLL::searchByCat(string category){
-    CategoryNode* result = NULL;
+    CategoryNode* result = nullptr;
 
     // Loop through the whole list
     if (this->head != NULL){
