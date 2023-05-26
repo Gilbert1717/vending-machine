@@ -35,7 +35,7 @@ CategoryNode* CategoryLL::searchByCat(string category){
     // Loop through the whole list
     if (this->head != NULL){
         CategoryNode* curr = this->head;
-        for (unsigned i = 0; i < this->count; i++) {
+        for (unsigned i = 0; i < this->count - 1; i++) {
         if (curr->category == category) {
             result = curr;
             }
@@ -61,9 +61,17 @@ bool CategoryLL::insertNode(CategoryNode* newNode){
         }
 
         else {
-            newNode->prev = this->tail;
-            this->tail->next = newNode;
-            this->tail = newNode;
+            newNode->next = this->head;
+
+            // point prev to NULL
+            newNode->prev = NULL;
+
+            // point previous of the first node (now first node is the second node) to newNode
+            if (head != NULL)
+                head->prev = newNode;
+
+            // head points to newNode
+            head = newNode;
         }
         count ++;
     }
@@ -88,7 +96,7 @@ void CategoryLL::insertStock(Stock* stock){
     }
 
     else {
-        
+
         stockList->data->insertNode(stock);
     }
 }
