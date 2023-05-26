@@ -2,7 +2,7 @@
 #define LINKEDLIST_H
 #include "Node.h"
 #include "LoadFiles.h"
-#include <algorithm>
+// #include <algorithm>
 using std::string;
 
 
