@@ -11,7 +11,7 @@ LinkedList::LinkedList() {
 
 LinkedList::~LinkedList() {
     Node* curr = this->head;
-    Node* tmp = nullptr;
+    Node* tmp;
     while (curr != NULL) {
         tmp = curr;
         curr = curr->next;

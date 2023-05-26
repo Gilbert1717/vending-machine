@@ -10,7 +10,7 @@ CategoryLL::CategoryLL(){
 
 CategoryLL::~CategoryLL(){
     CategoryNode* curr = this->head;
-    CategoryNode* tmp = nullptr;
+    CategoryNode* tmp;
     while (curr != NULL) {
         tmp = curr;
         curr = curr->next;
