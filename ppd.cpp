@@ -4,7 +4,7 @@
 #include "Purchase.h"
 #include "CoinRegister.h"
 #include "AddItem.h"
-// #include <cstring>
+#include <cstring>
 #include <sys/stat.h>
 // Strip string code borrowed from Vidyut's assignment 1 code
 #include "StripString.h"
