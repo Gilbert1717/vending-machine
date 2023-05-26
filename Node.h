@@ -58,12 +58,14 @@ public:
     
     //the price of this item
     Price price;
+
+    std::string category;
     
     // how many of this item do we have on hand? 
     unsigned on_hand;    
     Stock();
     Stock(std::string id, std::string name, std::string description, 
-        Price price, unsigned on_hand);
+        Price price, unsigned on_hand, std::string category);
     std::string convertStockToString();
     ~Stock();
 };

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "LinkedList.h"
+#include "CategoryLL.h"
 #include "LoadFiles.h"
 #include "Purchase.h"
 #include "CoinRegister.h"
@@ -30,7 +30,8 @@ using std::vector;
 void printMenu();
 void removeItem(LinkedList* stockList);
 bool pathValidation(int argc, const char* argv1, const char* argv2);
-void executingMenu(Purchase* purchase, bool enhance);
+void executingMenu(CategoryLL* itemList, Purchase* purchase, bool enhance);
+LinkedList* categorySelection(CategoryLL* itemList);
 
 /**
  * manages the running of the program, initialises data structures, loads
@@ -40,35 +41,35 @@ void executingMenu(Purchase* purchase, bool enhance);
 int main(int argc, char **argv)
 {   
     bool enhance = false;
-    // Structure which would store the metadata
-    LinkedList* stockList = new LinkedList();
+    CategoryLL* itemList = new CategoryLL();
+    
     // Add items from stock file to the linkedlist
     Purchase* purchase = new Purchase();
-    if (argc == 4) {
-        if (strcmp(argv[1], ENHANCEFLAG) == 0 && 
-            pathValidation(argc, argv[2], argv[3])) {
-            stockList->addStockToList(argv[2]);
-            stockList->path = argv[2];
-            // Load coins from coins file
-            vector<vector<string> > coins = LoadFiles::readCoinFile(argv[3]);
-            CoinRegister* currentRegister = new CoinRegister(coins,argv[3]);
-            purchase->stocklist = stockList;
-            purchase->coinRegister = currentRegister;
-            enhance = true;
-        }
-        else {
-            std::cerr << "invalid excuting command" << endl;
-        }
-    }
+    // if (argc == 4) {
+    //     if (strcmp(argv[1], ENHANCEFLAG) == 0 && 
+    //         pathValidation(argc, argv[2], argv[3])) {
+    //         itemList->addStockToList(argv[2]);
+    //         itemList->path = argv[2];
+    //         // Load coins from coins file
+    //         vector<vector<string> > coins = LoadFiles::readCoinFile(argv[3]);
+    //         // CoinRegister* currentRegister = new CoinRegister(coins,argv[3]);
+    //         // purchase->itemList = itemList;
+    //         // purchase->coinRegister = currentRegister;
+    //         // enhance = true;
+    //     }
+    //     else {
+    //         std::cerr << "invalid excuting command" << endl;
+    //     }
+    // }
     
     if (argc == 3) {
         if (pathValidation(argc, argv[1], argv[2])) {
-            stockList->addStockToList(argv[1]);
+            itemList->addStockToList(argv[1]);
             // Load coins from coins file
-            stockList->path = argv[1];
+            itemList->path = argv[1];
             vector<vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
             CoinRegister* currentRegister = new CoinRegister(coins,argv[2]);
-            purchase->stocklist = stockList;
+            // purchase->itemList = itemList;
             purchase->coinRegister = currentRegister;
         }
         else {
@@ -78,13 +79,14 @@ int main(int argc, char **argv)
 
     
     try {
-        executingMenu(purchase, enhance);
+        executingMenu(itemList, purchase, enhance);
         }
     catch (std::invalid_argument& e) {
         std::cerr << e.what() << endl;
     }
     
-    
+    delete itemList;
+    itemList = nullptr;
     return EXIT_SUCCESS;
 }
 
@@ -122,6 +124,29 @@ void removeItem(LinkedList* stockList) {
 
 }
 
+LinkedList* categorySelection(CategoryLL* itemList) {
+    LinkedList* stockList = nullptr;
+    cout << "Purchase Item" << endl;
+    cout << "-------------" << endl;
+
+    // Gets user input
+    cout << "Please select the item category: ";
+    string inputCate;
+    std::getline(std::cin, inputCate);
+    StripString::stripString(&inputCate);
+
+    if (!std::cin.eof() && inputCate != "") {
+        CategoryNode* node = itemList->searchByCat(inputCate);
+        if (node != NULL) {
+            stockList = node->data;
+        }
+        else {
+            cout << "Invalid Category" << endl;
+        } 
+    }
+    return stockList;
+}
+
 // Checking if the path exists
 bool pathValidation(int argc, const char* argv1, const char* argv2) {
     struct stat sb;
@@ -137,7 +162,7 @@ bool pathValidation(int argc, const char* argv1, const char* argv2) {
 }
 
 
-void executingMenu(Purchase* purchase, bool enhance) {
+void executingMenu(CategoryLL* itemList, Purchase* purchase, bool enhance) {
     bool running = true;
     while (running) {
         printMenu();
@@ -150,27 +175,33 @@ void executingMenu(Purchase* purchase, bool enhance) {
             running = false;
         }
         else if (option == DISPLAY_ITEMS_OPTION) {
-            purchase->stocklist->printList();
+            itemList->printList();
         }
         else if (option == PURCHASE_ITEMS_OPTION) {
-            purchase->purchaseMenu(enhance);
+            purchase->stocklist = categorySelection(itemList);
+            if (purchase->stocklist != nullptr) {
+                purchase->purchaseMenu(enhance);
+            }
         }
         else if (option == SAVE_EXIT_OPTION) {
-            purchase->stocklist->outputStockFile();
+            itemList->outputStockFile();
             purchase->coinRegister->storeInFile();
             running = false;
         }
         else if (option == ADD_ITEM_OPTION) {
-            AddItem::addItem(purchase->stocklist);
+            AddItem::addItem(itemList);
         }
         else if (option == REMOVE_ITEM_OPTION) {
-            removeItem(purchase->stocklist);
+            purchase->stocklist = categorySelection(itemList);
+            if (purchase->stocklist != nullptr) {
+                removeItem(purchase->stocklist);
+            }
         }
         else if (option == DISPLAY_COINS_OPTION) {
             purchase->coinRegister->display();
         }
         else if (option == RESET_STOCK_OPTION) {
-            purchase->stocklist->resetStock();
+            itemList->resetStock();
         }
         else if (option == RESET_COINS_OPTION) {
             purchase->coinRegister->resetCount();

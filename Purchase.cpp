@@ -15,8 +15,6 @@ Purchase::Purchase(LinkedList* stocklist, CoinRegister* coinRegister) {
 }
 
 Purchase::~Purchase() {
-    delete this->stocklist;
-    this->stocklist = nullptr;
     delete this->coinRegister;
     this->coinRegister = nullptr;
 }

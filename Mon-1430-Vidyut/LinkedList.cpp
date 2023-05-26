@@ -147,7 +147,7 @@ void LinkedList::deleteNode(Node* node){
 
 //Search node base on item ID and return the pointer of this node 
 Node* LinkedList::searchByID(std::string ID){
-    Node* result = nullptr;
+    Node* result = NULL;
 
     // When list is empty
     if (count == 0) {
@@ -162,9 +162,6 @@ Node* LinkedList::searchByID(std::string ID){
                 result = curr;
             }
             curr = curr->next;
-        }
-        if (result == nullptr) {
-            //std::cout << "The item does not exist in the list.";  
         }
     }  
     return result;

@@ -1,7 +1,7 @@
 #ifndef ADD_ITEM_H
 #define ADD_ITEM_H
 
-#include "LinkedList.h"
+#include "CategoryLL.h"
 #include "StripString.h"
 #include <iostream>
 #include <vector>
@@ -14,7 +14,7 @@ class AddItem
 {
 private:
     // Gets the next valid id in the stock list
-    static std::string getNextId(LinkedList* stockList);
+    static std::string getNextId(CategoryLL* itemList);
 
     // Converts a int into an valid id
     static std::string intToIdString(int num);
@@ -40,10 +40,16 @@ private:
     */
     static bool inputPrice(Stock* stock);
 
+    /**
+     * Validates and stores input category
+     * Returns true if cancelled
+    */
+    static bool inputCategory(Stock* stock);
+
 
 public:
     // Adds a new item to the stock
-    static void addItem(LinkedList* stockList);
+    static void addItem(CategoryLL* itemList);
 
 };
 

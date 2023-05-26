@@ -5,8 +5,8 @@ using std::endl;
 using std::string;
 
 
-void AddItem::addItem(LinkedList* stockList) {
-    string nextId = getNextId(stockList);
+void AddItem::addItem(CategoryLL* itemList) {
+    string nextId = getNextId(itemList);
     string input;
 
     Stock* stock = new Stock();
@@ -17,12 +17,13 @@ void AddItem::addItem(LinkedList* stockList) {
     cout << "The id of the new stock will be: " << stock->id << endl;
 
 
-    if (inputName(stock) && inputDesc(stock) && !inputPrice(stock)) {
+    if (inputName(stock) && inputDesc(stock) && !inputPrice(stock) &&
+        inputCategory(stock)) {
         cout << "This item \"" << stock->name << " - " << 
             stock->description << "\" has now been added to the menu."
             << endl;
         
-        stockList->insertNode(stock);
+        itemList->insertStock(stock);
     }
     else {
         cout << "Operation cancelled" << endl;
@@ -30,24 +31,23 @@ void AddItem::addItem(LinkedList* stockList) {
  
 }
 
-std::string AddItem::getNextId(LinkedList* stockList) {
+std::string AddItem::getNextId(CategoryLL* itemList) {
     int testIdNum = 1;
     string testId;
     
     // Checks each int until the first valid number is found
     bool valid = false;
-    while (!valid) {
+    while (valid == false) {
         testId = intToIdString(testIdNum);
         
         // Checks if ID doesn't already exist in stock list
-        if (stockList->searchByID(testId) == NULL) {
-            valid = true;
+        Node* node = itemList->searchByID(testId);
+        if (node == NULL) {
+            valid = true;       
         }
         else {
             testIdNum++;
-            
         }
-
     }
 
     return testId;
@@ -140,9 +140,25 @@ bool AddItem::inputName(Stock* stock) {
     }
 
     return notCancel;
-
-
 }
+
+bool AddItem::inputCategory(Stock* stock) {
+    // Gets name of new item
+    bool notCancel = true;
+    string input;
+    cout << "Enter the item catergory: ";
+    std::getline(std::cin, input);
+    StripString::stripString(&input);
+    if (!std::cin.eof() && input != "")
+        stock->category = input;
+    else {
+        notCancel = false;
+    }
+
+    return notCancel;
+}
+
+
 
 bool AddItem::inputDesc(Stock* stock) {
     bool notCancel = true;

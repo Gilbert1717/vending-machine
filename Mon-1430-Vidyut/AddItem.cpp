@@ -42,11 +42,11 @@ std::string AddItem::getNextId(LinkedList* stockList) {
         // Checks if ID doesn't already exist in stock list
         if (stockList->searchByID(testId) == NULL) {
             valid = true;
-            
+            std::cout << "valid" << std::endl;
         }
+
         else {
             testIdNum++;
-            
         }
 
     }

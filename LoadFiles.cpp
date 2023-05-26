@@ -17,7 +17,7 @@ std::vector<std::vector<std::string>> LoadFiles::readStockFile(
                 std::vector<string> item;
                 item = split(line, STOCK_DELIMITER);
                 // Throw error if there are not 5 stock attributes
-                if (item.size() != 5) {
+                if (item.size() != 6) {
                     ReadFile.close();
                     throw std::invalid_argument( "invalid stock file" );
                 }
@@ -83,6 +83,28 @@ void LoadFiles::print(std::vector <string> const &a) {
    std::cout << a.at(i) << ' ' << std::endl;
 }
 
+// compare two strings, return true if the first string is larger than the second
+bool LoadFiles::compareName(string currName, string insertName){
+    /*initialise string and convert them to lowercase, so that compare
+    them will be case-insensitive*/ 
+    bool result = false;
+    std::transform(currName.begin(), currName.end(), 
+        currName.begin(), ::tolower);
+    std::transform(insertName.begin(), insertName.end(), 
+        insertName.begin(), ::tolower);
+
+    if(currName.compare(insertName) > 0) {
+        result = true;
+    }
+    
+    return result;
+}
+
+// Function that add paddings to a string
+string LoadFiles::padding(string s, int length, char filler){
+    string result = s.append(length - s.length(), filler);
+    return result;
+}
 
 
 

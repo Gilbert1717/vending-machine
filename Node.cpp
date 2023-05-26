@@ -23,7 +23,8 @@ Stock::Stock(
         std::string name, 
         std::string description, 
         Price price,
-        unsigned on_hand
+        unsigned on_hand,
+        std::string category
 ){
     // attributes validation
     if (id.length() > IDLEN) {
@@ -47,6 +48,7 @@ Stock::Stock(
     this->description = description;
     this->price = price;
     this->on_hand = on_hand;
+    this->category = category;
 };
 
 // convert all the stock attributes into one string to write them into output file.
@@ -63,6 +65,7 @@ std::string Stock::convertStockToString(){
     
     result = result + STOCK_DELIMITER + std::to_string(this->on_hand);
 
+    result = result + STOCK_DELIMITER + this->category;
     return result;
 }
 
