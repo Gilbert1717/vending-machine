@@ -114,9 +114,7 @@ void removeItem(LinkedList* stockList) {
     // Checking if user cancels the operation or not
     if (!std::cin.eof() && item_ID != "") {
         Node* item = stockList->searchByID(item_ID);
-        if (item != NULL) {
-            stockList->deleteNode(item);
-        }
+        stockList->deleteNode(item);
     }
     else {
         cout << "Operation cancelled" << endl;
@@ -140,9 +138,6 @@ bool pathValidation(int argc, const char* argv1, const char* argv2) {
 
 
 void executingMenu(Purchase* purchase, bool enhance) {
-    // Stores coins in an array of coins
-    
-
     bool running = true;
     while (running) {
         printMenu();

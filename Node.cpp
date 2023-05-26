@@ -11,6 +11,7 @@ Node::~Node(){
 Node::Node(Stock* stock){
     this->data = stock;
     this->next = NULL;
+    this->prev = NULL;
 };
 
 Stock::Stock(){

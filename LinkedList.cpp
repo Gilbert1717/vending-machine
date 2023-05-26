@@ -4,6 +4,7 @@ using std::vector;
 
 LinkedList::LinkedList() {
    head = nullptr;
+   tail = nullptr;
    count = 0;
 }
 
@@ -26,6 +27,7 @@ void LinkedList::insertNode(Stock* stock){
     // insert to head if the linked list is empty
     if (head == NULL){
         head = newNode;
+        tail = newNode;
         count ++;
     }
 
@@ -40,9 +42,19 @@ void LinkedList::insertNode(Stock* stock){
         it to the head*/
         if(curr->data->name.compare(newNode->data->name) > 0){
             newNode->next = curr;
+            curr->prev = newNode;
             this->head = newNode;
             count ++;
         } 
+        
+        /*insert to the tail of the linked list if the name of the new node is 
+        larger than all nodes in the linked list
+        */
+        else if(tail->data->name.compare(newNode->data->name) < 0){
+            tail->next = newNode;
+            newNode->prev = tail;
+            this->tail = newNode;
+        }
 
         /* loop through the whole linked list to find the right place to insert
             the node */ 
@@ -58,7 +70,9 @@ void LinkedList::insertNode(Stock* stock){
                 into curr node*/ 
                 if(compareName(curr->data->name,newNode->data->name)) {
                     newNode->next = curr;
+                    curr->prev = newNode;
                     prev->next = newNode;
+                    newNode->prev = prev;
                     count ++;
                     whileLoopContinue = false;
                 }
@@ -68,13 +82,6 @@ void LinkedList::insertNode(Stock* stock){
                     prev = curr;
                     curr = curr->next;
                 }
-            }
-
-            /*insert to the tail of the linked list if the name of the new node is 
-            larger than all nodes in the linked list
-            */
-            if (curr == NULL && whileLoopContinue) {
-                prev->next = newNode;
             }
         }
     }
@@ -105,6 +112,9 @@ void LinkedList::deleteNode(Node* node){
         std::cout << "Stock List is empty." << std::endl;
     }
 
+    else if (node == nullptr) {
+        std::cout << "Item does not exist in stock list\n" << std::endl;
+    }
 
     else {
         // If the input node is the head of the linked list
@@ -118,36 +128,34 @@ void LinkedList::deleteNode(Node* node){
             count --;
         }
 
-        // iterate through whole linkedlist and find the node need to be deleted
+        else if(this->tail == node) {
+            this->tail = this->tail->prev;
+            this->tail->next = NULL;
+            std::cout << "\"" << node->data->id << " - " << 
+                    node->data->name << " - " << node->data->description << 
+                    "\"" << " has been removed from the system.\n";
+            delete node;
+            node = nullptr;
+            count --;
+        }
+
+        // delete the node base on the pointer
         else {
-            Node* pre = NULL;
-            Node* curr = head;
-            bool notFound = true;
-            while (notFound && curr->next != NULL){
-                pre = curr;
-                curr = curr->next;
-                // delete node
-                if (curr == node) {
-                    pre->next = curr->next;
-                    std::cout << "\"" << curr->data->id << " - " << 
-                    curr->data->name << " - " << curr->data->description << 
-                    "\"" << "has been removed from the system\n";
-                    delete curr;
-                    curr = nullptr;
-                    count --;
-                    notFound = false;
-                }
-            }
-            if (notFound) { 
-                std::cout << "Node does not exist in stock list\n";
-            }
+            node->prev->next = node->next;
+            node->next->prev = node->prev;
+            std::cout << "\"" << node->data->id << " - " << 
+            node->data->name << " - " << node->data->description << 
+            "\"" << "has been removed from the system\n";
+            delete node;
+            node = nullptr;
+            count --;
         } 
     }
 }
 
 //Search node base on item ID and return the pointer of this node 
 Node* LinkedList::searchByID(std::string ID){
-    Node* result = nullptr;
+    Node* result = NULL;
 
     // When list is empty
     if (count == 0) {
@@ -162,9 +170,6 @@ Node* LinkedList::searchByID(std::string ID){
                 result = curr;
             }
             curr = curr->next;
-        }
-        if (result == nullptr) {
-            //std::cout << "The item does not exist in the list.";  
         }
     }  
     return result;
