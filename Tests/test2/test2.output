@@ -1,0 +1,116 @@
+Main Menu:
+    1.Display Items
+    2.Purchase Items
+    3.Save and Exit
+Administrator-Only Menu:
+    4.Add Item
+    5.Remove Item
+    6.Display Coins
+    7.Reset Stock
+    8.Reset Coins
+    9.Abort Program
+Select your option (1-9): Item Menu
+----------
+ID   |Name                                    |Available |Price
+----------------------------------------------------------------------
+Pie:
+I0002|Apple Pie                               |20        |$3.00
+I0004|Lemon Meringue Pie                      |20        |$3.00
+I0001|Meat Pie                                |20        |$3.50
+
+Dessert:
+I0003|Lemon Cheesecake                        |20        |$4.00
+I0005|Lemon Tart                              |20        |$3.75
+
+Drink:
+I0006|Coca Cola                               |20        |$2.50
+
+----------------------------------------------------------------------
+
+Main Menu:
+    1.Display Items
+    2.Purchase Items
+    3.Save and Exit
+Administrator-Only Menu:
+    4.Add Item
+    5.Remove Item
+    6.Display Coins
+    7.Reset Stock
+    8.Reset Coins
+    9.Abort Program
+Select your option (1-9): Purchase Item
+-------------
+Please select the item category: Purchase Item
+-------------
+Please enter the id of the item you wish to purchase: You have selected "Lemon Tart - A delicious lemon butter tart with a pastry base". This will cost you $3.75
+
+Please hand over the money - type in the value of each note/coin in cents.
+Press enter or ctrl-d on a new line to cancel this purchase:
+You still need to give us $3.75: You still need to give us $2.75: You still need to give us $2.25: Error: $2.50 is not a valid denomination of money. Please try again.
+You still need to give us $2.25: You still need to give us $0.25: Here is your Lemon Tart and your change of $0.75: 50c 20c 5c
+
+Main Menu:
+    1.Display Items
+    2.Purchase Items
+    3.Save and Exit
+Administrator-Only Menu:
+    4.Add Item
+    5.Remove Item
+    6.Display Coins
+    7.Reset Stock
+    8.Reset Coins
+    9.Abort Program
+Select your option (1-9): Item Menu
+----------
+ID   |Name                                    |Available |Price
+----------------------------------------------------------------------
+Pie:
+I0002|Apple Pie                               |20        |$3.00
+I0004|Lemon Meringue Pie                      |20        |$3.00
+I0001|Meat Pie                                |20        |$3.50
+
+Dessert:
+I0003|Lemon Cheesecake                        |20        |$4.00
+I0005|Lemon Tart                              |19        |$3.75
+
+Drink:
+I0006|Coca Cola                               |20        |$2.50
+
+----------------------------------------------------------------------
+
+Main Menu:
+    1.Display Items
+    2.Purchase Items
+    3.Save and Exit
+Administrator-Only Menu:
+    4.Add Item
+    5.Remove Item
+    6.Display Coins
+    7.Reset Stock
+    8.Reset Coins
+    9.Abort Program
+Select your option (1-9): Coins Summary
+-------------
+Denomination    |    Count
+---------------------------
+5 Cents         |       14
+10 Cents        |       20
+20 Cents        |       14
+50 Cents        |       20
+1 Dollar        |       32
+2 Dollar        |       26
+5 Dollar        |       20
+10 Dollar       |       20
+
+Main Menu:
+    1.Display Items
+    2.Purchase Items
+    3.Save and Exit
+Administrator-Only Menu:
+    4.Add Item
+    5.Remove Item
+    6.Display Coins
+    7.Reset Stock
+    8.Reset Coins
+    9.Abort Program
+Select your option (1-9): 

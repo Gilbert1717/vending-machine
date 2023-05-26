@@ -4,6 +4,7 @@
 #include "Purchase.h"
 #include "CoinRegister.h"
 #include "AddItem.h"
+#include <cstring>
 #include <sys/stat.h>
 // Strip string code borrowed from Vidyut's assignment 1 code
 #include "StripString.h"
@@ -42,45 +43,59 @@ int main(int argc, char **argv)
 {   
     bool enhance = false;
     CategoryLL* itemList = new CategoryLL();
-    
-    // Add items from stock file to the linkedlist
     Purchase* purchase = new Purchase();
-    // if (argc == 4) {
-    //     if (strcmp(argv[1], ENHANCEFLAG) == 0 && 
-    //         pathValidation(argc, argv[2], argv[3])) {
-    //         itemList->addStockToList(argv[2]);
-    //         itemList->path = argv[2];
-    //         // Load coins from coins file
-    //         vector<vector<string> > coins = LoadFiles::readCoinFile(argv[3]);
-    //         // CoinRegister* currentRegister = new CoinRegister(coins,argv[3]);
-    //         // purchase->itemList = itemList;
-    //         // purchase->coinRegister = currentRegister;
-    //         // enhance = true;
-    //     }
-    //     else {
-    //         std::cerr << "invalid excuting command" << endl;
-    //     }
-    // }
+    bool loading = true;
     
-    if (argc == 3) {
-        if (pathValidation(argc, argv[1], argv[2])) {
-            itemList->addStockToList(argv[1]);
-            // Load coins from coins file
-            itemList->path = argv[1];
-            vector<vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
-            CoinRegister* currentRegister = new CoinRegister(coins,argv[2]);
-            // purchase->itemList = itemList;
-            purchase->coinRegister = currentRegister;
+    try
+    {
+        // Enhancement flag
+        if (argc == 4) {
+            if (strcmp(argv[1], ENHANCEFLAG) == 0 && 
+                pathValidation(argc, argv[2], argv[3])) {
+                itemList->addStockToList(argv[2]);
+                itemList->path = argv[2];
+                // Load coins from coins file
+                vector<vector<string> > coins = LoadFiles::readCoinFile(argv[3]);
+                CoinRegister* currentRegister = new CoinRegister(coins,argv[3]);
+                purchase->coinRegister = currentRegister;
+            }
+            else {
+                loading = false;
+                std::cerr << "invalid excuting command" << endl;
+            }
         }
-        else {
-            std::cerr << "invalid excuting command" << endl;
+        
+        // Normal program
+        if (argc == 3) {
+            if (pathValidation(argc, argv[1], argv[2])) {
+                itemList->addStockToList(argv[1]);
+                // Load coins from coins file
+                itemList->path = argv[1];
+                vector<vector<string> > coins = LoadFiles::readCoinFile(argv[2]);
+                CoinRegister* currentRegister = new CoinRegister(coins,argv[2]);
+                purchase->coinRegister = currentRegister;
+            }
+            else {
+                loading = false;
+                std::cerr << "invalid excuting command" << endl;
+            }
         }
     }
 
+    catch(const std::exception& e)
+    {
+        loading = false;
+        std::cerr << e.what() << '\n';
+    }
+    
+    
+
     
     try {
-        executingMenu(itemList, purchase, enhance);
+        if (loading) {
+            executingMenu(itemList, purchase, enhance);
         }
+    }
     catch (std::invalid_argument& e) {
         std::cerr << e.what() << endl;
     }
@@ -126,7 +141,6 @@ void removeItem(LinkedList* stockList) {
 
 LinkedList* categorySelection(CategoryLL* itemList) {
     LinkedList* stockList = nullptr;
-    cout << "Purchase Item" << endl;
     cout << "-------------" << endl;
 
     // Gets user input
@@ -178,6 +192,7 @@ void executingMenu(CategoryLL* itemList, Purchase* purchase, bool enhance) {
             itemList->printList();
         }
         else if (option == PURCHASE_ITEMS_OPTION) {
+            cout << "Purchase Item" << endl;
             purchase->stocklist = categorySelection(itemList);
             if (purchase->stocklist != nullptr) {
                 purchase->purchaseMenu(enhance);
@@ -192,6 +207,7 @@ void executingMenu(CategoryLL* itemList, Purchase* purchase, bool enhance) {
             AddItem::addItem(itemList);
         }
         else if (option == REMOVE_ITEM_OPTION) {
+            cout << "Remove Item" << endl;
             purchase->stocklist = categorySelection(itemList);
             if (purchase->stocklist != nullptr) {
                 removeItem(purchase->stocklist);
@@ -212,6 +228,8 @@ void executingMenu(CategoryLL* itemList, Purchase* purchase, bool enhance) {
 
         cout << endl;
     }
+    delete itemList;
+    itemList = nullptr;
     delete purchase;
     purchase = nullptr;
 }

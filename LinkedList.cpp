@@ -11,7 +11,7 @@ LinkedList::LinkedList() {
 
 LinkedList::~LinkedList() {
     Node* curr = this->head;
-    Node* tmp;
+    Node* tmp = nullptr;
     while (curr != NULL) {
         tmp = curr;
         curr = curr->next;
@@ -55,6 +55,7 @@ void LinkedList::insertNode(Stock* stock){
             tail->next = newNode;
             newNode->prev = tail;
             this->tail = newNode;
+            count ++;
         }
 
         /* loop through the whole linked list to find the right place to insert
@@ -93,6 +94,7 @@ void LinkedList::insertNode(Stock* stock){
 
 // delete stock function
 void LinkedList::deleteNode(Node* node){
+    bool remove = false;
     // Print error message if the linked list is empty
     if (this->head == NULL) {
         std::cout << "Stock List is empty." << std::endl;
@@ -104,38 +106,28 @@ void LinkedList::deleteNode(Node* node){
 
     else {
         // If the input node is the head of the linked list
+
         if (this->head == node) {
-            this->head = this->head->next;
-            std::cout << "\"" << node->data->id << " - " << 
-                    node->data->name << " - " << node->data->description << 
-                    "\"" << " has been removed from the system.\n";
-            delete node;
-            node = nullptr;
-            count --;
+            this->head = node->next;
+            remove = true;
+            
         }
-
-        else if(this->tail == node) {
-            this->tail = this->tail->prev;
-            this->tail->next = NULL;
-            std::cout << "\"" << node->data->id << " - " << 
-                    node->data->name << " - " << node->data->description << 
-                    "\"" << " has been removed from the system.\n";
-            delete node;
-            node = nullptr;
-            count --;
-        }
-
-        // delete the node base on the pointer
-        else {
+        if (node->prev != NULL) {
             node->prev->next = node->next;
-            node->next->prev = node->prev;
+            remove = true;
+        }
+        if (node->prev != NULL) {
+            node->prev->next = node->next;
+            remove = true;
+        }
+        if (remove == true) {
             std::cout << "\"" << node->data->id << " - " << 
-            node->data->name << " - " << node->data->description << 
-            "\"" << "has been removed from the system\n";
+                    node->data->name << " - " << node->data->description << 
+                    "\"" << " has been removed from the system.\n";
             delete node;
             node = nullptr;
             count --;
-        } 
+        }
     }
 }
 
@@ -144,7 +136,7 @@ Node* LinkedList::searchByID(std::string ID){
     Node* result = NULL;
 
     // When list is empty
-    if (count == 0) {
+    if (this->head == NULL) {
         std::cout << "Stock List is empty searchByID." << std::endl;
     }
 

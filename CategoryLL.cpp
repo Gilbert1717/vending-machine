@@ -6,12 +6,11 @@ using std::vector;
 CategoryLL::CategoryLL(){
     this->head = nullptr;
     this->tail = nullptr;
-    this->count = 0;
 }
 
 CategoryLL::~CategoryLL(){
     CategoryNode* curr = this->head;
-    CategoryNode* tmp;
+    CategoryNode* tmp = nullptr;
     while (curr != NULL) {
         tmp = curr;
         curr = curr->next;
@@ -25,20 +24,14 @@ CategoryLL::~CategoryLL(){
 CategoryLL::CategoryLL(string path){
     this->head = nullptr;
     this->tail = nullptr;
-    this->count = 0;
     this->path = path;
 }
 
 CategoryNode* CategoryLL::searchByCat(string category){
     CategoryNode* result = NULL;
 
-    // When list is empty
-    if (count == 0) {
-        // std::cout << "List is empty." << std::endl;
-    }
-
     // Loop through the whole list
-    else {
+    if (this->head != NULL){
         CategoryNode* curr = head;
         while(curr != NULL){
             if (curr->category == category) {
@@ -63,14 +56,12 @@ bool CategoryLL::insertNode(CategoryNode* newNode){
         if (head == NULL){
             this->head = newNode;
             this->tail = newNode;
-            count ++;
         }
 
         else {
             newNode->prev = this->tail;
             this->tail->next = newNode;
             this->tail = newNode;
-            count ++;
         }
     }
     return success;
@@ -79,6 +70,10 @@ bool CategoryLL::insertNode(CategoryNode* newNode){
 
 void CategoryLL::insertStock(Stock* stock){
     Node* newNode = new Node(stock);
+    if (searchByID(stock->id)!= NULL) {
+            throw std::invalid_argument
+                ("The ID of this stock is existing in the list");
+        }
     CategoryNode* stockList = searchByCat(newNode->data->category);
     // insert to head if the linked list is empty
     if (stockList == NULL) {
@@ -90,68 +85,9 @@ void CategoryLL::insertStock(Stock* stock){
     }
 
     else {
+        
         stockList->data->insertNode(stock);
     }
-//     if (head == NULL){
-//         head = newNode;
-//         tail = newNode;
-//         count ++;
-//     }
-
-//     else {
-//         // ID validation (if the ID is existing in the list)
-//         if (searchByCat(stocklist->category) != NULL) {
-//             throw std::invalid_argument
-//                 ("This category is existing in the list");
-//         }
-//         CategoryNode* curr = head;
-//         /* if the stock name is smaller than the head of the linked list, insert
-//         it to the head*/
-//         if(LoadFiles::compareName(head->data->category,newNode->data->category)){
-//             newNode->next = curr;
-//             curr->prev = newNode;
-//             this->head = newNode;
-//             count ++;
-//         } 
-        
-//         /*insert to the tail of the linked list if the name of the new node is 
-//         larger than all nodes in the linked list
-//         */
-//         else if(LoadFiles::compareName(tail->data->category,newNode->data->category)){
-//             tail->next = newNode;
-//             newNode->prev = tail;
-//             this->tail = newNode;
-//         }
-
-//         /* loop through the whole linked list to find the right place to insert
-//             the node */ 
-//         else {
-//             curr = head->next;
-//             CategoryNode* prev = head;
-//             bool whileLoopContinue = true;
-
-//             /* When curr node name is larger than the new node,
-//             insert the new node before curr node*/
-//             while(curr != NULL && whileLoopContinue) {  
-//                 /*compare two strings and decide if the node need to be inserted
-//                 into curr node*/ 
-//                 if(LoadFiles::compareName(curr->data->category,newNode->data->category)) {
-//                     newNode->next = curr;
-//                     curr->prev = newNode;
-//                     prev->next = newNode;
-//                     newNode->prev = prev;
-//                     count ++;
-//                     whileLoopContinue = false;
-//                 }
-
-//                 //else move to the next node
-//                 else {
-//                     prev = curr;
-//                     curr = curr->next;
-//                 }
-//             }
-//         }
-//     }
 }
 
 void CategoryLL::resetStock(){

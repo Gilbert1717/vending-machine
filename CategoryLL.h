@@ -32,7 +32,6 @@ public:
     void outputStockFile();
     Node* searchByID(string ID);
     CategoryNode* node;
-    unsigned count;
     string path;
 
 private:

@@ -1,5 +1,7 @@
 #include "LoadFiles.h"
 #include "Node.h"
+#include "Node.h"
+#include <algorithm>
 
 // Load stock file and return a vector of stock attributes in string formate
 std::vector<std::vector<std::string>> LoadFiles::readStockFile(
