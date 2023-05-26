@@ -4,7 +4,10 @@ using std::vector;
 
 
 CategoryLL::CategoryLL(){
-    
+    this->head = nullptr;
+    this->tail = nullptr;
+    this->count = 0;
+    this->path = "";
 }
 
 CategoryLL::~CategoryLL(){
