@@ -48,14 +48,10 @@ CategoryNode* CategoryLL::searchByCat(string category){
 
 
 // insert the node to the last element of category linked list.
-bool CategoryLL::insertNode(CategoryNode* newNode){
-    bool success = true;
+void CategoryLL::insertNode(CategoryNode* newNode){
+    
     // ID validation (if the ID is existing in the list)
-    if (searchByCat(newNode->category) != NULL) {
-            success = false;
-    }
-
-    else {
+    if (searchByCat(newNode->category) == NULL) {
         if (head == NULL){
             this->head = newNode;
             this->tail = newNode;
@@ -76,7 +72,6 @@ bool CategoryLL::insertNode(CategoryNode* newNode){
         }
         count ++;
     }
-    return success;
 }
 
 

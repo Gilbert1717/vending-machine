@@ -24,7 +24,7 @@ public:
     CategoryLL(string path);
     ~CategoryLL();
     void insertStock(Stock* stock);
-    bool insertNode(CategoryNode* newCategoryList);
+    void insertNode(CategoryNode* newCategoryList);
     CategoryNode* searchByCat(string category);
     void addStockToList(string path);
     void resetStock();
