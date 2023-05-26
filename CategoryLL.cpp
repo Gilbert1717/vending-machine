@@ -138,9 +138,9 @@ void CategoryLL::addStockToList(string path){
             throw std::invalid_argument( "Invalid price." );
         }
 
-        unsigned long dollars;
-        unsigned long cents;
-        unsigned long on_hand;
+        unsigned long dollars = -1;
+        unsigned long cents = -1;
+        unsigned long on_hand = -1;
         // try to convert strings to numbers, if any of the value is invalid, throw
         // an invalid_argument error
         try {
@@ -161,7 +161,7 @@ void CategoryLL::addStockToList(string path){
 
 Node* CategoryLL::searchByID(string ID){
     CategoryNode* curr = this->head;
-    Node* result = NULL;
+    Node* result = nullptr;
     bool found = false;
     // Iterate linkedlist to print each item
     while (curr != NULL && !found) {
